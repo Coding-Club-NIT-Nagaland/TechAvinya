@@ -1,44 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-// --- Countdown logic ---
-const calculateTimeLeft = (targetDate) => {
-  const diff = targetDate.getTime() - new Date().getTime();
-  const dir = diff < 0 ? -1 : 1;
-  const absDiff = Math.abs(diff);
-  if (absDiff <= 0 && diff !== 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, direction: 0 };
-  const seconds = Math.floor((absDiff / 1000) % 60) * dir;
-  const minutes = Math.floor((absDiff / (1000 * 60)) % 60) * dir;
-  const hours = Math.floor((absDiff / (1000 * 60 * 60)) % 24) * dir;
-  const days = Math.floor(absDiff / (1000 * 60 * 60 * 24)) * dir;
-  return { days, hours, minutes, seconds, direction: dir };
-};
-
-// --- Countdown Card ---
-const CounterCard = ({ value, label, colors }) => {
-  const displayValue = Math.abs(value).toString().padStart(2, "0");
-  return (
-    <div
-      className="p-6 rounded-3xl border-2 shadow-md flex flex-col items-center justify-center"
-      style={{
-        borderImage: `linear-gradient(45deg, ${colors[0]}, ${colors[1]}) 1`,
-        background: "rgba(0,0,0,0.85)",
-      }}
-    >
-      <p className="text-6xl font-extrabold text-white">{displayValue}</p>
-      <p className="text-lg tracking-widest uppercase text-white font-semibold mt-2">{label}</p>
-    </div>
-  );
-};
-
-// --- Main Component ---
-const TARGET_DATE = new Date("2025-10-31T00:00:00");
-
 export default function ScheduleClean() {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(TARGET_DATE));
   const [mounted, setMounted] = useState(false);
-
-  const updateTime = useCallback(() => setTimeLeft(calculateTimeLeft(TARGET_DATE)), []);
 
   const scheduleData = [
     {
@@ -71,20 +35,11 @@ export default function ScheduleClean() {
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 10);
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
-  }, [updateTime]);
+  }, []);
 
   if (!mounted) return <p className="text-white text-xl font-mono animate-pulse">Initializing...</p>;
 
-  const counterData = [
-    { label: "Days", value: timeLeft.days, colors: ["#00ffff", "#ff00ff"] },
-    { label: "Hours", value: timeLeft.hours, colors: ["#ff0080", "#8000ff"] },
-    { label: "Minutes", value: timeLeft.minutes, colors: ["#00ff99", "#00ccff"] },
-    { label: "Seconds", value: timeLeft.seconds, colors: ["#ffcc00", "#ff0066"] },
-  ];
-
-  // Random stars
+  // Random stars background
   const stars = [...Array(150)].map((_, i) => ({
     id: i,
     size: Math.random() * 2 + 1,
@@ -95,26 +50,40 @@ export default function ScheduleClean() {
 
   return (
     <div className="relative w-full min-h-screen bg-black overflow-hidden pt-20 pb-20 text-white">
+      {/* Animated Stars */}
       {stars.map((s) => (
         <motion.div
           key={s.id}
           className="fixed bg-white rounded-full"
-          style={{ width: s.size, height: s.size, top: `${s.top}%`, left: `${s.left}%` }}
-          animate={{ x: ["0px", `${Math.random() * 50 - 25}px`, "0px"], y: ["0px", `${Math.random() * 50 - 25}px`, "0px"] }}
-          transition={{ repeat: Infinity, duration: s.duration, repeatType: "mirror" }}
+          style={{
+            width: s.size,
+            height: s.size,
+            top: `${s.top}%`,
+            left: `${s.left}%`,
+          }}
+          animate={{
+            x: ["0px", `${Math.random() * 50 - 25}px`, "0px"],
+            y: ["0px", `${Math.random() * 50 - 25}px`, "0px"],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: s.duration,
+            repeatType: "mirror",
+          }}
         />
       ))}
 
-      <h1 className="text-6xl font-extrabold text-center mb-12 text-white">
-        Tech Avinya'25 Begins In
-      </h1>
+      {/* --- LIVE NOW Banner --- */}
+      <motion.h1
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        className="text-7xl font-extrabold text-center mb-12 text-red-500 drop-shadow-lg animate-pulse"
+      >
+        🚀 LIVE NOW 🚀
+      </motion.h1>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-16">
-        {counterData.map((c) => (
-          <CounterCard key={c.label} label={c.label} value={c.value} colors={c.colors} />
-        ))}
-      </div>
-
+      {/* --- Schedule Section --- */}
       {scheduleData.map((dayData, idx) => (
         <div key={idx} className="max-w-5xl mx-auto mb-16 px-4">
           <h2 className="text-4xl md:text-5xl font-bold mb-10 uppercase text-center text-white">
