@@ -63,7 +63,7 @@ export default function Home() {
 
 
         {/* Optional: Uncomment if you want overlay text */}
-        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80 z-10"></div>
+        {/*<div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80 z-10"></div>
 
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-4">
           <div className="max-w-4xl space-y-6 animate-fade-in-up">

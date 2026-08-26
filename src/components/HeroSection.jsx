@@ -1,7 +1,13 @@
 import React from "react";
 import gfg from "../assets/gfg.png";
+import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/events"); 
+  };
   return (
     <>
       <link
@@ -82,17 +88,18 @@ export default function HeroSection() {
             WHERE INNOVATION MEETS INSPIRATION
           </p>
           <button
-            className="group relative px-8 sm:px-10 md:px-12 py-3 sm:py-4 bg-transparent text-cyan-400 text-base sm:text-lg md:text-xl font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-cyan-400 hover:bg-cyan-400 hover:text-black"
-            style={{
-              fontFamily: "monospace",
-              boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
-            }}
-          >
-            <span className="relative z-10 flex items-center gap-2 sm:gap-3 justify-center">
-              <span className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse"></span>
-              LIVE NOW
-            </span>
-          </button>
+          onClick={handleClick}
+          className="group relative px-8 sm:px-10 md:px-12 py-3 sm:py-4 bg-transparent text-cyan-400 text-base sm:text-lg md:text-xl font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-cyan-400 hover:bg-cyan-400 hover:text-black"
+          style={{
+            fontFamily: "monospace",
+            boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
+          }}
+        >
+          <span className="relative z-10 flex items-center gap-2 sm:gap-3 justify-center">
+            <span className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse"></span>
+            LIVE NOW
+          </span>
+        </button>
         </div>
       </div>
     </>
