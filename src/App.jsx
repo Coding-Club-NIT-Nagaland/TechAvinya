@@ -11,8 +11,6 @@ import Gallery from './pages/Gallery';
 import Schedule from './pages/Schedule';
 import EventDetail from './pages/EventDetail';
 import RegistrationForm from './pages/RegistrationForm';
-import Enroll from './pages/Enroll';
-import SponsorInquiry from './pages/SponsorInquiry';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import Sponsors from './pages/Sponsors';
@@ -53,9 +51,6 @@ function AppContent() {
         <Route path="/promos" element={<Promos />} />
         <Route path="/events/:eventId" element={<EventDetail />} />
         <Route path="/register/:eventId" element={<RegistrationForm />} />
-        <Route path="/enroll" element={<Enroll />} />
-        <Route path="/enroll/:eventId" element={<Enroll />} />
-        <Route path="/sponsor-inquiry" element={<SponsorInquiry />} />
         <Route path="/login" element={<Login />} />
         <Route 
             path="/admin/dashboard" 
