@@ -15,7 +15,7 @@ const getSessionData = () => {
     }
     
     const item = JSON.parse(itemStr);
-    const now = new Date();
+    const now = new Date(); 
     
     // Check expiration time
     if (now.getTime() > item.expiry) {

@@ -63,7 +63,7 @@ export default function HeroSection() {
           className="absolute right-0 top-0 bottom-0 w-4 sm:w-6 md:w-8 bg-gradient-to-l from-cyan-400 to-transparent opacity-30"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(-45deg, #0ff 0, #0ff 10px, transparent 10px, transparent 20px)",
+              "repeating-linear-gradient(-45deg, #0ff 0, #0ff 10px, transparent 5px, transparent 20px)",
           }}
         ></div>
         <div className="relative z-10 text-center max-w-6xl">
@@ -96,7 +96,7 @@ export default function HeroSection() {
           >
             WHERE INNOVATION MEETS INSPIRATION
           </p>
-          <button
+          {/* <button
           onClick={handleClick}
           className="group relative px-8 sm:px-10 md:px-12 py-3 sm:py-4 bg-transparent text-cyan-400 text-base sm:text-lg md:text-xl font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-cyan-400 hover:bg-cyan-400 hover:text-black"
           style={{
@@ -104,11 +104,11 @@ export default function HeroSection() {
             boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
           }}
         >
-          <span className="relative z-10 flex items-center gap-2 sm:gap-3 justify-center">
+           <span className="relative z-10 flex items-center gap-2 sm:gap-3 justify-center">
             <span className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse"></span>
             LIVE NOW
           </span>
-        </button>
+        </button> */}
         </div>
       </div>
     </>
