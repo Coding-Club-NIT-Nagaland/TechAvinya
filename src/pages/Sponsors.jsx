@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { FaHandsHelping } from 'react-icons/fa'; 
 import sponsorVideo from '../assets/sponsors.jpg'; 
 import VantaWavesBackground from '../components/VantaWavesBackground'; 
@@ -7,11 +8,11 @@ import VantaWavesBackground from '../components/VantaWavesBackground';
 
 // --- Consolidated Sponsor Data ---
 const allSponsors = [
-  // { id: 1, name: "GeeksForGeeks", logo: "/gfg.png",  description: "Title Sponsor" },
-  // { id: 2, name: "NIELIT Kohima", logo: "/nielit.jpg",  description: "Hackathon Sponsor" },
-  // { id: 3, name: "Fingerprint", logo: "/fingerprint.png",  description: "Printing Partner" },
-  // { id: 4, name: "Instudia", logo: "/instudia.png", description: "CodeRaze Partner"},
-  // { id: 5, name: "Nagabot", logo: "/nagabot.jpeg",  description: "RoboForge Partner"},
+  { id: 1, name: "GeeksForGeeks", logo: "/gfg.png",  description: "Title Sponsor" },
+  { id: 2, name: "NIELIT Kohima", logo: "/nielit.jpg",  description: "Hackathon Sponsor" },
+  { id: 3, name: "Fingerprint", logo: "/fingerprint.png",  description: "Printing Partner" },
+  { id: 4, name: "Instudia", logo: "/instudia.png", description: "CodeRaze Partner"},
+  { id: 5, name: "Nagabot", logo: "/nagabot.jpeg",  description: "RoboForge Partner"},
   
 ];
 
@@ -173,16 +174,25 @@ export default function Sponsors() {
           <p className="text-lg text-gray-300 mb-6 Gluten">
             Sponsor with NIT Nagaland to empower bright young minds, enhance your brand's visibility, and contribute to cutting-edge tech education.
           </p>
-          <a 
-            href={`mailto:${contactEmail}`} // MAILTO LINK
-            className="inline-flex items-center justify-center px-8 py-3 
-                       bg-gradient-to-r from-teal-500 to-emerald-600 
-                       text-white text-lg font-semibold rounded-full 
-                       shadow-lg hover:shadow-teal-400/50 transform hover:scale-105 
-                       transition-all duration-300 group Gluten"
-          >
-            Connect With Us <FaHandsHelping className="ml-3"/>
-          </a>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Link 
+              to="/sponsors/connect"
+              className="inline-flex items-center justify-center px-8 py-3 
+                         bg-gradient-to-r from-teal-500 to-emerald-600 
+                         text-white text-lg font-semibold rounded-full 
+                         shadow-lg hover:shadow-teal-400/50 transform hover:scale-105 
+                         transition-all duration-300 group Gluten"
+            >
+              Connect With Us <FaHandsHelping className="ml-3"/>
+            </Link>
+            <br/>
+            <a 
+              href={`mailto:${contactEmail}`}
+              className="text-cyan-300 hover:text-cyan-200 underline text-sm Gluten"
+            >
+               or email directly at {contactEmail}
+            </a>
+          </div>
         </div>
 
       </div>

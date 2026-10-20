@@ -92,7 +92,7 @@ export default function Events() {
   ];
 
   const [tiltStyle, setTiltStyle] = useState({});
-  const showEvents = false;
+
   const handleMouseMove = (e, id) => {
     const card = e.currentTarget;
     const { width, height, left, top } = card.getBoundingClientRect();
@@ -134,8 +134,7 @@ export default function Events() {
         </h1>
 
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24 mb-8">
-        {showEvents ? (
-          eventData.map(event => (
+          {eventData.map(event => (
             <div 
               key={event.id} 
               onMouseMove={(e) => handleMouseMove(e, event.id)}
@@ -177,11 +176,9 @@ export default function Events() {
                         Explore
                       </Link>
 
-                      <a
-                        href="https://www.coding-club-nitn.tech/events"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Apply to Coding Club - ${event.title}`}
+                      <Link
+                        to={`/enroll/${event.id}`}
+                        aria-label={`Apply for event - ${event.title}`}
                         className="relative group w-1/2 text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest overflow-hidden
                                   bg-gradient-to-br Gluten from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
                                   transition-all duration-500 ease-in-out
@@ -190,7 +187,7 @@ export default function Events() {
                                   active:scale-95 active:shadow-sm"
                       >
                         Apply
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -208,17 +205,15 @@ export default function Events() {
                       Explore
                     </Link>
 
-                    <a
-                      href="https://www.coding-club-nitn.tech/events"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Apply to Coding Club - ${event.title}`}
+                    <Link
+                      to={`/enroll/${event.id}`}
+                      aria-label={`Apply for event - ${event.title}`}
                       className="w-full text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest
                                 bg-gradient-to-br from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
                                 hover:from-red-700/60 hover:to-pink-700/60 hover:text-white"
                     >
                       Apply
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -231,19 +226,9 @@ export default function Events() {
                 .card-back { transform: rotateY(180deg); }
               `}</style>
             </div>
-          ))
-        ) : (
-          <div className="col-span-full my-12 p-12 text-center bg-gradient-to-br from-gray-900/80 via-cyan-950/40 to-gray-900/80 border border-cyan-500/40 rounded-2xl max-w-2xl mx-auto backdrop-blur-md shadow-2xl">
-           <h2 className="text-3xl md:text-4xl font-extrabold text-cyan-400 mb-4 tracking-wider">
-              coming soon...
-           </h2>
-           <p className="text-gray-300 text-lg">
-              We are updating event details and prize pools. Stay tuned!
-           </p>
-          </div>
-        )}
+          ))}
+        </div>
       </div>
     </div>
-  </div>
   );
 }

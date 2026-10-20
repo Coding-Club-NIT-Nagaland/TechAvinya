@@ -436,19 +436,17 @@ export default function EventDetail() {
               </div>
             <div className="flex justify-center mt-8 gap-8">
               
-          <a
-              href="https://www.coding-club-nitn.tech/events"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative group py-3 px-8 Graduate text-lg font-semibold uppercase tracking-widest rounded-lg overflow-hidden
-                         bg-gradient-to-br from-red-800/60 to-pink-800/60 border border-red-600 text-red-300 backdrop-blur-sm
-                         transition-all duration-500 ease-in-out
-                         hover:from-red-600/70 hover:to-pink-600/70 hover:text-white hover:border-red-400
-                         hover:shadow-lg hover:shadow-red-500/40
-                         active:scale-95 active:shadow-sm"
-            >
-              Apply to Coding Club
-            </a>
+          <Link
+            to={`/enroll/${event.id}`}
+            className="relative group py-3 px-8 Graduate text-lg font-semibold uppercase tracking-widest rounded-lg overflow-hidden
+                       bg-gradient-to-br from-red-800/60 to-pink-800/60 border border-red-600 text-red-300 backdrop-blur-sm
+                       transition-all duration-500 ease-in-out
+                       hover:from-red-600/70 hover:to-pink-600/70 hover:text-white hover:border-red-400
+                       hover:shadow-lg hover:shadow-red-500/40
+                       active:scale-95 active:shadow-sm"
+          >
+            Apply Now
+          </Link>
         </div>
         </section>
         
