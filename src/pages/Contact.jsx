@@ -9,8 +9,8 @@ export default function Contact() {
       name: "",
       role: "General Secretary",
       image: "/secretary/general.jpg",
-      contact: "+91 ",
-      social: { instagram: "", linkedin: "", email: "" }
+      contact: "+91 7005734288",
+      social: { instagram: "https://www.instagram.com/mark__the__middle/?hl=en", linkedin: "", email: "limzalenezung@gmail.com" }
     },
     {
       id: 2,
@@ -78,11 +78,11 @@ export default function Contact() {
     },
     {
       id: 10,
-      name: "",
+      name: "Sahil",
       role: "Esports Secretary",
-      image: "/secretary/esport.jpg",
-      contact: "+91 ",
-      social: { instagram: "", linkedin: "", email: "" }
+      image: "/secretary/esports3.jpeg",
+      contact: "+91 92797 16769",
+      social: { instagram: "https://www.instagram.com/te_quiero.28/", linkedin: "", email: "" }
     },
     {
       id: 11,
@@ -96,7 +96,7 @@ export default function Contact() {
       id: 12,
       name: "Ayush Kumar",
       role: "Finance Secretary",
-      image: "/secretary/finance.png",
+      image: "/secretary/finance.jpeg",
       contact: "+91 7643965792",
       social: { instagram: "https://www.instagram.com/_.aaayush.__?stkn=MTVmZm8wYmoyd3Zzbw%3D%3D&utm_source=qr", linkedin: "https://www.linkedin.com/in/ayush-kumar-b02255339?utm_source=share_via&utm_content=profile&utm_medium=member_ios", email: "ayushkumarnit15@gmail.com" }
     },
@@ -229,7 +229,7 @@ export default function Contact() {
         <h1 className="text-5xl md:text-6xl font-extrabold Graduate font-['Press_Start_2P'] 
                        text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 
                        text-shadow-neon-cyan title-rocking">
-          TEAM TECH AVINYA'25
+          TEAM TECH AVINYA'26
         </h1>
         <p className="mt-2 text-lg md:text-xl max-w-2xl mx-auto mb-16 Gluten text-gray-300">
           Meet the dedicated team making it all happen.
