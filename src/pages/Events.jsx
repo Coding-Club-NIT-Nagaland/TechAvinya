@@ -181,7 +181,7 @@ export default function Events() {
                         {/* FRONT APPLY BUTTON */}
                         {event.id === "mlbb" ? (
                           <a
-                            href="YOUR_GOOGLE_FORM_LINK_HERE"
+                            href="https://forms.gle/MezgwAhpJ9uNJVMb8"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="relative group w-1/2 text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest overflow-hidden
