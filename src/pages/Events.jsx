@@ -2,97 +2,98 @@ import React, { useState } from 'react';
 import backvideo from '../assets/universe.jpg';
 import { Link } from 'react-router-dom';
 import VantaWavesBackground from '../components/VantaWavesBackground'; 
+
 export default function Events() {
   const eventData = [
     {
       id: "code",
       title: "Code Raze",
-      prize: "₹ 22,000/-",
-      image: "/event/coding.webp"  
+      prize: "₹ 20,000/-",
+      image: "/event/CODE RAZE.jpeg"  
     },
     {
       id: "digital",
-      title: "Digital Art",
+      title: "Integral Bee",
       prize: "₹ 10,000/-",
-      image: "/event/art.webp"
+      image: "/event/INTEGRAL BE.jpeg"
     },
     {
       id: "aerial",
-      title: "Aerial Adrenaline",
-      prize: "₹ 19,000",
-      image: "/event/drone.webp"
+      title: "Hardware Hackathon",
+      prize: "₹ 25,000/-",
+      image: "/event/HARDWARE HACKATHON.jpeg"
     },
-    {
-      id: "bug",
-      title: "Bug Hunt",
-      prize: "₹ 15,000/-",
-      image: "/event/bughunt.webp"
-    },
-    {
-      id: "animation",
-      title: "Animation",
-      prize: "₹ 11,000/-",
-      image: "/event/animation.webp"
-    },
+    // {
+    //   id: "bug",
+    //   title: "Bug Hunt",
+    //   prize: "₹ 15,000/-",
+    //   image: "/event/bughunt.webp"
+    // },
+    // {
+    //   id: "animation",
+    //   title: "Animation",
+    //   prize: "₹ 11,000/-",
+    //   image: "/event/animation.webp"
+    // },
     {
       id: "bgmi",
       title: "BGMI",
       prize: "₹ 20,000/-",
-      image: "/event/bgmi.webp"
+      image: "/event/BGMI.jpeg"
     },
     {
       id: "mlbb",
       title: "MLBB",
-      prize: "₹ 20,000",
-      image: "/event/mlbb.webp"
+      prize: "₹ 30,000",
+      image: "/event/MLBB.jpeg"
     },
     {
       id: "free",
       title: "Free Fire",
-      prize: "₹ 17,000/-",
-      image: "/event/freefire.webp"
+      prize: "₹ 20,000/-",
+      image: "/event/FREE FIRE.jpeg"
     },
     {
       id: "modelling",
-      title: "3D Modelling",
-      prize: "₹ 8,000/-",
-      image: "/event/3dmodelling.webp"
+      title: "Genesis 3D",
+      prize: "₹ 17,000/-",
+      image: "/event/GENESIS 3D.jpeg"
     },
     {
       id: "clash",
-      title: "Clash of Wheels",
-      prize: "₹ 16,000/-",
-      image: "/event/clashofwheels.webp"
+      title: "Robo track",
+      prize: "₹ 20,000/-",
+      image: "/event/ROBO TRACK.jpeg"
     },
     {
       id: "hackathon",
       title: "Hackathon",
-      prize: "₹ 19,000/-",
-      image: "/event/hackathon.webp"
+      prize: "₹ 22,000/-",
+      image: "/event/HACKATHON.jpeg"
     },
     {
       id: "tech",
       title: "Tech Crisis",
-      prize: "₹ 8,000",
-      image: "/event/techcrisis.webp"
+      prize: "₹ 10,000",
+      image: "/event/TECH CRISIS.jpeg"
     },
     {
       id: "infinity",
-      title: "Infinity Hunt",
-      prize: "₹ 8,000/-",
-      image: "/event/infinityhunt.webp"
+      title: "Quants Challenge",
+      prize: "₹ 10,000/-",
+      image: "/event/QUANTS CHALLENGE.jpeg"
     },
     {
       id: "stock",
-      title: "Stock Rise",
-      prize: "₹ 8,000/-",
-      image: "/event/stockrace.webp"
+      title: "Stock Race",
+      prize: "₹ 10,000/-",
+      image: "/event/STOCK RAZE.jpeg"
     },
-    
   ];
 
   const [tiltStyle, setTiltStyle] = useState({});
-  const showEvents = false;
+  const showEvents = true; // Set to false to show the "coming soon" message, true to show cards
+
   const handleMouseMove = (e, id) => {
     const card = e.currentTarget;
     const { width, height, left, top } = card.getBoundingClientRect();
@@ -122,7 +123,7 @@ export default function Events() {
   };
 
   return (
-    <div className="relative w-full min-h-screen  text-white overflow-hidden">
+    <div className="relative w-full min-h-screen text-white overflow-hidden">
       <VantaWavesBackground />
       <div className="fixed inset-0 z-0 "></div>
 
@@ -134,116 +135,149 @@ export default function Events() {
         </h1>
 
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24 mb-8">
-        {showEvents ? (
-          eventData.map(event => (
-            <div 
-              key={event.id} 
-              onMouseMove={(e) => handleMouseMove(e, event.id)}
-              onMouseLeave={() => handleMouseLeave(event.id)}
-              className="card-wrapper group relative w-[320px] h-[550px] rounded-2xl overflow-hidden transition-all duration-300 ease-in-out mt-8 mb-8"
-              style={{ ...tiltStyle[event.id] }} 
-            >
-              
-              <div className="card-inner w-full h-full relative">
-                
-                <div className="card-face card-front w-full h-full bg-transparent">
-                  <div className="w-full h-[77%] overflow-hidden flex-shrink-0">
-                    <img 
-                      src={event.image} 
-                      alt={event.title} 
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
-                    />
-                  </div>
-
-                  <div className="flex flex-col justify-start items-center p-1 w-full h-[35%] ">
-                    <h3 className="text-xl font-semibold text-white mb-2 Graduate">
-                      {event.title}
-                    </h3>
-
-                    <div className="bg-blue-800/60 self-center w-fit px-4 py-1 rounded-full text-md font-bold text-white mb-2 shadow-md border border-blue-600 Gluten">
-                      Prize Pool : {event.prize}
+          {showEvents ? (
+            eventData.map(event => (
+              <div 
+                key={event.id} 
+                onMouseMove={(e) => handleMouseMove(e, event.id)}
+                onMouseLeave={() => handleMouseLeave(event.id)}
+                className="card-wrapper group relative w-[320px] h-[550px] rounded-2xl overflow-hidden transition-all duration-300 ease-in-out mt-8 mb-8"
+                style={{ ...tiltStyle[event.id] }} 
+              >
+                <div className="card-inner w-full h-full relative">
+                  
+                  {/* CARD FRONT */}
+                  <div className="card-face card-front w-full h-full bg-transparent">
+                    <div className="w-full h-[77%] overflow-hidden flex-shrink-0">
+                      <img 
+                        src={event.image} 
+                        alt={event.title} 
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                      />
                     </div>
 
-                    <div className="flex justify-between w-full space-x-3">
+                    <div className="flex flex-col justify-start items-center p-1 w-full h-[35%] ">
+                      <h3 className="text-xl font-semibold text-white mb-2 Graduate">
+                        {event.title}
+                      </h3>
+
+                      <div className="bg-blue-800/60 self-center w-fit px-4 py-1 rounded-full text-md font-bold text-white mb-2 shadow-md border border-blue-600 Gluten">
+                        Prize Pool : {event.prize}
+                      </div>
+
+                      <div className="flex justify-between w-full space-x-3">
+                        <Link
+                          to={`/events/${event.id}`} 
+                          className="relative group w-1/2 text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest overflow-hidden
+                                    bg-gradient-to-br Gluten from-cyan-900/40 to-blue-900/40 border border-cyan-700/60 text-cyan-300 backdrop-blur-sm
+                                    transition-all duration-500 ease-in-out
+                                    hover:from-cyan-700/60 hover:to-blue-700/60 hover:text-white hover:border-cyan-400
+                                    hover:shadow-lg hover:shadow-cyan-500/40
+                                    active:scale-95 active:shadow-sm"
+                        >
+                          Explore
+                        </Link>
+
+                        {/* FRONT APPLY BUTTON */}
+                        {event.id === "mlbb" ? (
+                          <a
+                            href="YOUR_GOOGLE_FORM_LINK_HERE"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="relative group w-1/2 text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest overflow-hidden
+                                      bg-gradient-to-br Gluten from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
+                                      transition-all duration-500 ease-in-out
+                                      hover:from-red-700/60 hover:to-pink-700/60 hover:text-white hover:border-red-400
+                                      hover:shadow-lg hover:shadow-red-500/40
+                                      active:scale-95 active:shadow-sm flex items-center justify-center"
+                          >
+                            Apply
+                          </a>
+                        ) : (
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              alert(`Registrations for ${event.title} are Coming Soon!`);
+                            }}
+                            className="relative group w-1/2 text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest overflow-hidden
+                                      bg-gradient-to-br Gluten from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
+                                      transition-all duration-500 ease-in-out
+                                      hover:from-red-700/60 hover:to-pink-700/60 hover:text-white hover:border-red-400
+                                      hover:shadow-lg hover:shadow-red-500/40
+                                      active:scale-95 active:shadow-sm"
+                          >
+                            Apply
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CARD BACK */}
+                  <div className="card-face card-back w-full h-full bg-gradient-to-br from-[#061026]/80 to-[#091220]/80 text-white p-6 flex flex-col items-center justify-center">
+                    <h3 className="text-lg font-bold mb-4 Graduate">{event.title}</h3>
+                    <p className="text-sm text-gray-300 mb-4">Prize Pool: {event.prize}</p>
+                    <div className="flex flex-col gap-3 w-full max-w-xs">
                       <Link
-                        to={`/events/${event.id}`} 
-                        className="relative group w-1/2 text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest overflow-hidden
-                                  bg-gradient-to-br Gluten from-cyan-900/40 to-blue-900/40 border border-cyan-700/60 text-cyan-300 backdrop-blur-sm
-                                  transition-all duration-500 ease-in-out
-                                  hover:from-cyan-700/60 hover:to-blue-700/60 hover:text-white hover:border-cyan-400
-                                  hover:shadow-lg hover:shadow-cyan-500/40
-                                  active:scale-95 active:shadow-sm"
+                        to={`/events/${event.id}`}
+                        className="w-full text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest
+                                bg-gradient-to-br from-cyan-900/40 to-blue-900/40 border border-cyan-700/60 text-cyan-300 backdrop-blur-sm
+                                hover:from-cyan-700/60 hover:to-blue-700/60 hover:text-white"
                       >
                         Explore
                       </Link>
 
-                      <a
-                        href="https://www.coding-club-nitn.tech/events"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Apply to Coding Club - ${event.title}`}
-                        className="relative group w-1/2 text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest overflow-hidden
-                                  bg-gradient-to-br Gluten from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
-                                  transition-all duration-500 ease-in-out
-                                  hover:from-red-700/60 hover:to-pink-700/60 hover:text-white hover:border-red-400
-                                  hover:shadow-lg hover:shadow-red-500/40
-                                  active:scale-95 active:shadow-sm"
-                      >
-                        Apply
-                      </a>
+                      {/* BACK APPLY BUTTON */}
+                      {event.id === "mlbb" ? (
+                        <a
+                          href="https://forms.gle/MezgwAhpJ9uNJVMb8"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest
+                                  bg-gradient-to-br from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
+                                  hover:from-red-700/60 hover:to-pink-700/60 hover:text-white flex items-center justify-center"
+                        >
+                          Apply
+                        </a>
+                      ) : (
+                        <button 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            alert(`Registrations for ${event.title} are Coming Soon!`);
+                          }}
+                          className="w-full text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest
+                                  bg-gradient-to-br from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
+                                  hover:from-red-700/60 hover:to-pink-700/60 hover:text-white"
+                        >
+                          Apply
+                        </button>
+                      )}
                     </div>
                   </div>
+
                 </div>
 
-                <div className="card-face card-back w-full h-full bg-gradient-to-br from-[#061026]/80 to-[#091220]/80 text-white p-6 flex flex-col items-center justify-center">
-                  <h3 className="text-lg font-bold mb-4 Graduate">{event.title}</h3>
-                  <p className="text-sm text-gray-300 mb-4">Prize Pool: {event.prize}</p>
-                  <div className="flex flex-col gap-3 w-full max-w-xs">
-                    <Link
-                      to={`/events/${event.id}`}
-                      className="w-full text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest
-                                bg-gradient-to-br from-cyan-900/40 to-blue-900/40 border border-cyan-700/60 text-cyan-300 backdrop-blur-sm
-                                hover:from-cyan-700/60 hover:to-blue-700/60 hover:text-white"
-                    >
-                      Explore
-                    </Link>
-
-                    <a
-                      href="https://www.coding-club-nitn.tech/events"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Apply to Coding Club - ${event.title}`}
-                      className="w-full text-center rounded-lg py-2 px-3 text-sm font-semibold uppercase tracking-widest
-                                bg-gradient-to-br from-red-900/40 to-pink-900/40 border border-red-700/60 text-red-300 backdrop-blur-sm
-                                hover:from-red-700/60 hover:to-pink-700/60 hover:text-white"
-                    >
-                      Apply
-                    </a>
-                  </div>
-                </div>
+                <style>{`
+                  .card-wrapper { perspective: 1200px; }
+                  .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
+                  .card-wrapper:hover .card-inner { transform: rotateY(180deg); }
+                  .card-face { position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+                  .card-back { transform: rotateY(180deg); }
+                `}</style>
               </div>
-
-              <style>{`
-                .card-wrapper { perspective: 1200px; }
-                .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
-                .card-wrapper:hover .card-inner { transform: rotateY(180deg); }
-                .card-face { position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-                .card-back { transform: rotateY(180deg); }
-              `}</style>
+            ))
+          ) : (
+            <div className="col-span-full my-12 p-12 text-center bg-gradient-to-br from-gray-900/80 via-cyan-950/40 to-gray-900/80 border border-cyan-500/40 rounded-2xl max-w-2xl mx-auto backdrop-blur-md shadow-2xl">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-cyan-400 mb-4 tracking-wider">
+                coming soon...
+              </h2>
+              <p className="text-gray-300 text-lg">
+                We are updating event details and prize pools. Stay tuned!
+              </p>
             </div>
-          ))
-        ) : (
-          <div className="col-span-full my-12 p-12 text-center bg-gradient-to-br from-gray-900/80 via-cyan-950/40 to-gray-900/80 border border-cyan-500/40 rounded-2xl max-w-2xl mx-auto backdrop-blur-md shadow-2xl">
-           <h2 className="text-3xl md:text-4xl font-extrabold text-cyan-400 mb-4 tracking-wider">
-              coming soon...
-           </h2>
-           <p className="text-gray-300 text-lg">
-              We are updating event details and prize pools. Stay tuned!
-           </p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
-  </div>
   );
 }
