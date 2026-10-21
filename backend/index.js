@@ -7,7 +7,7 @@ import { supabase, isSupabaseConfigured } from './supabase.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
 
 // Enable CORS for all origins (frontend deployed on Vercel, localhost, Render, etc.)
 app.use(cors({
@@ -293,23 +293,26 @@ const sendResendEmail = async ({ to, fullName, eventTitle, status, registrationI
 // ROUTES
 // -------------------------------------------------------------
 
-// Health check
-app.get('/', (req, res) => {
-  res.json({
-    status: 'online',
+// -------------------------------------------------------------
+// HEALTH CHECKS (Render, UptimeRobot, AWS, curl)
+// -------------------------------------------------------------
+const handleHealthCheck = (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
     service: 'Tech Avinya Backend API',
     supabaseConnected: isSupabaseConfigured(),
     timestamp: new Date().toISOString(),
   });
-});
+};
 
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    supabaseConnected: isSupabaseConfigured(),
-    timestamp: new Date().toISOString(),
-  });
-});
+app.get('/', handleHealthCheck);
+app.get('/health', handleHealthCheck);
+app.get('/healthz', handleHealthCheck);
+app.get('/api/health', handleHealthCheck);
+app.get('/api/healthz', handleHealthCheck);
+app.head('/', (req, res) => res.status(200).end());
+app.head('/health', (req, res) => res.status(200).end());
+app.head('/api/health', (req, res) => res.status(200).end());
 
 // -------------------------------------------------------------
 // 1. EVENT ENROLLMENT / REGISTRATION
@@ -823,10 +826,13 @@ app.put('/api/admin/sponsors/status/:id', async (req, res) => {
 
 // Only start listener if not running in a serverless environment (like Vercel)
 if (!process.env.VERCEL) {
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Tech Avinya Backend is running on port ${PORT}`);
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Tech Avinya Backend is running on port ${PORT} (host: 0.0.0.0)`);
     console.log(`📡 Supabase configured: ${isSupabaseConfigured() ? '✅ YES' : '❌ NO (check .env)'}`);
   });
+
+  server.keepAliveTimeout = 120000;
+  server.headersTimeout = 120000;
 }
 
 // Export default for Vercel Serverless
