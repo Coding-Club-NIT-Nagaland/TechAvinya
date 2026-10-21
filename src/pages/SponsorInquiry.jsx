@@ -4,7 +4,7 @@ import {
   FaHandshake, FaBuilding, FaUser, FaEnvelope, FaPhone, FaGlobe, FaCheckCircle, 
   FaMoneyBillWave, FaCopy, FaCheck, FaTimes, FaArrowRight, FaAward 
 } from 'react-icons/fa';
-import sponsorBg from '../assets/sponsors.jpg';
+import TechfestCyberBackground from '../components/TechfestCyberBackground';
 import { API_BASE_URL, insertDirectToSupabase } from '../config/api';
 
 const sponsorshipTiers = [
@@ -79,8 +79,7 @@ export default function SponsorInquiry() {
 
     try {
       let isSuccess = false;
-      let msg = '';
-      let assignedRefId = null;
+            let assignedRefId = null;
 
       // Clean and normalize website URL (auto-prepend https:// if missing)
       const rawWebsite = formData.website ? formData.website.trim() : '';
@@ -113,7 +112,6 @@ export default function SponsorInquiry() {
 
         if (response.ok && data.success) {
           isSuccess = true;
-          msg = data.message || 'Thank you for connecting with us! Our sponsorship team will get back to you shortly.';
           assignedRefId = data.sponsor?.id || data.sponsor?._id;
         } else if (response.status === 400) {
           setSubmitResult({
@@ -142,7 +140,6 @@ export default function SponsorInquiry() {
 
           const inserted = await insertDirectToSupabase('sponsor_inquiries', record);
           isSuccess = true;
-          msg = 'Thank you for connecting with us! Our sponsorship team will get back to you shortly.';
           if (inserted && inserted[0] && inserted[0].id) {
             assignedRefId = inserted[0].id;
           }
@@ -202,29 +199,9 @@ export default function SponsorInquiry() {
   const legendClass = 'px-3 text-lg font-extrabold Graduate text-cyan-300 uppercase';
 
   return (
-    <div className="relative min-h-screen pt-28 pb-16 text-white flex flex-col items-center">
-      {/* NEW High-Tech Corporate Cyber Background */}
-      <img
-        src={sponsorBg}
-        alt="Sponsors Background"
-        className="fixed inset-0 w-full h-full object-cover z-0 brightness-[0.20] contrast-125 scale-105 pointer-events-none"
-      />
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-black/85 via-purple-950/40 to-black/95 pointer-events-none" />
-
-      {/* Ambient Cyber Mesh & Glow Orbs */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-1/2 -right-32 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-pink-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
-        {/* High-Tech Grid Pattern */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(168, 85, 247, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(168, 85, 247, 0.25) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
+    <div className="relative min-h-screen pt-28 pb-16 text-white flex flex-col items-center bg-[#020409]">
+      {/* Signature IIT Bombay Techfest Cybernetic Background */}
+      <TechfestCyberBackground />
 
       <div className="relative z-10 max-w-3xl w-full mx-auto px-6">
         {/* Header */}

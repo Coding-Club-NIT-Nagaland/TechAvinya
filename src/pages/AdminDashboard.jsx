@@ -72,7 +72,7 @@ const getSessionData = () => {
       return null;
     }
     return item.value;
-  } catch (e) {
+  } catch {
     localStorage.removeItem('admin_session');
     return null;
   }
@@ -115,7 +115,7 @@ export default function AdminDashboard() {
     }
     fetchRegistrationData();
     fetchSponsorsData();
-  }, []);
+  }, [navigate]);
 
   // Filter & Sort Registrations
   useEffect(() => {

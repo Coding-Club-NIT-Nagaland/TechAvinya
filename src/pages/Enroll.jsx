@@ -1,28 +1,207 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   FaUser, FaUsers, FaGamepad, FaUniversity, FaPhone, FaEnvelope, FaIdCard, 
   FaQrcode, FaCheckCircle, FaExclamationCircle, FaCopy, FaCheck, FaPrint, 
-  FaTicketAlt, FaCalendarAlt, FaTimes, FaArrowRight, FaTrophy
+  FaTicketAlt, FaCalendarAlt, FaTimes, FaArrowRight, FaTrophy, FaMapMarkerAlt,
+  FaFileImage, FaTrashAlt, FaClock
 } from 'react-icons/fa';
-import VantaNetBackground from '../components/VantaNetBackground';
+import TechfestCyberBackground from '../components/TechfestCyberBackground';
 import { API_BASE_URL, insertDirectToSupabase, uploadScreenshotDirect } from '../config/api';
 
 const ALL_EVENTS = [
-  { id: 'code', title: 'Code Raze', minMembers: 1, maxMembers: 1, feeNIT: '₹ 99/-', feeOutside: '₹ 250/-', prize: '₹ 22,000/-', category: 'Coding', date: '31-10-2025' },
-  { id: 'digital', title: 'Digital Art', minMembers: 1, maxMembers: 1, feeNIT: '₹ 99/-', feeOutside: '₹ 250/-', prize: '₹ 10,000/-', category: 'Design', date: '31-10-2025' },
-  { id: 'aerial', title: 'Aerial Adrenaline', minMembers: 2, maxMembers: 4, feeNIT: '₹ 0/-', feeOutside: '₹ 500/-', prize: '₹ 19,000/-', category: 'Robotics', date: '31-10-2025' },
-  { id: 'clash', title: 'Clash of Wheels', minMembers: 1, maxMembers: 4, feeNIT: '₹ 199/-', feeOutside: '₹ 400/-', prize: '₹ 16,000/-', category: 'Robotics', date: '31-10-2025' },
-  { id: 'bug', title: 'Bug Hunt', minMembers: 1, maxMembers: 1, feeNIT: '₹ 99/-', feeOutside: '₹ 250/-', prize: '₹ 15,000/-', category: 'Debugging', date: '31-10-2025' },
-  { id: 'hackathon', title: 'Hackathon', minMembers: 3, maxMembers: 5, feeNIT: '₹ 200/-', feeOutside: '₹ 600/-', prize: '₹ 19,000/-', category: 'Hackathon', date: '31-10-2025' },
-  { id: 'animation', title: 'Animation', minMembers: 3, maxMembers: 5, feeNIT: '₹ 99/-', feeOutside: '₹ 300/-', prize: '₹ 11,000/-', category: 'Animation', date: '31-10-2025' },
-  { id: 'bgmi', title: 'BGMI', minMembers: 4, maxMembers: 4, feeNIT: '₹ 500/-', feeOutside: '₹ 1000/-', prize: '₹ 20,000/-', category: 'Esports', date: '31-10-2025' },
-  { id: 'mlbb', title: 'MLBB', minMembers: 5, maxMembers: 5, feeNIT: '₹ 500/-', feeOutside: '₹ 1000/-', prize: '₹ 20,000/-', category: 'Esports', date: '31-10-2025' },
-  { id: 'free', title: 'Free Fire', minMembers: 4, maxMembers: 4, feeNIT: '₹ 500/-', feeOutside: '₹ 600/-', prize: '₹ 17,000/-', category: 'Esports', date: '31-10-2025' },
-  { id: 'modelling', title: '3D Modelling', minMembers: 1, maxMembers: 1, feeNIT: '₹ 99/-', feeOutside: '₹ 300/-', prize: '₹ 8,000/-', category: '3D Art', date: '31-10-2025' },
-  { id: 'tech', title: 'Tech Crisis', minMembers: 3, maxMembers: 3, feeNIT: '₹ 99/-', feeOutside: '₹ 300/-', prize: '₹ 8,000/-', category: 'Case Study', date: '31-10-2025' },
-  { id: 'infinity', title: 'Infinity Hunt', minMembers: 1, maxMembers: 1, feeNIT: '₹ 99/-', feeOutside: '₹ 300/-', prize: '₹ 8,000/-', category: 'Maths & Integrals', date: '31-10-2025' },
-  { id: 'stock', title: 'Stock Rise', minMembers: 1, maxMembers: 1, feeNIT: '₹ 99/-', feeOutside: '₹ 199/-', prize: '₹ 8,000/-', category: 'Trading Simulation', date: '31-10-2025' },
+  { 
+    id: 'code', 
+    title: 'Code Raze', 
+    club: 'Codessy Club',
+    minMembers: 1, 
+    maxMembers: 1, 
+    feeNIT: '₹ 99/-', 
+    feeOutside: '₹ 299/-', 
+    prize: '₹ 20,000/-', 
+    category: 'Coding', 
+    date: '5 Nov 2026',
+    time: '9:00am - 11:00am',
+    venue: 'Smart Lab, NITN',
+    image: '/event/CODE RAZE.jpeg',
+    tag: 'Competitive Coding'
+  },
+  { 
+    id: 'hackathon', 
+    title: 'Hackathon', 
+    club: 'Codessy Club',
+    minMembers: 3, 
+    maxMembers: 5, 
+    feeNIT: '₹ 199/-', 
+    feeOutside: '₹ 499/-', 
+    prize: '₹ 22,000/-', 
+    category: 'Coding', 
+    date: '6 Nov 2026',
+    time: '11:00am - 6:00pm',
+    venue: 'VCH, NITN',
+    image: '/event/HACKATHON.jpeg',
+    tag: 'Software Prototyping Sprint'
+  },
+  { 
+    id: 'modelling', 
+    title: 'Genesis 3D', 
+    club: 'Codessy Club',
+    minMembers: 1, 
+    maxMembers: 1, 
+    feeNIT: '₹ 99/-', 
+    feeOutside: '₹ 299/-', 
+    prize: '₹ 20,000/-', 
+    category: 'Design', 
+    date: '5 Nov 2026',
+    time: '2:00pm - 6:00pm',
+    venue: 'VCH, NITN',
+    image: '/event/GENESIS 3D.jpeg',
+    tag: '3D Sculpting & CGI'
+  },
+  { 
+    id: 'aerial', 
+    title: 'Hardware Hackathon', 
+    club: 'Robotics Club',
+    minMembers: 2, 
+    maxMembers: 4, 
+    feeNIT: '₹ 199/-', 
+    feeOutside: '₹ 499/-', 
+    prize: '₹ 25,000/-', 
+    category: 'Robotics', 
+    date: '6 Nov 2026',
+    time: '9:00am - 12:00pm',
+    venue: 'EDC Lab, NITN',
+    image: '/event/HARDWARE HACKATHON.jpeg',
+    tag: 'IoT & Embedded Circuits'
+  },
+  { 
+    id: 'clash', 
+    title: 'Robo Track Challenge', 
+    club: 'Robotics Club',
+    minMembers: 1, 
+    maxMembers: 4, 
+    feeNIT: '₹ 199/-', 
+    feeOutside: '₹ 499/-', 
+    prize: '₹ 20,000/-', 
+    category: 'Robotics', 
+    date: '6 Nov 2026',
+    time: '9:00am - 11:00am',
+    venue: 'NITN Football Ground',
+    image: '/event/ROBO TRACK.jpeg',
+    tag: 'RC Speed & Obstacle Track'
+  },
+  { 
+    id: 'bgmi', 
+    title: 'BGMI Tournament', 
+    club: 'Esports Arena',
+    minMembers: 4, 
+    maxMembers: 4, 
+    feeNIT: '₹ 199/- (Team)', 
+    feeOutside: '₹ 500/- (Team)', 
+    prize: '₹ 20,000/-', 
+    category: 'Esports', 
+    date: '5 Nov 2026',
+    time: '10:00am - 3:00pm',
+    venue: '2A & 2B, NITN',
+    image: '/event/BGMI.jpeg',
+    tag: 'Squad Battle Royale'
+  },
+  { 
+    id: 'free', 
+    title: 'Free Fire', 
+    club: 'Esports Arena',
+    minMembers: 4, 
+    maxMembers: 4, 
+    feeNIT: '₹ 199/- (Team)', 
+    feeOutside: '₹ 500/- (Team)', 
+    prize: '₹ 20,000/-', 
+    category: 'Esports', 
+    date: '6 Nov 2026',
+    time: '10:00am - 3:00pm',
+    venue: '2A & 2B, NITN',
+    image: '/event/FREE FIRE.jpeg',
+    tag: 'Survival Showdown'
+  },
+  { 
+    id: 'mlbb', 
+    title: 'Community Heroes (MLBB)', 
+    club: 'Esports Arena',
+    minMembers: 5, 
+    maxMembers: 5, 
+    feeNIT: '₹ 199/-', 
+    feeOutside: '₹ 500/-', 
+    prize: '₹ 30,000 + 10K Dias', 
+    category: 'Esports', 
+    date: '6 Nov 2026',
+    time: '2:00pm - 6:00pm',
+    venue: 'NIT Nagaland Campus',
+    image: '/event/MLBB.jpeg',
+    tag: '5v5 MOBA Draft'
+  },
+  { 
+    id: 'digital', 
+    title: 'Integration Bee', 
+    club: 'Quants Club',
+    minMembers: 1, 
+    maxMembers: 1, 
+    feeNIT: '₹ 70/-', 
+    feeOutside: '₹ 99/-', 
+    prize: '₹ 10,000/-', 
+    category: 'Quants', 
+    date: '5 Nov 2026',
+    time: '2:30pm - 4:30pm',
+    venue: 'Smart Lab, NITN',
+    image: '/event/INTEGRAL BE.jpeg',
+    tag: 'Calculus & Logic Duel'
+  },
+  { 
+    id: 'infinity', 
+    title: 'Quants Challenge', 
+    club: 'Quants Club',
+    minMembers: 1, 
+    maxMembers: 2, 
+    feeNIT: '₹ 70/-', 
+    feeOutside: '₹ 129/-', 
+    prize: '₹ 10,000/-', 
+    category: 'Quants', 
+    date: '5 Nov 2026',
+    time: '11:00am - 2:00pm',
+    venue: 'VCH, NITN',
+    image: '/event/QUANTS CHALLENGE.jpeg',
+    tag: 'Logic Puzzles & Riddles'
+  },
+  { 
+    id: 'tech', 
+    title: 'Tech Crisis', 
+    club: 'E-Cell',
+    minMembers: 2, 
+    maxMembers: 4, 
+    feeNIT: '₹ 129/-', 
+    feeOutside: '₹ 349/-', 
+    prize: '₹ 10,000/-', 
+    category: 'E-Cell', 
+    date: '6 Nov 2026',
+    time: '2:00pm - 5:00pm',
+    venue: 'Smart Lab, NITN',
+    image: '/event/TECH CRISIS.jpeg',
+    tag: 'Corporate Crisis Management'
+  },
+  { 
+    id: 'stock', 
+    title: 'Stock Race', 
+    club: 'E-Cell',
+    minMembers: 1, 
+    maxMembers: 1, 
+    feeNIT: '₹ 99/-', 
+    feeOutside: '₹ 149/-', 
+    prize: '₹ 10,000/-', 
+    category: 'E-Cell', 
+    date: '6 Nov 2026',
+    time: '4:30pm - 5:00pm',
+    venue: 'Smart Lab, NITN',
+    image: '/event/STOCK RAZE.jpeg',
+    tag: 'Virtual Trading Simulation'
+  },
 ];
 
 const ESPORTS_IDS = ['bgmi', 'mlbb', 'free'];
@@ -33,7 +212,9 @@ export default function Enroll() {
 
   // Find initial event or default to first
   const [selectedEventId, setSelectedEventId] = useState(paramEventId || 'code');
-  const currentEvent = ALL_EVENTS.find((e) => e.id === selectedEventId) || ALL_EVENTS[0];
+  const currentEvent = useMemo(() => {
+    return ALL_EVENTS.find((e) => e.id === selectedEventId) || ALL_EVENTS[0];
+  }, [selectedEventId]);
 
   useEffect(() => {
     if (paramEventId && ALL_EVENTS.some((e) => e.id === paramEventId)) {
@@ -58,7 +239,7 @@ export default function Enroll() {
   });
 
   // Dynamic team members (for slots beyond the leader)
-  const initialMemberStructure = { name: '', rollNumber: '', inGameID: '' };
+  const initialMemberStructure = useMemo(() => ({ name: '', rollNumber: '', inGameID: '' }), []);
   const initialMembersCount = isTeamEvent ? Math.max(0, currentEvent.minMembers - 1) : 0;
   const [teamMembers, setTeamMembers] = useState(
     Array.from({ length: initialMembersCount }, () => ({ ...initialMemberStructure }))
@@ -72,9 +253,11 @@ export default function Enroll() {
     } else {
       setTeamMembers([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedEventId]);
 
   const [screenshotFile, setScreenshotFile] = useState(null);
+  const [previewScreenshotUrl, setPreviewScreenshotUrl] = useState(null);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
@@ -94,7 +277,6 @@ export default function Enroll() {
     const { name, value } = e.target;
 
     if (name === 'phone') {
-      // Numbers only, strictly max 10 digits
       const digitsOnly = value.replace(/\D/g, '').slice(0, 10);
       setFormData((prev) => ({ ...prev, [name]: digitsOnly }));
 
@@ -111,7 +293,6 @@ export default function Enroll() {
     }
 
     if (name === 'rollNumber') {
-      // 10 digits requirement
       const digitsOnly = value.replace(/\D/g, '').slice(0, 10);
       setFormData((prev) => ({ ...prev, [name]: digitsOnly }));
 
@@ -134,7 +315,6 @@ export default function Enroll() {
   const handleMemberChange = (index, field, value) => {
     const updated = [...teamMembers];
     if (field === 'rollNumber') {
-      // 10 digits validation for team member roll number
       const digitsOnly = value.replace(/\D/g, '').slice(0, 10);
       updated[index][field] = digitsOnly;
       if (digitsOnly.length > 0 && digitsOnly.length < 10) {
@@ -153,7 +333,6 @@ export default function Enroll() {
   };
 
   const handleAddMember = () => {
-    // Current total team size = 1 (leader) + teamMembers.length
     if (teamMembers.length < currentEvent.maxMembers - 1) {
       setTeamMembers([...teamMembers, { ...initialMemberStructure }]);
     }
@@ -164,6 +343,26 @@ export default function Enroll() {
       setTeamMembers(teamMembers.filter((_, i) => i !== index));
     }
   };
+
+  // File change handler
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setScreenshotFile(file);
+      setPreviewScreenshotUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const handleRemoveScreenshot = () => {
+    setScreenshotFile(null);
+    if (previewScreenshotUrl) {
+      URL.revokeObjectURL(previewScreenshotUrl);
+      setPreviewScreenshotUrl(null);
+    }
+  };
+
+  // Active fee based on affiliation
+  const activeFee = collegeAffiliation === 'NIT Nagaland' ? currentEvent.feeNIT : currentEvent.feeOutside;
 
   // Form submit handler
   const handleSubmit = async (e) => {
@@ -214,7 +413,6 @@ export default function Enroll() {
       data.append('inGameID', isEsports ? formData.inGameID.trim() : '');
       data.append('note', formData.note.trim());
 
-      // Clean team members
       const cleanMembers = teamMembers
         .filter((m) => m.name && m.name.trim() !== '')
         .map((m) => ({
@@ -229,7 +427,6 @@ export default function Enroll() {
       }
 
       let isSuccess = false;
-      let msg = '';
       let assignedRefId = null;
 
       // 1. Try Backend API with 2.5s fast timeout so the request never hangs
@@ -249,7 +446,6 @@ export default function Enroll() {
 
         if (response.ok && result.success) {
           isSuccess = true;
-          msg = result.message || `🎉 Enrollment Successful for ${currentEvent.title}! Your spot has been reserved.`;
           assignedRefId = result.registration?.id || result.registration?.registrationId;
         } else if (response.status === 400) {
           setStatusMessage({
@@ -288,7 +484,6 @@ export default function Enroll() {
 
           const inserted = await insertDirectToSupabase('registrations', record);
           isSuccess = true;
-          msg = `🎉 Enrollment Successful for ${currentEvent.title}! Your spot has been reserved.`;
           if (inserted && inserted[0] && inserted[0].id) {
             assignedRefId = inserted[0].id;
           }
@@ -306,7 +501,6 @@ export default function Enroll() {
         const fallbackRef = `TA26-${currentEvent.id.toUpperCase()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
         const finalRefId = assignedRefId ? String(assignedRefId).slice(0, 13).toUpperCase() : fallbackRef;
 
-        // Open Submission Palette with comprehensive details
         setSubmittedEnrollment({
           referenceId: finalRefId,
           eventId: currentEvent.id,
@@ -322,7 +516,7 @@ export default function Enroll() {
           teamName: isTeamEvent ? formData.teamName.trim() : null,
           teamMembers: cleanMembers,
           inGameID: isEsports ? formData.inGameID.trim() : null,
-          entryFee: entryFee,
+          entryFee: activeFee,
           hasScreenshot: Boolean(screenshotFile),
           timestamp: new Date().toISOString(),
         });
@@ -338,603 +532,711 @@ export default function Enroll() {
           note: '',
         });
         setScreenshotFile(null);
+        setPreviewScreenshotUrl(null);
       }
+    } catch (err) {
+      console.error('[Submission General Error]', err);
+      setStatusMessage({
+        type: 'error',
+        text: 'An unexpected error occurred during submission. Please retry.',
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const inputClass =
-    'w-full p-3 rounded-lg bg-gray-800/80 border border-gray-700 Gluten text-white placeholder-gray-500 transition-all duration-300 focus:border-cyan-500 focus:ring-0 focus:shadow-lg focus:shadow-cyan-500/30';
-  const labelClass = 'block text-sm font-medium text-cyan-400 mb-2 tracking-wider uppercase Graduate';
-  const fieldsetClass = 'border border-cyan-700/50 p-6 rounded-lg space-y-5 shadow-inner shadow-cyan-900/40';
-  const legendClass = 'px-3 text-lg font-extrabold Graduate text-cyan-300 uppercase';
-
-  const entryFee = collegeAffiliation === 'NIT Nagaland' ? currentEvent.feeNIT : currentEvent.feeOutside;
-
   return (
-    <div className="relative min-h-screen pt-28 pb-16 text-white flex flex-col items-center">
-      {/* NEW High-Tech 3D Cyber Network Interactive Background */}
-      <VantaNetBackground options={{ color: 0x00f0ff, backgroundColor: 0x040817, points: 14, maxDistance: 24, spacing: 17 }} />
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-gray-950/75 via-black/55 to-gray-950/85 pointer-events-none" />
+    <div className="relative min-h-screen text-white pt-24 pb-20 overflow-hidden bg-[#020409]">
+      {/* Signature IIT Bombay Techfest Cyber Background */}
+      <TechfestCyberBackground />
 
-      {/* Cyberpunk Ambient Neon Mesh & Grid Glow */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-1/3 -right-40 w-[28rem] h-[28rem] bg-blue-600/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute -bottom-40 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
-        {/* Cyber Grid Texture */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.25) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-3xl w-full mx-auto px-6">
-        {/* Title Header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Ribbon */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-extrabold Graduate text-white tracking-wide mb-2">
-            EVENT <span className="text-cyan-400">ENROLLMENT</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/40 bg-cyan-950/40 backdrop-blur-md text-cyan-300 text-xs sm:text-sm font-mono tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(0,240,255,0.25)]">
+            <FaTicketAlt className="w-3.5 h-3.5 text-cyan-400" />
+            Official Event Registration Portal
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-100 via-sky-300 to-blue-500 drop-shadow-[0_10px_25px_rgba(6,182,212,0.4)]">
+            Enroll in Tech Avinya '26
           </h1>
-          <p className="text-gray-300 Gluten text-lg">
-            Register now for Tech Avinya 2026 competitions at NIT Nagaland.
+          <p className="max-w-2xl mx-auto text-xs sm:text-sm text-cyan-200/80 font-light mt-2">
+            Secure your spot in NIT Nagaland's premier technical competitions. Select your event below to proceed.
           </p>
         </div>
 
-        {/* Dynamic Event Selection Banner */}
-        <div className="bg-gradient-to-r from-gray-900/90 via-cyan-950/70 to-gray-900/90 border border-cyan-600/60 rounded-xl p-6 mb-8 backdrop-blur-md shadow-xl">
-          <label className={labelClass}>Selected Competition / Event *</label>
-          <select
-            value={selectedEventId}
-            onChange={(e) => setSelectedEventId(e.target.value)}
-            className="w-full p-3 text-lg font-bold rounded-lg bg-gray-900 border-2 border-cyan-500 text-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 cursor-pointer mb-4"
-          >
-            {ALL_EVENTS.map((ev) => (
-              <option key={ev.id} value={ev.id} className="bg-gray-900 text-white font-normal">
-                {ev.title} ({ev.category}) - Prize: {ev.prize}
-              </option>
-            ))}
-          </select>
-
-          {/* Dynamic Badges that vary according to event */}
-          <div className="flex flex-wrap gap-3 items-center text-sm">
-            <span className="px-3 py-1 rounded-full bg-cyan-900/50 border border-cyan-500 text-cyan-300 font-semibold flex items-center gap-2">
-              {isTeamEvent ? <FaUsers /> : <FaUser />}
-              {isTeamEvent
-                ? `Team Event (${currentEvent.minMembers === currentEvent.maxMembers ? currentEvent.minMembers : `${currentEvent.minMembers}-${currentEvent.maxMembers}`} members)`
-                : 'Individual (Solo)'}
+        {/* Quick Event Selection Horizontal Scroller */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-3 px-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+              Select Competition Track
             </span>
-
-            <span className="px-3 py-1 rounded-full bg-purple-900/50 border border-purple-500 text-purple-300 font-semibold">
-              Category: {currentEvent.category}
-            </span>
-
-            <span className="px-3 py-1 rounded-full bg-amber-900/50 border border-amber-500 text-amber-300 font-semibold">
-              🏆 Prize: {currentEvent.prize}
-            </span>
-
-            <span className="px-3 py-1 rounded-full bg-lime-900/50 border border-lime-500 text-lime-300 font-bold">
-              Entry Fee: {entryFee}
-            </span>
+            <span className="text-xs text-gray-400 font-mono">12 Official Tracks</span>
+          </div>
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-3 pt-1 scrollbar-thin scrollbar-thumb-cyan-500/40">
+            {ALL_EVENTS.map((event) => {
+              const isSelected = event.id === currentEvent.id;
+              return (
+                <button
+                  key={event.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedEventId(event.id);
+                    navigate(`/enroll/${event.id}`, { replace: true });
+                  }}
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border text-left transition-all duration-300 flex-shrink-0 cursor-pointer ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-cyan-950/90 via-blue-950/90 to-purple-950/90 border-cyan-400 text-white shadow-[0_0_20px_rgba(0,240,255,0.4)] scale-105'
+                      : 'bg-[#040817]/70 border-white/10 text-gray-300 hover:border-cyan-500/50 hover:bg-black/60'
+                  }`}
+                >
+                  <img 
+                    src={event.image} 
+                    alt={event.title} 
+                    className="w-10 h-10 rounded-lg object-cover border border-cyan-400/30 flex-shrink-0"
+                  />
+                  <div>
+                    <p className="text-xs sm:text-sm font-bold tracking-wide leading-tight">{event.title}</p>
+                    <p className="text-[11px] font-mono text-cyan-300/80">{event.category} • {event.prize}</p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Enrollment Form */}
-        <form
-          onSubmit={handleSubmit}
-          className="bg-gray-900/80 p-8 md:p-12 rounded-xl shadow-2xl shadow-cyan-500/20 border border-cyan-700/50 space-y-8 backdrop-blur-md"
-        >
-          {statusMessage && (
-            <div
-              className={`p-4 rounded-lg font-semibold border flex items-center gap-3 ${
-                statusMessage.type === 'success'
-                  ? 'bg-green-600/40 border-green-400 text-green-200'
-                  : 'bg-red-600/40 border-red-400 text-red-200'
-              }`}
-            >
-              {statusMessage.type === 'success' ? (
-                <FaCheckCircle className="text-xl flex-shrink-0" />
-              ) : (
-                <FaExclamationCircle className="text-xl flex-shrink-0" />
-              )}
-              <span>{statusMessage.text}</span>
-            </div>
-          )}
-
-          {/* Fieldset 1: Affiliation */}
-          <fieldset className={fieldsetClass}>
-            <legend className={legendClass}>
-              <FaUniversity className="inline mr-2 text-cyan-400" />
-              College Affiliation
-            </legend>
-
-            <div className="flex flex-wrap gap-6 pt-1">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="affiliation"
-                  value="NIT Nagaland"
-                  checked={collegeAffiliation === 'NIT Nagaland'}
-                  onChange={() => setCollegeAffiliation('NIT Nagaland')}
-                  className="h-5 w-5 text-cyan-500 focus:ring-cyan-400"
-                />
-                <span className="text-base text-white font-medium">NIT Nagaland Student</span>
-              </label>
-
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="affiliation"
-                  value="Other College/University"
-                  checked={collegeAffiliation === 'Other College/University'}
-                  onChange={() => setCollegeAffiliation('Other College/University')}
-                  className="h-5 w-5 text-cyan-500 focus:ring-cyan-400"
-                />
-                <span className="text-base text-white font-medium">Other College / University</span>
-              </label>
-            </div>
-
-            {collegeAffiliation === 'Other College/University' && (
-              <div className="pt-2">
-                <label className={labelClass}>College / Institute Name *</label>
-                <input
-                  type="text"
-                  required
-                  value={otherCollegeName}
-                  onChange={(e) => setOtherCollegeName(e.target.value)}
-                  className={inputClass}
-                  placeholder="E.g., IIT Guwahati, Dimapur Govt. College, etc."
-                />
-              </div>
+        {/* Status Notification Alerts */}
+        {statusMessage && (
+          <div className={`mb-8 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-md shadow-xl border ${
+            statusMessage.type === 'error'
+              ? 'bg-red-950/80 border-red-500/60 text-red-200 shadow-red-500/20'
+              : 'bg-emerald-950/80 border-emerald-500/60 text-emerald-200 shadow-emerald-500/20'
+          }`}>
+            {statusMessage.type === 'error' ? (
+              <FaExclamationCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+            ) : (
+              <FaCheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
             )}
-          </fieldset>
+            <p className="text-sm font-medium">{statusMessage.text}</p>
+          </div>
+        )}
 
-          {/* Fieldset 2: Participant / Leader Details */}
-          <fieldset className={fieldsetClass}>
-            <legend className={legendClass}>
-              <FaUser className="inline mr-2 text-cyan-400" />
-              {isTeamEvent ? "Team Leader's Details" : 'Participant Details'}
-            </legend>
-
-            <div className="grid md:grid-cols-2 gap-5">
-              <div className="md:col-span-2">
-                <label className={labelClass}>Full Name *</label>
-                <input
-                  type="text"
-                  name="fullName"
-                  required
-                  value={formData.fullName}
-                  onChange={handleInputChange}
-                  className={inputClass}
-                  placeholder="E.g., Alex Johnson"
+        {/* Main Enrollment Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* LEFT: Selected Event Spotlight Card */}
+          <div className="lg:col-span-5 w-full space-y-6">
+            <div className="relative rounded-3xl border border-cyan-500/40 bg-gradient-to-b from-[#0a1128]/85 via-[#050b1a]/90 to-[#02050e]/95 p-6 shadow-2xl backdrop-blur-xl overflow-hidden">
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-cyan-500/30 mb-5 shadow-lg bg-black">
+                <img 
+                  src={currentEvent.image} 
+                  alt={currentEvent.title} 
+                  className="w-full h-full object-cover" 
                 />
-              </div>
-
-              <div>
-                <label className={labelClass}>
-                  <FaEnvelope className="inline mr-1 text-cyan-400" /> Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={inputClass}
-                  placeholder="alex@example.com"
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>
-                  <FaPhone className="inline mr-1 text-cyan-400" /> Mobile / WhatsApp (10 Digits) *
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  required
-                  maxLength={10}
-                  pattern="[0-9]{10}"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className={`${inputClass} ${errors.phone ? 'border-red-500 focus:border-red-400' : ''}`}
-                  placeholder="9876543210 (10 digits)"
-                />
-                {errors.phone ? (
-                  <p className="text-red-400 text-xs mt-1 Gluten">{errors.phone}</p>
-                ) : (
-                  <p className="text-gray-400 text-xs mt-1 Gluten">Must be exactly 10 digits.</p>
-                )}
-              </div>
-
-              {/* Roll Number (Strict 10 digits) */}
-              <div>
-                <label className={labelClass}>
-                  <FaIdCard className="inline mr-1 text-cyan-400" />
-                  Roll No. / Registration No. {collegeAffiliation === 'NIT Nagaland' ? '*' : '(10 Digits)'}
-                </label>
-                <input
-                  type="text"
-                  name="rollNumber"
-                  required={collegeAffiliation === 'NIT Nagaland'}
-                  maxLength={10}
-                  pattern="[0-9]{10}"
-                  value={formData.rollNumber}
-                  onChange={handleInputChange}
-                  className={`${inputClass} ${errors.rollNumber ? 'border-red-500 focus:border-red-400' : ''}`}
-                  placeholder="10-digit Roll No. (e.g. 2310101010)"
-                />
-                {errors.rollNumber ? (
-                  <p className="text-red-400 text-xs mt-1 Gluten">{errors.rollNumber}</p>
-                ) : (
-                  <p className="text-gray-400 text-xs mt-1 Gluten">Must be exactly 10 digits.</p>
-                )}
-              </div>
-
-              {/* Conditional In-Game ID for Esports */}
-              {isEsports && (
-                <div>
-                  <label className={labelClass}>
-                    <FaGamepad className="inline mr-1 text-cyan-400" /> In-Game ID / Character ID *
-                  </label>
-                  <input
-                    type="text"
-                    name="inGameID"
-                    required
-                    value={formData.inGameID}
-                    onChange={handleInputChange}
-                    className={inputClass}
-                    placeholder="E.g., 5123984719"
-                  />
+                <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-black/80 border border-cyan-400/40 text-cyan-300 backdrop-blur-md">
+                  {currentEvent.club}
                 </div>
-              )}
-
-              {/* Conditional Team Name */}
-              {isTeamEvent && (
-                <div className="md:col-span-2">
-                  <label className={labelClass}>
-                    <FaUsers className="inline mr-1 text-cyan-400" /> Team Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="teamName"
-                    required
-                    value={formData.teamName}
-                    onChange={handleInputChange}
-                    className={inputClass}
-                    placeholder="E.g., Apex Cyber Hawks"
-                  />
+                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-purple-900/80 border border-purple-400/40 text-purple-200 backdrop-blur-md">
+                  {currentEvent.category}
                 </div>
-              )}
+              </div>
+
+              <div className="border-b border-white/10 pb-4 mb-4">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                  {currentEvent.title}
+                </h2>
+                <p className="text-xs font-mono text-cyan-400 mt-1">{currentEvent.tag}</p>
+              </div>
+
+              {/* Prize Pool Callout */}
+              <div className="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-amber-950/40 to-yellow-950/30 border border-amber-500/40 mb-4 shadow-inner">
+                <div className="flex items-center gap-2 text-amber-300">
+                  <FaTrophy className="w-5 h-5 text-amber-400 animate-pulse" />
+                  <span className="text-xs font-mono uppercase tracking-wider font-semibold">Total Prize Pool</span>
+                </div>
+                <span className="text-lg sm:text-xl font-extrabold text-amber-300">
+                  {currentEvent.prize}
+                </span>
+              </div>
+
+              {/* Specs Breakdown */}
+              <div className="space-y-3 text-xs sm:text-sm bg-black/40 p-4 rounded-xl border border-white/5 mb-5 font-mono">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 flex items-center gap-1.5">
+                    <FaCalendarAlt className="w-3.5 h-3.5 text-cyan-400" />
+                    Date
+                  </span>
+                  <span className="text-white font-bold">{currentEvent.date}</span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 flex items-center gap-1.5">
+                    <FaClock className="w-3.5 h-3.5 text-sky-400" />
+                    Time
+                  </span>
+                  <span className="text-gray-200">{currentEvent.time}</span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 flex items-center gap-1.5">
+                    <FaMapMarkerAlt className="w-3.5 h-3.5 text-rose-400" />
+                    Venue
+                  </span>
+                  <span className="text-gray-200">{currentEvent.venue}</span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 flex items-center gap-1.5">
+                    <FaUsers className="w-3.5 h-3.5 text-purple-400" />
+                    Participation
+                  </span>
+                  <span className="text-white font-bold">
+                    {isTeamEvent ? `Team (${currentEvent.minMembers}-${currentEvent.maxMembers} Members)` : 'Individual (Solo)'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Live Fee Calculator */}
+              <div className="p-4 rounded-xl bg-gradient-to-r from-cyan-950/60 to-blue-950/60 border border-cyan-400/40">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-xs uppercase font-mono text-gray-300 tracking-wider">Applicable Entry Fee</span>
+                    <p className="text-xs text-cyan-300/80 font-mono mt-0.5">
+                      {collegeAffiliation === 'NIT Nagaland' ? 'NIT Nagaland Student Rate' : 'Outside Participant Rate'}
+                    </p>
+                  </div>
+                  <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-sky-400">
+                    {activeFee}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-5 text-center">
+                <Link
+                  to={`/events/${currentEvent.id}`}
+                  className="text-xs font-mono text-cyan-400 hover:text-cyan-300 hover:underline inline-flex items-center gap-1.5"
+                >
+                  View full rulebook & event details &rarr;
+                </Link>
+              </div>
             </div>
-          </fieldset>
+          </div>
 
-          {/* Fieldset 3: Team Members (Varies dynamically according to team events) */}
-          {isTeamEvent && (
-            <fieldset className={fieldsetClass}>
-              <div className="flex justify-between items-center">
-                <legend className={legendClass}>
-                  Team Members ({teamMembers.length + 1} of {currentEvent.maxMembers})
-                </legend>
-                {teamMembers.length < currentEvent.maxMembers - 1 && (
-                  <button
-                    type="button"
-                    onClick={handleAddMember}
-                    className="text-cyan-400 hover:text-cyan-300 text-sm border border-cyan-500/40 px-3 py-1 rounded-lg Gluten transition-all"
-                  >
-                    + Add Member
-                  </button>
+          {/* RIGHT: Modern Multi-Section Registration Form */}
+          <div className="lg:col-span-7 w-full">
+            <form onSubmit={handleSubmit} className="relative rounded-3xl border border-cyan-500/30 bg-gradient-to-b from-[#0a1128]/85 via-[#050b1a]/90 to-[#02050e]/95 p-6 sm:p-10 shadow-2xl backdrop-blur-xl space-y-8">
+              
+              {/* SECTION 1: Affiliation & Basic Info */}
+              <div>
+                <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-6">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold font-mono text-sm">
+                    01
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
+                      Participant Identification
+                    </h3>
+                    <p className="text-xs text-gray-400 font-mono">College affiliation & primary contact details</p>
+                  </div>
+                </div>
+
+                {/* College Affiliation Selector */}
+                <div className="mb-5">
+                  <label className="block text-xs font-mono uppercase tracking-wider text-cyan-300 mb-2">
+                    College / Institute Affiliation *
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setCollegeAffiliation('NIT Nagaland')}
+                      className={`p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                        collegeAffiliation === 'NIT Nagaland'
+                          ? 'bg-cyan-950/80 border-cyan-400 text-white shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+                          : 'bg-black/40 border-white/10 text-gray-400 hover:border-cyan-500/40 hover:text-white'
+                      }`}
+                    >
+                      <FaUniversity className="w-4 h-4 text-cyan-400" />
+                      NIT Nagaland Student
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setCollegeAffiliation('Other')}
+                      className={`p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                        collegeAffiliation === 'Other'
+                          ? 'bg-purple-950/80 border-purple-400 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)]'
+                          : 'bg-black/40 border-white/10 text-gray-400 hover:border-purple-500/40 hover:text-white'
+                      }`}
+                    >
+                      <FaUniversity className="w-4 h-4 text-purple-400" />
+                      Other College / University
+                    </button>
+                  </div>
+                </div>
+
+                {collegeAffiliation === 'Other' && (
+                  <div className="mb-5">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5">
+                      Enter College / University Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={otherCollegeName}
+                      onChange={(e) => setOtherCollegeName(e.target.value)}
+                      placeholder="e.g. Nagaland University, IIT Guwahati..."
+                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
+                    />
+                  </div>
                 )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Full Name */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
+                      <FaUser className="w-3 h-3 text-cyan-400" />
+                      {isTeamEvent ? 'Team Leader Name *' : 'Full Name *'}
+                    </label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      required
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Alexander Roy"
+                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
+                      <FaEnvelope className="w-3 h-3 text-cyan-400" />
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="name@example.com"
+                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
+                    />
+                  </div>
+
+                  {/* Phone (10 digits) */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <FaPhone className="w-3 h-3 text-cyan-400" />
+                        Mobile Number *
+                      </span>
+                      <span className="text-[11px] font-mono text-cyan-400/80">10 digits</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      required
+                      maxLength={10}
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      placeholder="10-digit mobile number"
+                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-white placeholder-gray-500 text-sm focus:outline-none transition-all ${
+                        errors.phone
+                          ? 'border-red-500 focus:ring-1 focus:ring-red-500'
+                          : 'border-white/10 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400'
+                      }`}
+                    />
+                    {errors.phone && <p className="text-red-400 text-xs mt-1 font-mono">{errors.phone}</p>}
+                  </div>
+
+                  {/* Roll Number (10 digits) */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <FaIdCard className="w-3 h-3 text-cyan-400" />
+                        Roll / Reg Number {collegeAffiliation === 'NIT Nagaland' ? '*' : '(Optional)'}
+                      </span>
+                      <span className="text-[11px] font-mono text-cyan-400/80">10 digits</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="rollNumber"
+                      required={collegeAffiliation === 'NIT Nagaland'}
+                      maxLength={10}
+                      value={formData.rollNumber}
+                      onChange={handleInputChange}
+                      placeholder="10-digit roll number"
+                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-white placeholder-gray-500 text-sm focus:outline-none transition-all ${
+                        errors.rollNumber
+                          ? 'border-red-500 focus:ring-1 focus:ring-red-500'
+                          : 'border-white/10 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400'
+                      }`}
+                    />
+                    {errors.rollNumber && <p className="text-red-400 text-xs mt-1 font-mono">{errors.rollNumber}</p>}
+                  </div>
+                </div>
               </div>
 
-              <p className="text-xs text-gray-400 Gluten">
-                Leader is Member 1. Add details for other team members ({currentEvent.minMembers}-{currentEvent.maxMembers} members required).
-              </p>
-
-              <div className="space-y-4">
-                {teamMembers.map((member, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-gray-800/60 p-4 rounded-lg border border-cyan-800/40 grid grid-cols-1 md:grid-cols-3 gap-3 relative"
-                  >
+              {/* SECTION 2: Team Members & Esports IDs (Conditional) */}
+              {(isTeamEvent || isEsports) && (
+                <div>
+                  <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-6">
+                    <div className="w-8 h-8 rounded-lg bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purple-400 font-bold font-mono text-sm">
+                      02
+                    </div>
                     <div>
-                      <label className="text-xs text-cyan-400 uppercase font-semibold block mb-1">
-                        Member {idx + 2} Name *
+                      <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
+                        {isTeamEvent ? 'Squad & Roster Details' : 'In-Game Identification'}
+                      </h3>
+                      <p className="text-xs text-gray-400 font-mono">
+                        {isTeamEvent ? `Configure your team roster (${currentEvent.minMembers}-${currentEvent.maxMembers} members)` : 'Character UID & gamer tag'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {isTeamEvent && (
+                    <div className="mb-5">
+                      <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
+                        <FaUsers className="w-3 h-3 text-purple-400" />
+                        Official Team Name *
                       </label>
                       <input
                         type="text"
+                        name="teamName"
                         required
-                        value={member.name}
-                        onChange={(e) => handleMemberChange(idx, 'name', e.target.value)}
-                        className={inputClass}
-                        placeholder={`Member ${idx + 2} Name`}
+                        value={formData.teamName}
+                        onChange={handleInputChange}
+                        placeholder="e.g. CyberVipers, NeuralKnights"
+                        className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400 transition-all"
                       />
                     </div>
+                  )}
 
-                    <div>
-                      <label className="text-xs text-cyan-400 uppercase font-semibold block mb-1">
-                        Roll No. (10 Digits)
+                  {isEsports && (
+                    <div className="mb-5">
+                      <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
+                        <FaGamepad className="w-3 h-3 text-pink-400" />
+                        Leader In-Game ID / UID (Character ID) *
                       </label>
                       <input
                         type="text"
-                        maxLength={10}
-                        pattern="[0-9]{10}"
-                        value={member.rollNumber}
-                        onChange={(e) => handleMemberChange(idx, 'rollNumber', e.target.value)}
-                        className={inputClass}
-                        placeholder="10-digit Roll No."
+                        name="inGameID"
+                        required
+                        value={formData.inGameID}
+                        onChange={handleInputChange}
+                        placeholder="e.g. 5183920194 (UID)"
+                        className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-pink-400 focus:outline-none focus:ring-1 focus:ring-pink-400 transition-all"
                       />
-                      {errors[`memberRoll_${idx}`] && (
-                        <p className="text-red-400 text-xs mt-1 Gluten">{errors[`memberRoll_${idx}`]}</p>
-                      )}
+                    </div>
+                  )}
+
+                  {/* Dynamic Teammates Inputs */}
+                  {isTeamEvent && (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono uppercase tracking-wider text-gray-300">
+                          Teammates List (Slots 2 to {currentEvent.maxMembers})
+                        </span>
+                        {teamMembers.length < currentEvent.maxMembers - 1 && (
+                          <button
+                            type="button"
+                            onClick={handleAddMember}
+                            className="text-xs font-mono text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1"
+                          >
+                            + Add Member Slot
+                          </button>
+                        )}
+                      </div>
+
+                      {teamMembers.map((member, index) => (
+                        <div key={index} className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-mono text-purple-300 font-semibold">
+                              Teammate #{index + 2}
+                            </span>
+                            {teamMembers.length > Math.max(0, currentEvent.minMembers - 1) && (
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveMember(index)}
+                                className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1"
+                              >
+                                <FaTrashAlt className="w-3 h-3" />
+                                Remove
+                              </button>
+                            )}
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <input
+                              type="text"
+                              required
+                              value={member.name}
+                              onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
+                              placeholder={`Teammate ${index + 2} Full Name *`}
+                              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-purple-400 focus:outline-none"
+                            />
+
+                            <input
+                              type="text"
+                              maxLength={10}
+                              value={member.rollNumber}
+                              onChange={(e) => handleMemberChange(index, 'rollNumber', e.target.value)}
+                              placeholder={`Teammate ${index + 2} 10-digit Roll No.`}
+                              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-purple-400 focus:outline-none"
+                            />
+
+                            {isEsports && (
+                              <input
+                                type="text"
+                                required
+                                value={member.inGameID}
+                                onChange={(e) => handleMemberChange(index, 'inGameID', e.target.value)}
+                                placeholder={`Teammate ${index + 2} In-Game UID *`}
+                                className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-pink-400 focus:outline-none sm:col-span-2"
+                              />
+                            )}
+                          </div>
+                          {errors[`memberRoll_${index}`] && (
+                            <p className="text-red-400 text-xs font-mono">{errors[`memberRoll_${index}`]}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* SECTION 3: Payment Verification & Proof Upload */}
+              <div>
+                <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-6">
+                  <div className="w-8 h-8 rounded-lg bg-pink-950 border border-pink-500/40 flex items-center justify-center text-pink-400 font-bold font-mono text-sm">
+                    {isTeamEvent || isEsports ? '03' : '02'}
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
+                      Payment Verification & Proof
+                    </h3>
+                    <p className="text-xs text-gray-400 font-mono">Scan the UPI QR Code and attach payment screenshot</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-black/40 p-5 sm:p-6 rounded-2xl border border-white/5">
+                  {/* Official QR Code Box */}
+                  <div className="md:col-span-5 text-center flex flex-col items-center">
+                    <div className="relative p-3 bg-white rounded-2xl shadow-2xl max-w-[190px] border-2 border-cyan-400/80">
+                      <img 
+                        src="/qr.jpg" 
+                        alt="Tech Avinya Official UPI QR" 
+                        className="w-full h-auto rounded-lg object-contain"
+                      />
+                    </div>
+                    <span className="text-[11px] font-mono text-cyan-300 mt-2 block">
+                      Pay Exact: <b className="text-white text-xs">{activeFee}</b>
+                    </span>
+                  </div>
+
+                  {/* Payment Instructions & File Dropzone */}
+                  <div className="md:col-span-7 space-y-4">
+                    <div className="text-xs space-y-1.5 text-gray-300">
+                      <p className="flex items-center gap-2">
+                        <FaCheckCircle className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                        Scan using any UPI app (GPay, PhonePe, Paytm, BHIM).
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaCheckCircle className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                        Take a screenshot showing the transaction ID & timestamp.
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaCheckCircle className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                        Upload proof below for instant desk verification.
+                      </p>
                     </div>
 
-                    {isEsports && (
-                      <div>
-                        <label className="text-xs text-cyan-400 uppercase font-semibold block mb-1">
-                          In-Game ID *
-                        </label>
+                    {/* Screenshot Upload Input */}
+                    {!previewScreenshotUrl ? (
+                      <label className="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer bg-black/40 hover:bg-cyan-950/20 transition-all text-center">
+                        <FaFileImage className="w-8 h-8 text-cyan-400 mb-2 animate-bounce" />
+                        <span className="text-xs font-semibold text-white">Click or Drag & Drop Payment Screenshot</span>
+                        <span className="text-[11px] text-gray-400 font-mono mt-0.5">JPG, PNG, WebP up to 10MB</span>
                         <input
-                          type="text"
-                          required
-                          value={member.inGameID}
-                          onChange={(e) => handleMemberChange(idx, 'inGameID', e.target.value)}
-                          className={inputClass}
-                          placeholder="Player Character ID"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          className="hidden"
                         />
+                      </label>
+                    ) : (
+                      <div className="relative rounded-2xl overflow-hidden border border-emerald-500/50 p-3 bg-emerald-950/20 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <img 
+                            src={previewScreenshotUrl} 
+                            alt="Screenshot Preview" 
+                            className="w-14 h-14 object-cover rounded-xl border border-emerald-400"
+                          />
+                          <div>
+                            <p className="text-xs font-bold text-white truncate max-w-[180px]">{screenshotFile?.name}</p>
+                            <p className="text-[11px] font-mono text-emerald-400 flex items-center gap-1 mt-0.5">
+                              <FaCheck className="w-3 h-3" /> Proof attached
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleRemoveScreenshot}
+                          className="p-2 rounded-xl bg-red-950/80 border border-red-500/50 text-red-300 hover:text-white hover:bg-red-900 transition-all cursor-pointer"
+                        >
+                          <FaTrashAlt className="w-4 h-4" />
+                        </button>
                       </div>
                     )}
-
-                    {teamMembers.length > Math.max(0, currentEvent.minMembers - 1) && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveMember(idx)}
-                        className="text-xs text-red-400 hover:text-red-300 md:col-span-3 text-right"
-                      >
-                        Remove Member
-                      </button>
-                    )}
                   </div>
-                ))}
+                </div>
+
+                {/* Additional Note */}
+                <div className="mt-4">
+                  <input
+                    type="text"
+                    name="note"
+                    value={formData.note}
+                    onChange={handleInputChange}
+                    placeholder="Any specific note or queries for the coordinators (optional)"
+                    className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-cyan-400 focus:outline-none transition-all"
+                  />
+                </div>
               </div>
-            </fieldset>
-          )}
 
-          {/* Fieldset 4: Payment Instructions & Screenshot */}
-          <fieldset className={fieldsetClass}>
-            <legend className={legendClass}>
-              <FaQrcode className="inline mr-2 text-cyan-400" />
-              Payment & Verification
-            </legend>
-
-            <div className="flex flex-col items-center gap-4 py-2 border-b border-cyan-800/40 pb-6">
-              <img
-                src="/qr.jpg"
-                alt="Tech Avinya Payment QR"
-                className="w-40 h-40 rounded-lg border-2 border-cyan-400 shadow-lg shadow-cyan-500/30"
-              />
-              <a
-                href="/qr.jpg"
-                download="tech_avinya_qr.jpg"
-                className="text-cyan-400 hover:text-cyan-300 text-sm font-semibold underline"
-              >
-                Download QR Code
-              </a>
-              <div className="text-center">
-                <p className="text-sm text-gray-300 Gluten">Applicable Registration Fee:</p>
-                <p className="text-2xl font-bold text-lime-400 mt-1">{entryFee}</p>
-                <p className="text-xs text-gray-400 Gluten mt-1">
-                  NITN: {currentEvent.feeNIT} | Others: {currentEvent.feeOutside}
+              {/* Submit Button */}
+              <div className="pt-4 border-t border-white/10">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 px-6 rounded-2xl font-extrabold uppercase tracking-widest text-sm bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 text-white hover:brightness-110 shadow-[0_0_25px_rgba(0,240,255,0.4)] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                      Processing Enrollment...
+                    </>
+                  ) : (
+                    <>
+                      Confirm & Submit Enrollment &rarr;
+                    </>
+                  )}
+                </button>
+                <p className="text-[11px] text-center text-gray-400 font-mono mt-2">
+                  Instant registration with verifiable pass & reference ID generated upon submission.
                 </p>
               </div>
-            </div>
-
-            <div>
-              <label className={labelClass}>Upload Payment Screenshot *</label>
-              <input
-                type="file"
-                name="screenshot"
-                accept="image/*"
-                onChange={(e) => setScreenshotFile(e.target.files[0] || null)}
-                className="w-full p-3 rounded-lg Gluten bg-gray-800/80 border border-gray-700 text-sm text-gray-400
-                           file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0
-                           file:text-sm file:font-semibold file:bg-cyan-500/20 file:text-cyan-400
-                           hover:file:bg-cyan-500/30 transition-colors"
-              />
-              <p className="text-xs text-gray-400 Gluten mt-2">
-                Please attach the transaction confirmation screenshot showing UTR / Reference ID.
-              </p>
-            </div>
-
-            <div>
-              <label className={labelClass}>Additional Note / Queries (Optional)</label>
-              <textarea
-                name="note"
-                rows={2}
-                value={formData.note}
-                onChange={handleInputChange}
-                className={`${inputClass} resize-none`}
-                placeholder="Any special remarks or questions..."
-              />
-            </div>
-          </fieldset>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full py-4 text-lg font-semibold uppercase tracking-widest Graduate rounded-lg transition-all duration-300
-                       bg-gradient-to-r from-red-600 to-pink-600 border border-red-500 text-white
-                       hover:from-red-500 hover:to-pink-500 hover:shadow-2xl hover:shadow-red-500/50
-                       active:scale-95 disabled:bg-gray-700 disabled:border-gray-600 cursor-pointer"
-          >
-            {isSubmitting ? 'Submitting Enrollment...' : `Submit Enrollment for ${currentEvent.title}`}
-          </button>
-        </form>
-
-        <div className="mt-8 text-center">
-          <Link to={`/events/${currentEvent.id}`} className="text-gray-400 hover:text-white Gluten text-sm transition-colors">
-            &larr; Back to Event Details
-          </Link>
+            </form>
+          </div>
         </div>
       </div>
 
       {/* ============================================================= */}
-      {/* NEW PALETTE: ENROLLMENT CONFIRMATION MODAL */}
+      {/* SUCCESS SUBMISSION PALETTE (MODAL PASS)                        */}
       {/* ============================================================= */}
       {submittedEnrollment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in print:p-0 print:bg-white print:text-black">
-          <div className="relative w-full max-w-2xl bg-gradient-to-b from-gray-900/98 via-[#0b1224]/98 to-black rounded-2xl border-2 border-cyan-400 shadow-[0_0_60px_rgba(6,182,212,0.45)] p-6 md:p-8 text-white overflow-hidden max-h-[92vh] overflow-y-auto print:max-h-none print:shadow-none print:border-none print:bg-white print:text-black">
-            {/* Top Glowing Cyber Strip */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400 animate-pulse print:hidden" />
-
-            {/* Close Button */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-lg rounded-3xl border border-cyan-400/60 bg-gradient-to-b from-[#0a1435] via-[#040817] to-[#01040a] p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.4)] text-white overflow-hidden max-h-[90vh] overflow-y-auto">
+            {/* Modal Close Button */}
             <button
+              type="button"
               onClick={() => setSubmittedEnrollment(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white hover:bg-gray-800/80 p-2 rounded-full transition-colors cursor-pointer print:hidden"
-              title="Close Palette"
+              className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-all cursor-pointer"
             >
-              <FaTimes className="text-lg" />
+              <FaTimes className="w-4 h-4" />
             </button>
 
-            {/* Header & Celebration */}
+            {/* Success Badge */}
             <div className="text-center mb-6">
-              <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-green-500/20 to-cyan-500/20 border border-green-400/60 text-green-400 mb-3 shadow-[0_0_25px_rgba(34,197,94,0.3)] print:border-black print:text-black">
-                <FaCheckCircle className="text-4xl text-green-400 print:text-black" />
+              <div className="w-16 h-16 rounded-full bg-emerald-950/80 border-2 border-emerald-400 mx-auto flex items-center justify-center text-emerald-300 text-2xl shadow-[0_0_25px_rgba(16,185,129,0.5)] mb-3">
+                <FaCheck />
               </div>
-              <h2 className="text-2xl md:text-3xl font-extrabold Graduate text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-green-300 tracking-wide print:text-black print:bg-none">
-                ENROLLMENT CONFIRMED
-              </h2>
-              <p className="text-gray-300 Gluten text-sm mt-1 print:text-gray-700">
-                You are registered for <span className="text-cyan-300 font-bold print:text-black">{submittedEnrollment.eventTitle}</span> at Tech Avinya 2026.
+              <h3 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-300 to-sky-400">
+                Enrollment Confirmed!
+              </h3>
+              <p className="text-xs text-gray-300 font-mono mt-1">
+                Your entry pass for <b className="text-cyan-300">{submittedEnrollment.eventTitle}</b> has been issued.
               </p>
-
-              {/* Reference ID Pill */}
-              <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-gray-800/90 border border-cyan-500/50 rounded-full text-xs font-mono print:border-black print:bg-gray-100 print:text-black">
-                <span className="text-gray-400 print:text-gray-600">Reference ID:</span>
-                <span className="text-cyan-300 font-bold print:text-black">{submittedEnrollment.referenceId}</span>
-                <button
-                  type="button"
-                  onClick={() => handleCopyRefId(submittedEnrollment.referenceId)}
-                  className="ml-1 text-gray-400 hover:text-cyan-300 transition-colors cursor-pointer print:hidden"
-                  title="Copy Reference ID"
-                >
-                  {copied ? <FaCheck className="text-green-400 text-xs" /> : <FaCopy className="text-xs" />}
-                </button>
-              </div>
             </div>
 
-            {/* Details Summary Palette */}
-            <div className="bg-gray-950/70 border border-cyan-800/50 rounded-xl p-5 mb-5 space-y-3.5 text-xs md:text-sm print:bg-white print:border-black print:text-black">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 border-b border-gray-800/80 pb-3 print:border-gray-300">
-                <div>
-                  <span className="text-gray-400 print:text-gray-600 block text-[11px] uppercase font-semibold">Competition:</span>
-                  <span className="text-cyan-300 print:text-black font-bold text-base">{submittedEnrollment.eventTitle}</span>
-                  <span className="text-gray-400 print:text-gray-600 text-xs block">Category: {submittedEnrollment.eventCategory}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400 print:text-gray-600 block text-[11px] uppercase font-semibold">Participant / Team Leader:</span>
-                  <span className="text-white print:text-black font-bold text-base">{submittedEnrollment.fullName}</span>
-                  {submittedEnrollment.teamName && (
-                    <span className="text-purple-300 print:text-gray-700 text-xs block">Team: {submittedEnrollment.teamName}</span>
-                  )}
-                </div>
+            {/* Reference ID Pill */}
+            <div className="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-400/50 flex items-center justify-between mb-6 shadow-inner">
+              <div>
+                <span className="text-[11px] font-mono uppercase text-gray-400 block tracking-wider">Official Reference ID</span>
+                <span className="text-lg sm:text-xl font-mono font-extrabold text-cyan-300 tracking-wider">
+                  {submittedEnrollment.referenceId}
+                </span>
               </div>
+              <button
+                type="button"
+                onClick={() => handleCopyRefId(submittedEnrollment.referenceId)}
+                className="px-3.5 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-cyan-500 text-black hover:bg-cyan-400 transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
+              >
+                {copied ? <FaCheck className="w-3.5 h-3.5" /> : <FaCopy className="w-3.5 h-3.5" />}
+                {copied ? 'Copied' : 'Copy ID'}
+              </button>
+            </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-b border-gray-800/80 pb-3 font-mono print:border-gray-300">
-                <div>
-                  <span className="text-gray-400 print:text-gray-600 block text-[10px] uppercase font-sans">Mobile (10 Digits):</span>
-                  <span className="text-lime-400 print:text-black font-bold">{submittedEnrollment.phone}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400 print:text-gray-600 block text-[10px] uppercase font-sans">Roll / Reg No.:</span>
-                  <span className="text-purple-300 print:text-black font-bold">{submittedEnrollment.rollNumber || 'N/A'}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400 print:text-gray-600 block text-[10px] uppercase font-sans">Applicable Fee:</span>
-                  <span className="text-yellow-400 print:text-black font-bold">{submittedEnrollment.entryFee}</span>
-                </div>
+            {/* Pass Metadata Grid */}
+            <div className="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-2.5 text-xs font-mono mb-6">
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span className="text-gray-400">Candidate / Leader:</span>
+                <span className="font-bold text-white">{submittedEnrollment.fullName}</span>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <span className="text-gray-400 print:text-gray-600 block text-[10px] uppercase">College / Affiliation:</span>
-                  <span className="text-gray-200 print:text-black font-medium">{submittedEnrollment.college}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400 print:text-gray-600 block text-[10px] uppercase">Verification Status:</span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-yellow-500/10 border border-yellow-500/50 text-yellow-300 print:text-black print:border-black print:bg-yellow-50">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-ping print:hidden" />
-                    Payment Verification In Progress
-                  </span>
-                </div>
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span className="text-gray-400">Mobile Phone:</span>
+                <span className="font-bold text-white">{submittedEnrollment.phone}</span>
               </div>
-
-              {submittedEnrollment.teamMembers && submittedEnrollment.teamMembers.length > 0 && (
-                <div className="border-t border-gray-800/80 pt-3 print:border-gray-300">
-                  <span className="text-gray-400 print:text-gray-600 block text-[11px] uppercase font-semibold mb-1.5">
-                    Team Members ({submittedEnrollment.teamMembers.length}):
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {submittedEnrollment.teamMembers.map((m, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded bg-gray-900 border border-gray-700 text-gray-300 text-xs print:bg-gray-100 print:border-gray-300 print:text-black">
-                        {i + 2}. <strong className="text-white print:text-black">{m.name}</strong> {m.rollNumber ? `(${m.rollNumber})` : ''}
-                      </span>
-                    ))}
-                  </div>
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span className="text-gray-400">Institute / Affiliation:</span>
+                <span className="font-bold text-cyan-300 truncate max-w-[200px]">{submittedEnrollment.college}</span>
+              </div>
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span className="text-gray-400">Roll / Registration No:</span>
+                <span className="font-bold text-white">{submittedEnrollment.rollNumber}</span>
+              </div>
+              {submittedEnrollment.teamName && (
+                <div className="flex justify-between border-b border-white/5 pb-2">
+                  <span className="text-gray-400">Squad Name:</span>
+                  <span className="font-bold text-purple-300">{submittedEnrollment.teamName}</span>
                 </div>
               )}
-
               {submittedEnrollment.inGameID && (
-                <div className="border-t border-gray-800/80 pt-2 font-mono print:border-gray-300">
-                  <span className="text-gray-400 print:text-gray-600 text-xs mr-2">Esports In-Game ID:</span>
-                  <span className="text-cyan-300 print:text-black font-bold">{submittedEnrollment.inGameID}</span>
+                <div className="flex justify-between border-b border-white/5 pb-2">
+                  <span className="text-gray-400">In-Game ID / UID:</span>
+                  <span className="font-bold text-pink-300">{submittedEnrollment.inGameID}</span>
                 </div>
               )}
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span className="text-gray-400">Event Schedule:</span>
+                <span className="font-bold text-amber-300">{submittedEnrollment.eventDate}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Entry Fee Paid:</span>
+                <span className="font-bold text-emerald-400">{submittedEnrollment.entryFee}</span>
+              </div>
             </div>
 
-            {/* Advisory Alert */}
-            <div className="bg-cyan-950/40 border border-cyan-700/50 rounded-lg p-3.5 mb-6 text-xs text-cyan-200 flex items-start gap-2.5 print:border-gray-300 print:bg-gray-50 print:text-black">
-              <span className="text-lg">📢</span>
-              <p className="leading-relaxed">
-                <strong>Next Steps:</strong> Please note your Reference ID. The event coordinator will verify your enrollment and connect via your registered phone number / email before event day ({submittedEnrollment.eventDate || '31-10-2025'}).
-              </p>
-            </div>
-
-            {/* Palette Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 print:hidden">
+            {/* Modal Actions */}
+            <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-gray-800 border border-gray-600 text-gray-200 hover:text-white hover:bg-gray-700 flex items-center justify-center gap-2 text-xs font-semibold cursor-pointer transition-all"
+                className="flex-1 py-3 rounded-xl border border-cyan-500/50 text-cyan-300 hover:bg-cyan-500 hover:text-black font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <FaPrint />
-                <span>Print / Save Slip</span>
+                <FaPrint className="w-3.5 h-3.5" />
+                Print Pass
               </button>
-
-              <div className="flex w-full sm:w-auto gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSubmittedEnrollment(null);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-lg bg-gray-800 border border-cyan-700 text-cyan-300 hover:bg-cyan-950 text-xs font-semibold cursor-pointer transition-all"
-                >
-                  Register Another
-                </button>
-                <button
-                  type="button"
-                  onClick={() => navigate('/events')}
-                  className="flex-1 sm:flex-initial px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-bold shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2 cursor-pointer transition-all"
-                >
-                  <span>Explore Events</span>
-                  <FaArrowRight />
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setSubmittedEnrollment(null)}
+                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer shadow-lg shadow-cyan-500/30"
+              >
+                Done
+              </button>
             </div>
           </div>
         </div>

@@ -29,17 +29,10 @@ const upload = multer({
 });
 
 // --- VALIDATION HELPERS ---
-const isTenDigits = (val) => {
-  if (!val) return false;
-  // Clean string and check for exactly 10 digits
-  const str = String(val).trim();
-  return /^\d{10}$/.test(str);
-};
-
 // Clean non-digits or validate 10 digits
 const validateMobile = (mobile) => {
   if (!mobile) return { valid: false, error: 'Mobile / Phone number is required.' };
-  const clean = String(mobile).replace(/[\s\-\+]/g, '');
+  const clean = String(mobile).replace(/[\s\-+]/g, '');
   // If starts with 91 and has 12 digits, strip country code
   const normalized = (clean.length === 12 && clean.startsWith('91')) ? clean.slice(2) : clean;
   if (!/^\d{10}$/.test(normalized)) {
@@ -65,7 +58,7 @@ const uploadScreenshotToSupabase = async (file, folder = 'registrations') => {
     const fileExt = file.originalname ? file.originalname.split('.').pop() : 'png';
     const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
 
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from('payment-proofs')
       .upload(fileName, file.buffer, {
         contentType: file.mimetype || 'image/png',
@@ -174,7 +167,7 @@ const handleEnrollment = async (req, res) => {
         parsedTeamMembers = typeof body.teamMembers === 'string'
           ? JSON.parse(body.teamMembers)
           : body.teamMembers;
-      } catch (e) {
+      } catch {
         parsedTeamMembers = [];
       }
     }

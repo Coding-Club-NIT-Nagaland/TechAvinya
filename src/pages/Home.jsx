@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import backvideo from '../assets/events.mp4';
 import AftermovieCard from '../components/AftermovieCard';
 import Aboutus from '../components/Aboutus';
 import VantaNetBackground from '../components/VantaNetBackground';
 import HeroSection from '../components/HeroSection';
 
 export default function Home() {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [showLoader, setShowLoader] = useState(true);
+    const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    const video = document.getElementById('home-video');
-    if (video) {
-      video.addEventListener('loadeddata', () => {
-        setIsVideoLoaded(true);
-        // Delay hiding loader slightly for smooth transition
-        setTimeout(() => setShowLoader(false), 500);
-      });
-    }
-
-    // Fallback: hide loader after 5 seconds even if video doesn't load
     const fallbackTimer = setTimeout(() => {
       setShowLoader(false);
-    }, 5000);
+    }, 500);
 
     return () => clearTimeout(fallbackTimer);
   }, []);
@@ -92,7 +80,7 @@ export default function Home() {
         </div>
       </section>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;

@@ -1,12 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/events"); 
-  };
   return (
     <>
       <link
@@ -17,12 +11,11 @@ export default function HeroSection() {
         href="https://fonts.googleapis.com/css2?family=Michroma:wght@400;700;900&display=swap"
         rel="stylesheet"
       />
-      <link rel="preconnect" href="https://fonts.googleapis.com"
-      />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"
-      />
-      <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Cinzel:wght@600&display=swap" 
-      rel="stylesheet"
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link 
+        href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Cinzel:wght@600&display=swap" 
+        rel="stylesheet"
       />
 
       <div
@@ -61,41 +54,50 @@ export default function HeroSection() {
               "repeating-linear-gradient(-45deg, #0ff 0, #0ff 10px, transparent 5px, transparent 20px)",
           }}
         ></div>
-        <div className="relative z-10 text-center max-w-6xl">
-          <div className="mb-8 sm:mb-10 md:mb-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white tracking-wide">
-              coming soon
-           </h2>
+        <div className="relative z-10 text-center max-w-6xl w-full px-4 overflow-visible">
+          <div className="mb-4 sm:mb-6 flex items-center justify-center">
+            <span className="px-5 py-1.5 rounded-full border border-cyan-400/40 bg-cyan-950/60 backdrop-blur-md text-cyan-300 text-xs sm:text-sm font-mono tracking-[0.3em] uppercase shadow-[0_0_20px_rgba(0,240,255,0.35)]">
+              Coming Soon
+            </span>
           </div>
-         <h1
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-100 via-sky-300 to-cyan-500 drop-shadow-[0_10px_25px_rgba(6,182,212,0.6)] capitalize py-2"
+
+          {/* Crisp, Crystal-Clear Tech Avinya 2026 in Original Kaushan Script */}
+          <h1
+            className="mb-4 sm:mb-6 text-center select-none py-2 px-2 leading-tight"
             style={{
               fontFamily: "'Kaushan Script', cursive",
+              fontWeight: 400,
             }}
           >
-            Tech Avinya <span className="text-3xl sm:text-5xl md:text-6xl">2026</span>
+            <span
+              className="text-white text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.2rem] tracking-wide inline-block"
+              style={{
+                textShadow:
+                  "0 0 25px rgba(0, 240, 255, 0.85), 0 0 50px rgba(0, 240, 255, 0.45), 0 4px 8px rgba(0, 0, 0, 0.95)",
+              }}
+            >
+              Tech Avinya
+            </span>{' '}
+            <span
+              className="text-cyan-300 text-3xl sm:text-5xl md:text-6xl lg:text-[4.75rem] xl:text-[5.5rem] tracking-normal inline-block ml-1 sm:ml-3"
+              style={{
+                textShadow:
+                  "0 0 30px rgba(0, 240, 255, 0.95), 0 0 60px rgba(0, 240, 255, 0.55), 0 4px 8px rgba(0, 0, 0, 0.95)",
+              }}
+            >
+              2026
+            </span>
           </h1>
+
           <p
-            className="text-base sm:text-lg md:text-xl text-cyan-200/90 tracking-[0.2em] sm:tracking-[0.3em] mb-12 sm:mb-16 font-light px-2"
+            className="text-xs sm:text-sm md:text-lg text-cyan-100 tracking-[0.25em] sm:tracking-[0.35em] mb-10 sm:mb-14 font-light px-2 uppercase"
             style={{
               fontFamily: "'Cinzel', serif",
+              textShadow: "0 0 15px rgba(0, 240, 255, 0.5)",
             }}
           >
-            WHERE INNOVATION MEETS INSPIRATION
+            Where Innovation Meets Inspiration
           </p>
-          {/* <button
-          onClick={handleClick}
-          className="group relative px-8 sm:px-10 md:px-12 py-3 sm:py-4 bg-transparent text-cyan-400 text-base sm:text-lg md:text-xl font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-cyan-400 hover:bg-cyan-400 hover:text-black cursor-pointer"
-          style={{
-            fontFamily: "monospace",
-            boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
-          }}
-        >
-           <span className="relative z-10 flex items-center gap-2 sm:gap-3 justify-center">
-            <span className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse"></span>
-            LIVE NOW
-          </span>
-        </button> */}
         </div>
       </div>
     </>

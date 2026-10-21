@@ -1,25 +1,81 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import Particles from 'react-tsparticles';
-import { loadSlim } from 'tsparticles-slim';
 
-/* ---------- starfield background ---------- */
-const starOptions = {
-  background: { color: { value: 'transparent' } },
-  fullScreen: { enable: false },
-  fpsLimit: 60,
-  particles: {
-    color: { value: ['#ffffff', '#cfe9ff', '#ffe9b0'] },
-    links: { enable: false },
-    move: { enable: true, speed: 0.15, direction: 'none', outModes: 'out' },
-    number: { value: 90, density: { enable: true, area: 900 } },
-    opacity: {
-      value: { min: 0.15, max: 0.8 },
-      animation: { enable: true, speed: 0.6, sync: false },
-    },
-    size: { value: { min: 0.4, max: 1.8 } },
-  },
-  interactivity: { events: { onHover: { enable: false }, onClick: { enable: false } } },
-};
+/* ---------- native canvas starfield background ---------- */
+function Starfield() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId;
+    let width = (canvas.width = canvas.parentElement?.offsetWidth || (typeof window !== 'undefined' ? window.innerWidth : 1200));
+    let height = (canvas.height = canvas.parentElement?.offsetHeight || (typeof window !== 'undefined' ? window.innerHeight : 800));
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.parentElement?.offsetWidth || (typeof window !== 'undefined' ? window.innerWidth : 1200);
+      height = canvas.height = canvas.parentElement?.offsetHeight || (typeof window !== 'undefined' ? window.innerHeight : 800);
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+    }
+
+    const colors = ['#ffffff', '#cfe9ff', '#ffe9b0'];
+    const starCount = 90;
+    const stars = Array.from({ length: starCount }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 1.4 + 0.4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      opacity: Math.random() * 0.65 + 0.15,
+      speed: (Math.random() - 0.5) * 0.3,
+      alphaSpeed: (Math.random() * 0.02 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
+    }));
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+      for (const s of stars) {
+        s.y += s.speed;
+        s.opacity += s.alphaSpeed;
+        if (s.opacity > 0.8) {
+          s.opacity = 0.8;
+          s.alphaSpeed = -Math.abs(s.alphaSpeed);
+        } else if (s.opacity < 0.15) {
+          s.opacity = 0.15;
+          s.alphaSpeed = Math.abs(s.alphaSpeed);
+        }
+        if (s.y < 0) s.y = height;
+        if (s.y > height) s.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = s.opacity;
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (typeof requestAnimationFrame !== 'undefined') {
+        animId = requestAnimationFrame(render);
+      }
+    };
+
+    render();
+
+    return () => {
+      if (typeof cancelAnimationFrame !== 'undefined') {
+        cancelAnimationFrame(animId);
+      }
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize);
+      }
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="ta-stars" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />;
+}
 
 /* ---------- slide content ---------- */
 const SLIDES = [
@@ -195,12 +251,7 @@ export default function About() {
     <section className="ta-about">
       <style>{css}</style>
 
-      <Particles
-        id="tsparticles-about"
-        init={async (m) => loadSlim(m)}
-        options={starOptions}
-        className="ta-stars"
-      />
+      <Starfield />
 
       <div className="ta-wrap">
         <div className="ta-card">

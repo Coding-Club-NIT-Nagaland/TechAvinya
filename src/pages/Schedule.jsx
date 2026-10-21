@@ -7,28 +7,26 @@ export default function ScheduleClean() {
   const scheduleData = [
     {
       day: "Day 1",
-      date: "31st October 2025",
+      date: "5th November 2026",
       events: [
-        { time: "8:30am-9:00am", activity: "Stock Rise", location: "Smart Lab" },
-        { time: "9:30am-11:30am", activity: "Code Raze", location: "Smart Lab" },
-        { time: "9:00am-12:00pm", activity: "Digital Art", location: "EDC Laboratory" },
-        { time: "11:00am-2:00pm", activity: "Aerial Adrenaline", location: "Ground" },
-        { time: "2:00pm-4:00pm", activity: "Bug Hunt", location: "Smart Lab" },
-        { time: "2:00pm-4:00pm", activity: "Animation", location: "BCR 1" },
-        { time: "3:00pm-6:00pm", activity: "BGMI", location: "Classroom 1A" },
+        { time: "9:00am - 11:00am", activity: "Code Raze", location: "Smart Lab, NITN" },
+        { time: "10:00am - 3:00pm", activity: "BGMI Tournament", location: "2A and 2B, NITN" },
+        { time: "11:00am - 2:00pm", activity: "Quants Challenge", location: "VCH, NITN" },
+        { time: "2:00pm - 6:00pm", activity: "Genesis 3D", location: "VCH, NITN" },
+        { time: "2:30pm - 4:30pm", activity: "Integration Bee", location: "Smart Lab, NITN" },
       ],
     },
     {
       day: "Day 2",
-      date: "1st November 2025",
+      date: "6th November 2026",
       events: [
-        { time: "9:00am-11:30am", activity: "Free Fire", location: "Classroom 1A" },
-        { time: "9:30am-12:00pm", activity: "3D Modelling", location: "Smart Lab" },
-        { time: "10:30am-12:00pm", activity: "Clash of Wheels", location: "Ground" },
-        { time: "1:00pm-6:00pm", activity: "Hackathon", location: "VCH" },
-        { time: "1:30pm-3:30pm", activity: "Tech Crisis", location: "Director Hall" },
-        { time: "2:00pm-4:30pm", activity: "MLBB", location: "Classroom 1B" },
-        { time: "3:30pm-5:30pm", activity: "Infinity Hunt", location: "Classroom 1A" },
+        { time: "9:00am - 11:00am", activity: "Robo Track Challenge", location: "Football Ground" },
+        { time: "9:00am - 12:00pm", activity: "Hardware Hackathon", location: "EDC Lab, NITN" },
+        { time: "10:00am - 3:00pm", activity: "Free Fire", location: "2A and 2B, NITN" },
+        { time: "11:00am - 6:00pm", activity: "Hackathon", location: "VCH, NITN" },
+        { time: "2:00pm - 5:00pm", activity: "Tech Crisis", location: "Smart Lab, NITN" },
+        { time: "2:00pm - 6:00pm", activity: "MLBB Community Heroes", location: "Campus Stage" },
+        { time: "4:30pm - 5:00pm", activity: "Stock Race", location: "Smart Lab, NITN" },
       ],
     },
   ];
@@ -121,11 +119,8 @@ export default function ScheduleClean() {
             The event timeline and activity schedules for Tech Avinya are being finalized. Stay tuned!
             till then explore <a href="/gallery" className="text-cyan-400 hover:text-cyan-300 underline"> gallery</a>
           </p>
-
         </div>
       )}
     </div>
   );
 }
-
-  
