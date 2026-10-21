@@ -3,11 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "backend"
+  ],
   "scripts": {
+    "start": "node backend/index.js",
     "dev": "vite --host",
     "backend": "cd backend && npm start",
     "server": "node backend/index.js",
     "build": "vite build",
+    "build:backend": "npm --prefix backend install",
     "lint": "eslint .",
     "preview": "vite preview"
   },
