@@ -4,7 +4,7 @@ import {
   FaUser, FaUsers, FaGamepad, FaUniversity, FaPhone, FaEnvelope, FaIdCard, 
   FaQrcode, FaCheckCircle, FaExclamationCircle, FaCopy, FaCheck, FaPrint, 
   FaTicketAlt, FaCalendarAlt, FaTimes, FaArrowRight, FaTrophy, FaMapMarkerAlt,
-  FaFileImage, FaTrashAlt, FaClock
+  FaFileImage, FaTrashAlt, FaClock, FaEye
 } from 'react-icons/fa';
 import TechfestCyberBackground from '../components/TechfestCyberBackground';
 import { API_BASE_URL, insertDirectToSupabase, uploadScreenshotDirect } from '../config/api';
@@ -47,7 +47,7 @@ const ALL_EVENTS = [
     title: 'Genesis 3D', 
     club: 'Codessy Club',
     minMembers: 1, 
-    maxMembers: 1, 
+    maxMembers: 3, 
     feeNIT: '₹ 99/-', 
     feeOutside: '₹ 299/-', 
     prize: '₹ 20,000/-', 
@@ -56,14 +56,14 @@ const ALL_EVENTS = [
     time: '2:00pm - 6:00pm',
     venue: 'VCH, NITN',
     image: '/event/GENESIS 3D.jpeg',
-    tag: '3D Sculpting & CGI'
+    tag: '3D Sculpting & Simulation'
   },
   { 
     id: 'aerial', 
     title: 'Hardware Hackathon', 
     club: 'Robotics Club',
-    minMembers: 2, 
-    maxMembers: 4, 
+    minMembers: 1, 
+    maxMembers: 2, 
     feeNIT: '₹ 199/-', 
     feeOutside: '₹ 499/-', 
     prize: '₹ 25,000/-', 
@@ -72,14 +72,14 @@ const ALL_EVENTS = [
     time: '9:00am - 12:00pm',
     venue: 'EDC Lab, NITN',
     image: '/event/HARDWARE HACKATHON.jpeg',
-    tag: 'IoT & Embedded Circuits'
+    tag: 'Think. Solve. Build.'
   },
   { 
     id: 'clash', 
     title: 'Robo Track Challenge', 
     club: 'Robotics Club',
     minMembers: 1, 
-    maxMembers: 4, 
+    maxMembers: 5, 
     feeNIT: '₹ 199/-', 
     feeOutside: '₹ 499/-', 
     prize: '₹ 20,000/-', 
@@ -235,6 +235,7 @@ export default function Enroll() {
     rollNumber: '',
     teamName: '',
     inGameID: '',
+    utrNumber: '',
     note: '',
   });
 
@@ -263,6 +264,8 @@ export default function Enroll() {
   const [statusMessage, setStatusMessage] = useState(null);
   const [submittedEnrollment, setSubmittedEnrollment] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [showAccountModal, setShowAccountModal] = useState(false);
+  const [copiedField, setCopiedField] = useState(null);
 
   const handleCopyRefId = (id) => {
     if (navigator?.clipboard?.writeText) {
@@ -270,6 +273,22 @@ export default function Enroll() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
+  };
+
+  const handleCopyField = (text, fieldKey) => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(text);
+      setCopiedField(fieldKey);
+      setTimeout(() => setCopiedField(null), 2000);
+    }
+  };
+
+  const handleCopyAllBankDetails = () => {
+    const allDetails = `Bank Name: State Bank of India (SBI)
+Account Holder: AYUSH KUMAR
+Account Number: 45486733847
+IFSC Code: SBIN0007543`;
+    handleCopyField(allDetails, 'all');
   };
 
   // Input change handler with 10-digit validation logic
@@ -302,6 +321,22 @@ export default function Enroll() {
         setErrors((prev) => {
           const next = { ...prev };
           delete next.rollNumber;
+          return next;
+        });
+      }
+      return;
+    }
+
+    if (name === 'utrNumber') {
+      const cleanVal = value.trim();
+      setFormData((prev) => ({ ...prev, [name]: cleanVal }));
+
+      if (cleanVal.length > 0 && cleanVal.length < 6) {
+        setErrors((prev) => ({ ...prev, utrNumber: 'Please enter a valid UTR / UPI Transaction ID (min 6 characters).' }));
+      } else {
+        setErrors((prev) => {
+          const next = { ...prev };
+          delete next.utrNumber;
           return next;
         });
       }
@@ -398,9 +433,18 @@ export default function Enroll() {
       }
     }
 
+    // 4. Validate UTR / UPI Transaction ID
+    if (!formData.utrNumber || formData.utrNumber.trim().length < 6) {
+      setErrors((prev) => ({ ...prev, utrNumber: 'Please provide the 12-digit UTR or UPI Transaction ID from your payment.' }));
+      setStatusMessage({ type: 'error', text: 'Please provide the 12-digit UTR or UPI Transaction ID.' });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      const combinedNote = `[UTR: ${formData.utrNumber.trim()}]${formData.note.trim() ? ` | ${formData.note.trim()}` : ''}`;
+
       const data = new FormData();
       data.append('eventId', currentEvent.id);
       data.append('eventTitle', currentEvent.title);
@@ -411,7 +455,8 @@ export default function Enroll() {
       data.append('rollNumber', formData.rollNumber.trim());
       data.append('teamName', isTeamEvent ? formData.teamName.trim() : '');
       data.append('inGameID', isEsports ? formData.inGameID.trim() : '');
-      data.append('note', formData.note.trim());
+      data.append('utrNumber', formData.utrNumber.trim());
+      data.append('note', combinedNote);
 
       const cleanMembers = teamMembers
         .filter((m) => m.name && m.name.trim() !== '')
@@ -477,7 +522,7 @@ export default function Enroll() {
             team_name: isTeamEvent ? formData.teamName.trim() : null,
             team_members: cleanMembers,
             in_game_id: isEsports ? formData.inGameID.trim() : null,
-            note: formData.note.trim() || null,
+            note: combinedNote,
             screenshot_url: screenshotUrl,
             status: 'Pending',
           };
@@ -516,6 +561,7 @@ export default function Enroll() {
           teamName: isTeamEvent ? formData.teamName.trim() : null,
           teamMembers: cleanMembers,
           inGameID: isEsports ? formData.inGameID.trim() : null,
+          utrNumber: formData.utrNumber.trim(),
           entryFee: activeFee,
           hasScreenshot: Boolean(screenshotFile),
           timestamp: new Date().toISOString(),
@@ -529,6 +575,7 @@ export default function Enroll() {
           rollNumber: '',
           teamName: '',
           inGameID: '',
+          utrNumber: '',
           note: '',
         });
         setScreenshotFile(null);
@@ -1023,18 +1070,37 @@ export default function Enroll() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-black/40 p-5 sm:p-6 rounded-2xl border border-white/5">
-                  {/* Official QR Code Box */}
+                  {/* Official PhonePe QR Code Box with Click to View Account Details */}
                   <div className="md:col-span-5 text-center flex flex-col items-center">
-                    <div className="relative p-3 bg-white rounded-2xl shadow-2xl max-w-[190px] border-2 border-cyan-400/80">
+                    <div 
+                      onClick={() => setShowAccountModal(true)}
+                      className="group relative p-3 bg-white rounded-2xl shadow-2xl max-w-[195px] border-2 border-cyan-400/80 cursor-pointer hover:border-cyan-300 hover:scale-[1.02] transition-all"
+                      title="Click to view bank account details"
+                    >
                       <img 
                         src="/qr.jpg" 
-                        alt="Tech Avinya Official UPI QR" 
+                        alt="Tech Avinya Official PhonePe QR - Ayush Kumar" 
                         className="w-full h-auto rounded-lg object-contain"
                       />
+                      <div className="absolute inset-0 bg-black/75 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3 text-white">
+                        <FaEye className="w-6 h-6 text-cyan-400 mb-1.5 animate-bounce" />
+                        <span className="text-xs font-bold leading-tight text-center">Click to View Bank Account Details</span>
+                      </div>
                     </div>
+
                     <span className="text-[11px] font-mono text-cyan-300 mt-2 block">
                       Pay Exact: <b className="text-white text-xs">{activeFee}</b>
                     </span>
+
+                    {/* Interactive Button to View Direct Bank & Account Details */}
+                    <button
+                      type="button"
+                      onClick={() => setShowAccountModal(true)}
+                      className="mt-3 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold bg-cyan-950/80 hover:bg-cyan-500 hover:text-black border border-cyan-400/50 text-cyan-300 shadow-[0_0_12px_rgba(0,240,255,0.25)] transition-all cursor-pointer"
+                    >
+                      <FaUniversity className="w-3.5 h-3.5 text-cyan-400 group-hover:text-black" />
+                      View Account Details
+                    </button>
                   </div>
 
                   {/* Payment Instructions & File Dropzone */}
@@ -1092,6 +1158,38 @@ export default function Enroll() {
                       </div>
                     )}
                   </div>
+                </div>
+
+                {/* Dedicated UTR / UPI Transaction ID Field */}
+                <div className="mt-5 p-4 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 shadow-inner">
+                  <label className="block text-xs font-mono uppercase tracking-wider text-cyan-300 mb-1.5 flex items-center justify-between">
+                    <span className="flex items-center gap-1.5 font-bold">
+                      <FaTicketAlt className="w-3.5 h-3.5 text-cyan-400" />
+                      UTR / UPI Transaction ID *
+                    </span>
+                    <span className="text-[11px] font-mono text-cyan-400/80">12-digit UTR No.</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="utrNumber"
+                    required
+                    value={formData.utrNumber}
+                    onChange={handleInputChange}
+                    placeholder="e.g. 429812345678 or UPI Ref ID"
+                    className={`w-full px-4 py-3 rounded-xl bg-black/70 border text-white placeholder-gray-500 text-sm font-mono tracking-wider focus:outline-none transition-all ${
+                      errors.utrNumber
+                        ? 'border-red-500 focus:ring-1 focus:ring-red-500'
+                        : 'border-cyan-500/40 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400'
+                    }`}
+                  />
+                  {errors.utrNumber ? (
+                    <p className="text-red-400 text-xs mt-1 font-mono">{errors.utrNumber}</p>
+                  ) : (
+                    <p className="text-gray-400 text-[11px] font-mono mt-1.5 flex items-center gap-1.5">
+                      <FaCheckCircle className="w-3 h-3 text-cyan-400 flex-shrink-0" />
+                      Enter the 12-digit UTR / UPI Reference ID shown on your Google Pay / PhonePe / Paytm / BHIM confirmation screen.
+                    </p>
+                  )}
                 </div>
 
                 {/* Additional Note */}
@@ -1214,6 +1312,12 @@ export default function Enroll() {
                 <span className="text-gray-400">Event Schedule:</span>
                 <span className="font-bold text-amber-300">{submittedEnrollment.eventDate}</span>
               </div>
+              {submittedEnrollment.utrNumber && (
+                <div className="flex justify-between border-b border-white/5 pb-2">
+                  <span className="text-gray-400">UTR / UPI Ref:</span>
+                  <span className="font-bold text-emerald-300 tracking-wider font-mono">{submittedEnrollment.utrNumber}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-gray-400">Entry Fee Paid:</span>
                 <span className="font-bold text-emerald-400">{submittedEnrollment.entryFee}</span>
@@ -1236,6 +1340,151 @@ export default function Enroll() {
                 className="flex-1 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer shadow-lg shadow-cyan-500/30"
               >
                 Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* OFFICIAL BANK ACCOUNT DETAILS MODAL (SBI TREASURY)       */}
+      {/* ======================================================== */}
+      {showAccountModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
+          onClick={() => setShowAccountModal(false)}
+        >
+          <div 
+            className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-cyan-500/40 bg-gradient-to-b from-[#0b132b] via-[#070e20] to-[#02050e] p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.3)] text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={() => setShowAccountModal(false)}
+              className="absolute top-5 right-5 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-all cursor-pointer"
+              aria-label="Close modal"
+            >
+              <FaTimes className="w-5 h-5" />
+            </button>
+
+            {/* Header */}
+            <div className="flex items-center gap-3.5 mb-6 border-b border-white/10 pb-4 pr-10">
+              <div className="p-3 rounded-2xl bg-cyan-950/80 border border-cyan-400/40 text-cyan-300">
+                <FaUniversity className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-mono tracking-widest uppercase text-cyan-400 block">
+                  Direct Bank Transfer / IMPS / NEFT / UPI
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                  Official Bank Account Details
+                </h2>
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-300 leading-relaxed mb-6 font-light">
+              If you prefer not to or cannot scan the PhonePe QR code, please transfer your registration fee (<b className="text-cyan-300">{activeFee}</b>) directly using the verified State Bank of India (SBI) account details below:
+            </p>
+
+            {/* Credential Cards */}
+            <div className="space-y-3 mb-6 text-sm">
+              {/* Account Number */}
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-cyan-500/30 flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">Account Number</p>
+                  <p className="text-base sm:text-lg font-mono font-extrabold text-cyan-300 tracking-wider">
+                    45486733847
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleCopyField('45486733847', 'accNo')}
+                  className="px-3 py-1.5 rounded-xl bg-cyan-950/80 hover:bg-cyan-500 hover:text-black border border-cyan-400/40 text-cyan-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  {copiedField === 'accNo' ? (
+                    <>
+                      <FaCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <FaCopy className="w-3.5 h-3.5" />
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* IFSC Code */}
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-cyan-500/30 flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">IFSC Code</p>
+                  <p className="text-base sm:text-lg font-mono font-extrabold text-amber-300 tracking-wider">
+                    SBIN0007543
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleCopyField('SBIN0007543', 'ifsc')}
+                  className="px-3 py-1.5 rounded-xl bg-amber-950/80 hover:bg-amber-500 hover:text-black border border-amber-400/40 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  {copiedField === 'ifsc' ? (
+                    <>
+                      <FaCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <FaCopy className="w-3.5 h-3.5" />
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Account Holder & Bank */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-between">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">Account Holder</p>
+                    <p className="font-bold text-white text-sm sm:text-base mt-0.5">AYUSH KUMAR</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopyField('AYUSH KUMAR', 'holder')}
+                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs transition-all cursor-pointer"
+                    title="Copy Name"
+                  >
+                    {copiedField === 'holder' ? <FaCheck className="w-3 h-3 text-emerald-400" /> : <FaCopy className="w-3 h-3 text-gray-300" />}
+                  </button>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10">
+                  <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">Bank Name</p>
+                  <p className="font-bold text-white text-sm sm:text-base mt-0.5">State Bank of India (SBI)</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Action button: Copy All */}
+            <div className="pt-2 border-t border-white/10">
+              <button
+                type="button"
+                onClick={handleCopyAllBankDetails}
+                className="w-full py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs bg-cyan-500 hover:bg-cyan-400 text-black shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {copiedField === 'all' ? (
+                  <>
+                    <FaCheck className="w-4 h-4 text-black" />
+                    All Details Copied to Clipboard!
+                  </>
+                ) : (
+                  <>
+                    <FaCopy className="w-4 h-4" />
+                    Copy All Bank Details
+                  </>
+                )}
               </button>
             </div>
           </div>

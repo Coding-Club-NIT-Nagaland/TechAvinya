@@ -139,15 +139,8 @@ export default function Contact() {
     //   image: "/secretary/web2.jpg",
     //   contact: "+91 ",
     //   social: { instagram: "https://www.instagram.com/divyanshu_mishra_1911/", linkedin: "https://www.linkedin.com/in/divyanshu-mishra-nit20241033/", email: "divyanshu.nit.28@gmail.com" }
-    // },
-    // {
-    //   id: 18,
-    //   name: "Meraj Alam",
-    //   role: "Developer",
-    //   image: "/secretary/web3.jpg",
-    //   contact: "+91 9534342082",
-    //   social: { instagram: "https://www.instagram.com/_.meraj___/", linkedin: "https://www.linkedin.com/in/meraj-alam-12we/", email: "merajalamnazeeri@gmail.com" }
     // }
+    // 
   ];
 
   const teamCategories = [
@@ -159,7 +152,7 @@ export default function Contact() {
     { name: "Esports Arena", members: contactPersons.slice(9, 11) },
     { name: "Finance Team", members: contactPersons.slice(11, 13) },
     { name: "Hospitality Team", members: contactPersons.slice(13, 15) },
-    //{ name: "Web Team", members: contactPersons.slice(15, 18) }
+    { name: "Web Team", members: contactPersons.slice(15, 17) }
   ];
 
   

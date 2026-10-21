@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   FaHandsHelping, FaAward, FaBuilding, FaCrown, FaLaptopCode, 
-  FaRobot, FaPrint, FaExternalLinkAlt, FaUsers, FaTrophy, 
-  FaUniversity, FaRocket, FaEnvelope, FaCheckCircle, FaCheck, FaCopy
+  FaUsers, FaTrophy, FaUniversity, FaRocket, FaEnvelope, 
+  FaCheck, FaCopy 
 } from 'react-icons/fa'; 
 import TechfestCyberBackground from '../components/TechfestCyberBackground'; 
 
-// --- Consolidated Sponsor & Partner Data ---
+/* ==========================================================================
+   CURRENT SPONSORS DATA & DETAILS (COMMENTED DOWN AS REQUESTED)
+   ==========================================================================
 const allSponsors = [
   { 
     id: 1, 
@@ -16,14 +18,14 @@ const allSponsors = [
     tier: "Title Sponsor", 
     category: "title",
     badge: "👑 Official Title Sponsor",
-    domain: "Computer Science & Developer Ecosystem",
-    description: "India's premier learning portal empowering millions of developers and students with world-class algorithms, system design, and competitive coding masterclasses.",
-    perks: ["Keynote Addresses", "Talent Recruitment", "Exclusive Workshops", "Grand Stage Branding"],
     website: "https://www.geeksforgeeks.org/",
     themeColor: "from-emerald-500/20 via-green-500/10 to-transparent",
     borderColor: "border-emerald-400/50",
     glowColor: "shadow-[0_0_35px_rgba(16,185,129,0.3)]",
     badgeClass: "bg-emerald-950/80 text-emerald-300 border-emerald-400/40",
+    domain: "Computer Science & Developer Ecosystem",
+    description: "India's premier learning portal empowering millions of developers and students with world-class algorithms, system design, and competitive coding masterclasses.",
+    perks: ["Keynote Addresses", "Talent Recruitment", "Exclusive Workshops", "Grand Stage Branding"],
   },
   { 
     id: 2, 
@@ -32,14 +34,14 @@ const allSponsors = [
     tier: "Hackathon Sponsor", 
     category: "tracks",
     badge: "💻 Flagship Hackathon Sponsor",
-    domain: "Electronics, IT & Embedded Systems",
-    description: "National Institute of Electronics and Information Technology Kohima, advancing cutting-edge software engineering, IT incubation, and open-source hackathons.",
-    perks: ["Hackathon Mentorship", "Jury Evaluation", "Project Incubation", "Track Naming"],
     website: "https://nielit.gov.in/kohima/",
     themeColor: "from-cyan-500/20 via-blue-500/10 to-transparent",
     borderColor: "border-cyan-400/40",
     glowColor: "shadow-[0_0_25px_rgba(6,182,212,0.25)]",
     badgeClass: "bg-cyan-950/80 text-cyan-300 border-cyan-400/40",
+    domain: "Electronics, IT & Embedded Systems",
+    description: "National Institute of Electronics and Information Technology Kohima, advancing cutting-edge software engineering, IT incubation, and open-source hackathons.",
+    perks: ["Hackathon Mentorship", "Jury Evaluation", "Project Incubation", "Track Naming"],
   },
   { 
     id: 3, 
@@ -48,14 +50,14 @@ const allSponsors = [
     tier: "CodeRaze Partner", 
     category: "tracks",
     badge: "⚡ Competitive Coding Partner",
-    domain: "EdTech & Algorithmic Excellence",
-    description: "Empowering developers to conquer competitive programming benchmarks, high-speed problem-solving, and software craftsmanship.",
-    perks: ["Problem Statement Design", "Live Leaderboard", "Coding Mentorship", "Direct Hiring"],
     website: "https://instudia.com/",
     themeColor: "from-blue-500/20 via-indigo-500/10 to-transparent",
     borderColor: "border-blue-400/40",
     glowColor: "shadow-[0_0_25px_rgba(59,130,246,0.25)]",
     badgeClass: "bg-blue-950/80 text-blue-300 border-blue-400/40",
+    domain: "EdTech & Algorithmic Excellence",
+    description: "Empowering developers to conquer competitive programming benchmarks, high-speed problem-solving, and software craftsmanship.",
+    perks: ["Problem Statement Design", "Live Leaderboard", "Coding Mentorship", "Direct Hiring"],
   },
   { 
     id: 4, 
@@ -64,14 +66,14 @@ const allSponsors = [
     tier: "RoboForge Partner", 
     category: "tracks",
     badge: "🤖 Robotics & Hardware Partner",
-    domain: "Robotics, Automation & Mechatronics",
-    description: "Pioneering indigenous robotics, autonomous line followers, combat arenas, and hands-on mechatronics engineering in Northeast India.",
-    perks: ["Arena Setup", "Technical Workshops", "Hardware Kits", "Robo Challenge Sponsor"],
     website: "https://nagabot.in/",
     themeColor: "from-purple-500/20 via-pink-500/10 to-transparent",
     borderColor: "border-purple-400/40",
     glowColor: "shadow-[0_0_25px_rgba(168,85,247,0.25)]",
     badgeClass: "bg-purple-950/80 text-purple-300 border-purple-400/40",
+    domain: "Robotics, Automation & Mechatronics",
+    description: "Pioneering indigenous robotics, autonomous line followers, combat arenas, and hands-on mechatronics engineering in Northeast India.",
+    perks: ["Arena Setup", "Technical Workshops", "Hardware Kits", "Robo Challenge Sponsor"],
   },
   { 
     id: 5, 
@@ -80,20 +82,21 @@ const allSponsors = [
     tier: "Printing Partner", 
     category: "inkind",
     badge: "🖨️ Printing & Merchandise Partner",
-    domain: "Creative Print & Visual Merchandise",
-    description: "Official merchandise, high-grade campus branding, credentials printing, and graphic design partner for Tech Avinya 2026.",
-    perks: ["Festival T-Shirts", "VIP Credentials", "Hoarding Graphics", "Custom Swag Packs"],
     website: "#",
     themeColor: "from-pink-500/20 via-rose-500/10 to-transparent",
     borderColor: "border-pink-400/40",
     glowColor: "shadow-[0_0_25px_rgba(244,63,94,0.25)]",
     badgeClass: "bg-pink-950/80 text-pink-300 border-pink-400/40",
+    domain: "Creative Print & Visual Merchandise",
+    description: "Official merchandise, high-grade campus branding, credentials printing, and graphic design partner for Tech Avinya 2026.",
+    perks: ["Festival T-Shirts", "VIP Credentials", "Hoarding Graphics", "Custom Swag Packs"],
   },
 ];
+========================================================================== */
 
 const statsData = [
   { value: "15,000+", label: "Digital Impressions", sub: "Pan-India Reach", icon: FaUsers, color: "text-cyan-400" },
-  { value: "1,500+", label: "On-Campus Innovators", sub: "Students & Developers", icon: FaUniversity, color: "text-purple-400" },
+  { value: "1,000+", label: "On-Campus Innovators", sub: "Students & Developers", icon: FaUniversity, color: "text-purple-400" },
   { value: "₹2,50,000+", label: "Total Prize Pool", sub: "Across 12 Flagship Tracks", icon: FaTrophy, color: "text-amber-400" },
   { value: "12+", label: "Flagship Competitions", sub: "Hackathons, Coding & Robotics", icon: FaRocket, color: "text-emerald-400" },
 ];
@@ -197,37 +200,8 @@ const tierBenefits = [
 ];
 
 export default function Sponsors() {
-  const [activeTab, setActiveTab] = useState('all');
-  const [tiltStyle, setTiltStyle] = useState({});
   const [copiedEmail, setCopiedEmail] = useState(false);
   const contactEmail = 'techavi@nitnagaland.ac.in';
-
-  // --- Dynamic Tilt Logic ---
-  const handleMouseMove = (e, id) => {
-    const card = e.currentTarget;
-    const { width, height, left, top } = card.getBoundingClientRect();
-    const x = e.clientX - left;
-    const y = e.clientY - top;
-    const rotateX = (y / height - 0.5) * 15; 
-    const rotateY = (x / width - 0.5) * -15; 
-    setTiltStyle(prev => ({
-      ...prev,
-      [id]: {
-        transition: 'transform 0.05s linear, box-shadow 0.05s linear', 
-        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`,
-      }
-    }));
-  };
-
-  const handleMouseLeave = (id) => {
-    setTiltStyle(prev => ({
-      ...prev,
-      [id]: {
-        transition: 'transform 0.4s ease-out, box-shadow 0.4s ease-out', 
-        transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)',
-      }
-    }));
-  };
 
   const handleCopyEmail = () => {
     if (navigator?.clipboard?.writeText) {
@@ -236,17 +210,6 @@ export default function Sponsors() {
       setTimeout(() => setCopiedEmail(false), 2000);
     }
   };
-
-  // Filter sponsors based on active tab
-  const filteredSponsors = allSponsors.filter(s => {
-    if (activeTab === 'all') return true;
-    if (activeTab === 'title') return s.category === 'title';
-    if (activeTab === 'tracks') return s.category === 'tracks';
-    if (activeTab === 'inkind') return s.category === 'inkind';
-    return true;
-  });
-
-  const titleSponsor = allSponsors.find(s => s.category === 'title');
 
   return (
     <div className="relative w-full min-h-screen text-white overflow-hidden bg-[#020409]">
@@ -295,7 +258,10 @@ export default function Sponsors() {
           })}
         </div>
 
-        {/* --- Interactive Category Filter Tabs --- */}
+        {/* =========================================================================
+            CURRENT SPONSORS DETAILS & PALETTES (COMMENTED DOWN AS REQUESTED)
+            ========================================================================= */}
+        {/*
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
           {[
             { id: 'all', label: 'All Partners' },
@@ -305,181 +271,55 @@ export default function Sponsors() {
           ].map(tab => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 border ${
-                activeTab === tab.id
-                  ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_20px_rgba(0,240,255,0.4)] scale-105'
-                  : 'bg-black/40 border-white/10 text-gray-400 hover:text-white hover:border-white/30'
-              }`}
+              className="px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 border bg-black/40 border-white/10 text-gray-400"
             >
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* --- TITLE SPONSOR GRAND SPOTLIGHT (When 'all' or 'title' selected) --- */}
-        {(activeTab === 'all' || activeTab === 'title') && titleSponsor && (
-          <div className="w-full mb-16">
-            <div className="text-center mb-6">
-              <span className="text-xs font-mono uppercase tracking-[0.25em] text-amber-400 bg-amber-950/60 px-4 py-1.5 rounded-full border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
-                ⭐ Flagship Festival Presenter ⭐
-              </span>
-            </div>
+        <div className="w-full mb-16">
+          <div className="text-center mb-6">
+            <span className="text-xs font-mono uppercase tracking-[0.25em] text-amber-400 bg-amber-950/60 px-4 py-1.5 rounded-full border border-amber-400/40">
+              ⭐ Flagship Festival Presenter ⭐
+            </span>
+          </div>
 
-            <div 
-              onMouseMove={(e) => handleMouseMove(e, titleSponsor.id)}
-              onMouseLeave={() => handleMouseLeave(titleSponsor.id)}
-              style={tiltStyle[titleSponsor.id]}
-              className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-[#12241a]/90 via-[#06140f]/95 to-[#020a06]/98 border-2 border-emerald-400/60 shadow-[0_0_50px_rgba(16,185,129,0.3)] backdrop-blur-2xl transition-all duration-300 overflow-hidden group"
-            >
-              {/* Ambient Cyber Beams */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
-              <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 justify-between">
-                {/* Left: High-Contrast Logo Pod */}
-                <div className="flex flex-col items-center text-center lg:items-start lg:text-left flex-shrink-0">
-                  <div className="w-64 h-32 sm:w-72 sm:h-36 bg-white/95 rounded-2xl p-4 flex items-center justify-center shadow-[0_15px_35px_rgba(0,0,0,0.6)] border-2 border-white/80 group-hover:scale-105 transition-transform duration-300">
-                    <img 
-                      src={titleSponsor.logo} 
-                      alt={titleSponsor.name} 
-                      className="max-h-24 max-w-full object-contain filter drop-shadow-md"
-                    />
-                  </div>
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-emerald-300 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-400/40">
-                    <FaCheckCircle className="w-3 h-3 text-emerald-400" /> Verified Title Partner
-                  </span>
+          <div className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-[#12241a]/90 via-[#06140f]/95 to-[#020a06]/98 border-2 border-emerald-400/60 shadow-[0_0_50px_rgba(16,185,129,0.3)] backdrop-blur-2xl">
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 justify-between">
+              <div className="flex flex-col items-center text-center lg:items-start lg:text-left flex-shrink-0">
+                <div className="w-64 h-32 sm:w-72 sm:h-36 bg-white/95 rounded-2xl p-4 flex items-center justify-center shadow-lg border-2 border-white/80">
+                  <img src="/gfg.png" alt="GeeksforGeeks" className="max-h-24 max-w-full object-contain" />
                 </div>
-
-                {/* Center: Sponsor Details & Mission */}
-                <div className="flex-1 text-center lg:text-left">
-                  <div className="inline-block px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 mb-2">
-                    {titleSponsor.domain}
-                  </div>
-                  <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
-                    {titleSponsor.name}
-                  </h2>
-                  <p className="text-sm sm:text-base text-gray-300 font-light leading-relaxed mb-6 max-w-2xl">
-                    {titleSponsor.description}
-                  </p>
-
-                  {/* Highlights Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-6">
-                    {titleSponsor.perks.map((perk, i) => (
-                      <div key={i} className="flex items-center gap-1.5 text-xs text-gray-200 bg-emerald-950/40 border border-emerald-500/20 rounded-lg px-2.5 py-1.5">
-                        <FaCheck className="w-2.5 h-2.5 text-emerald-400 flex-shrink-0" />
-                        <span className="truncate">{perk}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* External Visit Button */}
-                  {titleSponsor.website !== '#' && (
-                    <a
-                      href={titleSponsor.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:brightness-110 transition-all duration-300 hover:scale-105"
-                    >
-                      Visit Official Portal
-                      <FaExternalLinkAlt className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                </div>
+              </div>
+              <div className="flex-1 text-center lg:text-left">
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+                  GeeksforGeeks
+                </h2>
               </div>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* --- TRACK & DOMAIN SPONSORS GRID --- */}
-        {(activeTab === 'all' || activeTab === 'tracks' || activeTab === 'inkind') && (
-          <div className="w-full mb-20">
-            {activeTab === 'all' && (
-              <div className="text-center mb-8">
-                <h3 className="text-xl sm:text-2xl font-bold text-cyan-300 uppercase tracking-widest font-mono">
-                  Competition & Operations Partners
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                  Powering individual tracks, hackathons, and on-ground infrastructure
-                </p>
+        <div className="w-full mb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            {[
+              { name: "NIELIT Kohima", logo: "/nielit.jpg", tier: "Hackathon Sponsor" },
+              { name: "Instudia", logo: "/instudia.png", tier: "CodeRaze Partner" },
+              { name: "Nagabot", logo: "/nagabot.jpeg", tier: "RoboForge Partner" },
+              { name: "Fingerprint", logo: "/fingerprint.png", tier: "Printing Partner" }
+            ].map((sp, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-black/60 border border-white/10">
+                <div className="w-full h-28 bg-white/95 rounded-xl p-3 flex items-center justify-center mb-5">
+                  <img src={sp.logo} alt={sp.name} className="max-h-20 max-w-full object-contain" />
+                </div>
+                <h4 className="text-lg font-bold text-white">{sp.name}</h4>
+                <p className="text-xs font-mono text-cyan-400 mt-1">{sp.tier}</p>
               </div>
-            )}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-              {filteredSponsors
-                .filter(s => activeTab !== 'all' || s.category !== 'title')
-                .map((sponsor) => {
-                  return (
-                    <div
-                      key={sponsor.id}
-                      onMouseMove={(e) => handleMouseMove(e, sponsor.id)}
-                      onMouseLeave={() => handleMouseLeave(sponsor.id)}
-                      style={tiltStyle[sponsor.id]}
-                      className={`relative p-6 rounded-2xl bg-gradient-to-b from-[#0a1530]/85 via-[#060c20]/90 to-[#020510]/95 border ${sponsor.borderColor} backdrop-blur-xl ${sponsor.glowColor} flex flex-col justify-between group transition-all duration-300 hover:border-cyan-300`}
-                    >
-                      {/* Top Category Badge */}
-                      <div className="flex items-center justify-between mb-4">
-                        <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full border ${sponsor.badgeClass}`}>
-                          {sponsor.badge}
-                        </span>
-                      </div>
-
-                      {/* Crisp Frosted White Logo Stage */}
-                      <div className="w-full h-28 bg-white/95 rounded-xl p-3 flex items-center justify-center shadow-lg border border-white/50 mb-5 group-hover:scale-105 transition-transform duration-300">
-                        <img
-                          src={sponsor.logo}
-                          alt={sponsor.name}
-                          className="max-h-20 max-w-full object-contain filter drop-shadow-sm"
-                        />
-                      </div>
-
-                      {/* Content Body */}
-                      <div className="flex-1 flex flex-col justify-between">
-                        <div>
-                          <h4 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
-                            {sponsor.name}
-                          </h4>
-                          <p className="text-xs font-semibold text-cyan-400/90 mt-0.5 mb-2">
-                            {sponsor.domain}
-                          </p>
-                          <p className="text-xs text-gray-300 font-light leading-relaxed mb-4 line-clamp-3">
-                            {sponsor.description}
-                          </p>
-                        </div>
-
-                        {/* Perks Pills */}
-                        <div className="border-t border-white/10 pt-3 mt-auto">
-                          <div className="flex flex-wrap gap-1.5 mb-4">
-                            {sponsor.perks.slice(0, 2).map((perk, pIdx) => (
-                              <span key={pIdx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-white/10">
-                                ✓ {perk}
-                              </span>
-                            ))}
-                          </div>
-
-                          {sponsor.website !== '#' ? (
-                            <a
-                              href={sponsor.website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 text-xs font-semibold hover:bg-cyan-500 hover:text-black transition-all duration-300"
-                            >
-                              Visit Website
-                              <FaExternalLinkAlt className="w-2.5 h-2.5" />
-                            </a>
-                          ) : (
-                            <div className="text-center text-[11px] text-gray-400 font-mono py-1">
-                              Official Print Partner
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
+            ))}
           </div>
-        )}
+        </div>
+        */}
 
         {/* --- WHY SPONSOR TECH AVINYA (VALUE PROPOSITION BENTO) --- */}
         <div className="w-full mb-20">

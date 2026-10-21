@@ -220,11 +220,11 @@ export default function SponsorInquiry() {
         {/* Highlights */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div className="bg-gray-900/70 border border-cyan-800/50 rounded-xl p-4 text-center backdrop-blur-sm">
-            <p className="text-2xl md:text-3xl font-extrabold text-cyan-400 Graduate">1500+</p>
+            <p className="text-2xl md:text-3xl font-extrabold text-cyan-400 Graduate">1000+</p>
             <p className="text-xs text-gray-400 Gluten mt-1">Footfall & Reach</p>
           </div>
           <div className="bg-gray-900/70 border border-cyan-800/50 rounded-xl p-4 text-center backdrop-blur-sm">
-            <p className="text-2xl md:text-3xl font-extrabold text-purple-400 Graduate">14+</p>
+            <p className="text-2xl md:text-3xl font-extrabold text-purple-400 Graduate">12+</p>
             <p className="text-xs text-gray-400 Gluten mt-1">Flagship Events</p>
           </div>
           <div className="bg-gray-900/70 border border-cyan-800/50 rounded-xl p-4 text-center backdrop-blur-sm">

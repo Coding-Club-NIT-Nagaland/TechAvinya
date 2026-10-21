@@ -84,6 +84,211 @@ const uploadScreenshotToSupabase = async (file, folder = 'registrations') => {
   }
 };
 
+// =============================================================
+// RESEND TRANSACTIONAL EMAIL HELPER
+// =============================================================
+const sendResendEmail = async ({ to, fullName, eventTitle, status, registrationId, reason }) => {
+  const resendApiKey = process.env.RESEND_API_KEY;
+
+  if (!resendApiKey) {
+    console.warn('⚠️ [Resend Notice] RESEND_API_KEY is not configured in backend/.env. Automatic email skipped.');
+    return { success: false, skipped: true, message: 'RESEND_API_KEY is not configured in backend/.env' };
+  }
+
+  if (!to) {
+    console.warn('⚠️ [Resend Notice] Recipient email is missing. Email notification skipped.');
+    return { success: false, message: 'Recipient email is missing.' };
+  }
+
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'Tech Avinya 2026 <onboarding@resend.dev>';
+  const isAccepted = String(status).toLowerCase() === 'accepted';
+  const cleanName = fullName || 'Technologist';
+  const cleanEvent = eventTitle || 'Flagship Event';
+  const cleanRef = registrationId ? String(registrationId).slice(0, 13).toUpperCase() : 'TA26-CONFIRMED';
+
+  const subject = isAccepted
+    ? `🎉 Enrollment Confirmed: Tech Avinya 2026 - ${cleanEvent}`
+    : `⚠️ Status Update: Your Tech Avinya 2026 Enrollment - ${cleanEvent}`;
+
+  const htmlContent = isAccepted
+    ? `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #030712; color: #f3f4f6; margin: 0; padding: 20px; }
+          .container { max-width: 600px; margin: 0 auto; background: #0b1329; border: 1px solid #1e293b; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+          .header { background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #3b82f6 100%); padding: 32px 24px; text-align: center; }
+          .header h1 { margin: 0; color: #ffffff; font-size: 26px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; }
+          .header p { margin: 6px 0 0; color: #e0f2fe; font-size: 13px; letter-spacing: 1.5px; }
+          .content { padding: 32px 24px; }
+          .badge { display: inline-block; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #34d399; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+          .pass-box { background: #030712; border: 1px solid #0284c7; border-radius: 12px; padding: 20px; margin: 24px 0; }
+          .pass-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1f2937; font-size: 13px; }
+          .pass-row:last-child { border-bottom: none; }
+          .label { color: #9ca3af; }
+          .val { color: #ffffff; font-weight: 600; }
+          .highlight { color: #38bdf8; font-family: monospace; font-size: 15px; font-weight: 800; }
+          .instructions { background: rgba(59, 130, 246, 0.08); border-left: 4px solid #0284c7; padding: 14px; border-radius: 6px; font-size: 13px; line-height: 1.6; color: #cbd5e1; margin-top: 20px; }
+          .footer { background: #030712; padding: 24px; text-align: center; font-size: 12px; color: #6b7280; border-top: 1px solid #1f2937; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Tech Avinya 2026</h1>
+            <p>NIT NAGALAND • PREMIER TECHNICAL FESTIVAL</p>
+          </div>
+          <div class="content">
+            <div style="text-align: center;">
+              <span class="badge">✓ ENROLLMENT ACCEPTED & VERIFIED</span>
+            </div>
+            <h2 style="color: #ffffff; margin-top: 0; font-size: 20px;">Greetings, ${cleanName}!</h2>
+            <p style="color: #cbd5e1; line-height: 1.6; font-size: 14px;">
+              We are delighted to confirm that your registration for <strong>${cleanEvent}</strong> at <strong>Tech Avinya 2026</strong> has been officially approved and verified by the festival coordinators.
+            </p>
+
+            <div class="pass-box">
+              <div class="pass-row">
+                <span class="label">Pass / Reference ID:</span>
+                <span class="highlight">${cleanRef}</span>
+              </div>
+              <div class="pass-row">
+                <span class="label">Event / Competition:</span>
+                <span class="val">${cleanEvent}</span>
+              </div>
+              <div class="pass-row">
+                <span class="label">Candidate Name:</span>
+                <span class="val">${cleanName}</span>
+              </div>
+              <div class="pass-row">
+                <span class="label">Festival Dates:</span>
+                <span class="val">5th & 6th November 2026</span>
+              </div>
+              <div class="pass-row">
+                <span class="label">Host Venue:</span>
+                <span class="val">National Institute of Technology Nagaland</span>
+              </div>
+              <div class="pass-row">
+                <span class="label">Status:</span>
+                <span class="val" style="color: #34d399;">Confirmed Entry</span>
+              </div>
+            </div>
+
+            <div class="instructions">
+              <strong>Important Guidelines for Event Day:</strong>
+              <ul style="margin: 8px 0 0; padding-left: 20px;">
+                <li>Please carry your valid College / Student ID card to the reporting desk.</li>
+                <li>Present this confirmation email or your digital reference ID (<strong>${cleanRef}</strong>) at the desk to collect your official participant lanyard.</li>
+                <li>Report at the respective laboratory / auditorium 30 minutes prior to event commencement.</li>
+              </ul>
+            </div>
+
+            <p style="color: #9ca3af; font-size: 13px; margin-top: 24px; line-height: 1.5;">
+              For any competition queries or travel assistance, feel free to reply directly to this email or reach us at <a href="mailto:techavi@nitnagaland.ac.in" style="color: #38bdf8;">techavi@nitnagaland.ac.in</a>.
+            </p>
+          </div>
+          <div class="footer">
+            <p style="margin: 0;">National Institute of Technology Nagaland • Chumukedima, Nagaland - 797103</p>
+            <p style="margin: 6px 0 0;">Where Innovation Meets Inspiration • Tech Avinya 2026</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `
+    : `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #030712; color: #f3f4f6; margin: 0; padding: 20px; }
+          .container { max-width: 600px; margin: 0 auto; background: #0b1329; border: 1px solid #1e293b; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+          .header { background: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #ea580c 100%); padding: 32px 24px; text-align: center; }
+          .header h1 { margin: 0; color: #ffffff; font-size: 24px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; }
+          .content { padding: 32px 24px; }
+          .badge { display: inline-block; background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+          .box { background: #030712; border: 1px solid #374151; border-radius: 12px; padding: 18px; margin: 20px 0; font-size: 13px; }
+          .instructions { background: rgba(239, 68, 68, 0.08); border-left: 4px solid #ef4444; padding: 14px; border-radius: 6px; font-size: 13px; line-height: 1.6; color: #cbd5e1; margin-top: 20px; }
+          .footer { background: #030712; padding: 24px; text-align: center; font-size: 12px; color: #6b7280; border-top: 1px solid #1f2937; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Tech Avinya 2026</h1>
+            <p style="margin: 6px 0 0; color: #fef2f2; font-size: 13px; letter-spacing: 1.5px;">NIT NAGALAND</p>
+          </div>
+          <div class="content">
+            <div style="text-align: center;">
+              <span class="badge">✕ REGISTRATION NOT APPROVED</span>
+            </div>
+            <h2 style="color: #ffffff; margin-top: 0; font-size: 20px;">Dear ${cleanName},</h2>
+            <p style="color: #cbd5e1; line-height: 1.6; font-size: 14px;">
+              Thank you for registering for <strong>${cleanEvent}</strong> at <strong>Tech Avinya 2026</strong>.
+            </p>
+            <p style="color: #cbd5e1; line-height: 1.6; font-size: 14px;">
+              Following desk review, your enrollment could not be approved at this time.
+            </p>
+
+            <div class="box">
+              <p style="margin: 0 0 6px 0; color: #9ca3af;">Reference ID: <strong style="color: #ffffff;">${cleanRef}</strong></p>
+              <p style="margin: 0; color: #9ca3af;">Event: <strong style="color: #ffffff;">${cleanEvent}</strong></p>
+              ${reason ? `<p style="margin: 8px 0 0; color: #fca5a5;"><strong>Coordinator Note:</strong> ${reason}</p>` : ''}
+            </div>
+
+            <div class="instructions">
+              <strong>Possible Reasons for Disapproval:</strong>
+              <ul style="margin: 8px 0 0; padding-left: 20px;">
+                <li>The UPI Transaction ID / UTR number could not be reconciled with the bank records.</li>
+                <li>The attached payment proof screenshot was unclear, missing, or cropped.</li>
+                <li>Incomplete roster details or duplicate entries.</li>
+              </ul>
+            </div>
+
+            <p style="color: #cbd5e1; font-size: 13px; line-height: 1.6; margin-top: 20px;">
+              <strong>Need Help?</strong><br/>
+              If you have already transferred the fee and believe this rejection is a discrepancy, please reply directly to this email or contact us at <a href="mailto:techavi@nitnagaland.ac.in" style="color: #38bdf8;">techavi@nitnagaland.ac.in</a> with your valid payment screenshot and UTR number.
+            </p>
+          </div>
+          <div class="footer">
+            <p style="margin: 0;">National Institute of Technology Nagaland • Tech Avinya 2026 Committee</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendApiKey.trim()}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [to.trim()],
+        subject: subject,
+        html: htmlContent,
+      }),
+    });
+
+    const resData = await res.json();
+    if (res.ok) {
+      console.log(`✅ [Resend Success] Decision email successfully sent to ${to} (${status}). Resend ID: ${resData.id}`);
+      return { success: true, id: resData.id };
+    } else {
+      console.error(`❌ [Resend Error] Failed to send email to ${to}:`, resData);
+      return { success: false, error: resData, message: resData.message || 'Resend API rejected email.' };
+    }
+  } catch (err) {
+    console.error('[Resend Network Exception]', err);
+    return { success: false, error: err.message, message: 'Network error communicating with Resend.' };
+  }
+};
+
 // -------------------------------------------------------------
 // ROUTES
 // -------------------------------------------------------------
@@ -125,7 +330,11 @@ const handleEnrollment = async (req, res) => {
     const rollNumber = body.rollNumber || body.roll_number || body.registrationNumber;
     const teamName = body.teamName || body.team_name || null;
     const inGameID = body.inGameID || body.id || body.in_game_id || null;
-    const note = body.note || body.queries || null;
+    const utrNumber = body.utrNumber || body.utr || body.paymentReference || null;
+    const rawNote = body.note || body.queries || '';
+    const note = utrNumber && !rawNote.includes(utrNumber)
+      ? `[UTR: ${utrNumber}] ${rawNote}`.trim()
+      : (rawNote || null);
 
     // 1. Basic validation
     if (!eventId || !fullName || !email || !phone) {
@@ -465,13 +674,15 @@ app.get('/api/admin/registrations', async (req, res) => {
 // -------------------------------------------------------------
 app.put('/api/admin/registration/status/:id', async (req, res) => {
   const { id } = req.params;
-  const { status } = req.body;
+  const { status, reason, email, fullName, eventTitle } = req.body;
 
   if (!status) {
     return res.status(400).json({ success: false, message: 'Status is required.' });
   }
 
   try {
+    let updatedRecord = null;
+
     if (isSupabaseConfigured()) {
       const { data, error } = await supabase
         .from('registrations')
@@ -483,10 +694,68 @@ app.put('/api/admin/registration/status/:id', async (req, res) => {
         return res.status(500).json({ success: false, message: error.message });
       }
 
-      return res.json({ success: true, message: 'Status updated successfully.', data });
+      updatedRecord = data && data[0] ? data[0] : null;
     }
 
-    return res.json({ success: true, message: `Status updated to ${status} (Demo Mode).` });
+    // Automatically trigger Resend decision email when status is Accepted or Rejected
+    let emailResult = null;
+    const targetEmail = updatedRecord?.email || email;
+    const targetName = updatedRecord?.full_name || fullName;
+    const targetEvent = updatedRecord?.event_title || eventTitle;
+
+    if (targetEmail && (status === 'Accepted' || status === 'Rejected')) {
+      emailResult = await sendResendEmail({
+        to: targetEmail,
+        fullName: targetName,
+        eventTitle: targetEvent,
+        status,
+        registrationId: id,
+        reason: reason || null,
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: `Status updated to ${status}.${emailResult?.success ? ' Confirmation email forwarded via Resend.' : ''}`,
+      emailSent: Boolean(emailResult?.success),
+      emailResult,
+      data: updatedRecord,
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// -------------------------------------------------------------
+// 5B. ADMIN - MANUAL RESEND EMAIL TRIGGER
+// POST /api/admin/send-email
+// -------------------------------------------------------------
+app.post('/api/admin/send-email', async (req, res) => {
+  const { to, fullName, eventTitle, status, registrationId, reason } = req.body;
+
+  if (!to || !status) {
+    return res.status(400).json({ success: false, message: 'Recipient email and status are required.' });
+  }
+
+  try {
+    const result = await sendResendEmail({
+      to,
+      fullName,
+      eventTitle,
+      status,
+      registrationId,
+      reason,
+    });
+
+    if (result.success) {
+      return res.json({ success: true, message: `Email forwarded to ${to} via Resend.`, id: result.id });
+    } else {
+      return res.status(result.skipped ? 200 : 500).json({
+        success: false,
+        message: result.message || 'Failed to send email via Resend.',
+        error: result.error,
+      });
+    }
   } catch (err) {
     return res.status(500).json({ success: false, message: err.message });
   }
@@ -554,7 +823,7 @@ app.put('/api/admin/sponsors/status/:id', async (req, res) => {
 
 // Only start listener if not running in a serverless environment (like Vercel)
 if (!process.env.VERCEL) {
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Tech Avinya Backend is running on port ${PORT}`);
     console.log(`📡 Supabase configured: ${isSupabaseConfigured() ? '✅ YES' : '❌ NO (check .env)'}`);
   });

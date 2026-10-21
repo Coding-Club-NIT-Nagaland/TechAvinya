@@ -50,7 +50,7 @@ export default function Events() {
       venue: "VCH, NITN",
       image: "/event/GENESIS 3D.jpeg",
       icon: FaBrain,
-      tag: "3D Digital Art",
+      tag: "3D Modelling & Simulation",
     },
     {
       id: "aerial",
@@ -65,7 +65,7 @@ export default function Events() {
       venue: "EDC Lab, NITN",
       image: "/event/HARDWARE HACKATHON.jpeg",
       icon: FaRobot,
-      tag: "IoT & Circuit Sprint",
+      tag: "Think. Solve. Build.",
     },
     {
       id: "clash",
@@ -80,7 +80,7 @@ export default function Events() {
       venue: "NITN Football Ground",
       image: "/event/ROBO TRACK.jpeg",
       icon: FaRobot,
-      tag: "Speed & Bots",
+      tag: "RC Obstacle Course",
     },
     {
       id: "bgmi",

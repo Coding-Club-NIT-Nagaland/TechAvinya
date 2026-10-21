@@ -23,6 +23,7 @@ const normalizeRegistration = (item) => ({
   teamName: item.team_name || item.teamName || '',
   teamMembers: item.team_members || item.teamMembers || [],
   inGameID: item.in_game_id || item.inGameID || '',
+  utrNumber: item.utr_number || item.utrNumber || (item.note || '').match(/\[UTR:\s*([^\]]+)\]/i)?.[1] || (item.note || '').match(/UTR(?:\s*[/:]\s*|\s+)([A-Za-z0-9]+)/i)?.[1] || '',
   note: item.note || '',
   imageUrl: item.screenshot_url || item.imageUrl || '',
   screenshot_url: item.screenshot_url || item.imageUrl || '',
@@ -255,19 +256,33 @@ export default function AdminDashboard() {
   // STATUS UPDATES
   // -------------------------------------------------------------
   const handleRegStatusUpdate = async (id, newStatus) => {
-    if (!window.confirm(`Change registration status to "${newStatus}"?`)) return;
+    const targetItem = registrations.find((r) => (r.id || r._id || r.registrationId) === id);
+    const candidateName = targetItem?.fullName || targetItem?.leaderName || 'Candidate';
+    const candidateEmail = targetItem?.email || '';
+
+    if (!window.confirm(`Change registration status to "${newStatus}" for ${candidateName}?\n\nAn automated decision email will be forwarded to ${candidateEmail || 'the participant'} via Resend.`)) return;
 
     let updated = false;
+    let emailStatusNotice = '';
 
-    // 1. Try Backend API
+    // 1. Try Backend API (which updates DB and sends Resend email)
     try {
       const response = await fetch(`${API_BASE_URL}/api/admin/registration/status/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify({ 
+          status: newStatus,
+          email: candidateEmail,
+          fullName: candidateName,
+          eventTitle: targetItem?.eventTitle,
+        }),
       });
-      if (response.ok) {
+      const resJson = await response.json();
+      if (response.ok && resJson.success) {
         updated = true;
+        if (resJson.emailSent) {
+          emailStatusNotice = `\n\n📧 Decision email forwarded to ${candidateEmail} via Resend.`;
+        }
       }
     } catch (backendErr) {
       console.warn('[Backend update failed, attempting direct Supabase update...]', backendErr);
@@ -297,6 +312,42 @@ export default function AdminDashboard() {
       if (previewData && (previewData.id === id || previewData._id === id || previewData.registrationId === id)) {
         setPreviewData((prev) => ({ ...prev, status: newStatus }));
       }
+      alert(`Registration status updated to "${newStatus}"!${emailStatusNotice}`);
+    }
+  };
+
+  const handleManualEmailSend = async (item) => {
+    if (!item || !item.email) {
+      alert('Candidate email address is missing.');
+      return;
+    }
+
+    const currentStatus = item.status || 'Pending';
+    if (currentStatus !== 'Accepted' && currentStatus !== 'Rejected') {
+      alert('Please set status to "Accepted" or "Rejected" before sending a decision email.');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admin/send-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: item.email,
+          fullName: item.fullName || item.leaderName,
+          eventTitle: item.eventTitle,
+          status: currentStatus,
+          registrationId: item.registrationId || item.id,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert(`✅ Decision email successfully forwarded to ${item.email} via Resend!`);
+      } else {
+        alert(`Notice from email service: ${data.message || 'Please check your RESEND_API_KEY in backend/.env'}`);
+      }
+    } catch (err) {
+      alert(`Unable to reach backend email service: ${err.message}. Ensure backend is running with RESEND_API_KEY.`);
     }
   };
 
@@ -961,6 +1012,12 @@ export default function AdminDashboard() {
                 <span className="text-gray-400 font-semibold">Roll No. / Reg No. (10 Digits):</span>{' '}
                 <span className="text-purple-300 font-mono font-bold">{previewData.rollNumber || 'N/A'}</span>
               </p>
+              {previewData.utrNumber && (
+                <div className="bg-cyan-950/40 p-2.5 rounded-lg border border-cyan-500/30 my-2">
+                  <span className="text-cyan-300 font-semibold block text-xs font-mono uppercase tracking-wider">UTR / UPI Transaction ID:</span>
+                  <span className="text-emerald-300 font-mono font-bold tracking-wider text-sm select-all">{previewData.utrNumber}</span>
+                </div>
+              )}
               {previewData.inGameID && (
                 <p>
                   <span className="text-gray-400 font-semibold">In-Game Character ID:</span>{' '}
@@ -1007,13 +1064,13 @@ export default function AdminDashboard() {
                   onClick={() => handleRegStatusUpdate(previewData.id || previewData._id || previewData.registrationId, 'Accepted')}
                   className="px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white rounded text-xs font-bold transition-colors cursor-pointer"
                 >
-                  Accept
+                  Accept & Send Email
                 </button>
                 <button
                   onClick={() => handleRegStatusUpdate(previewData.id || previewData._id || previewData.registrationId, 'Rejected')}
                   className="px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded text-xs font-bold transition-colors cursor-pointer"
                 >
-                  Reject
+                  Reject & Send Email
                 </button>
                 <button
                   onClick={() => handleRegStatusUpdate(previewData.id || previewData._id || previewData.registrationId, 'Pending')}
@@ -1022,6 +1079,19 @@ export default function AdminDashboard() {
                   Set Pending
                 </button>
               </div>
+            </div>
+
+            {/* Manual Resend Email Trigger */}
+            <div className="border-t border-gray-800/80 pt-3 flex justify-between items-center bg-cyan-950/20 p-2.5 rounded-lg border border-cyan-500/20">
+              <span className="text-xs text-cyan-300 font-mono">Resend Email:</span>
+              <button
+                type="button"
+                onClick={() => handleManualEmailSend(previewData)}
+                className="px-3 py-1.5 rounded-md bg-cyan-500 text-black hover:bg-cyan-400 text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
+              >
+                <FaEnvelope className="w-3 h-3" />
+                Forward {previewData.status === 'Accepted' ? 'Confirmation' : previewData.status === 'Rejected' ? 'Rejection' : 'Status'} Email
+              </button>
             </div>
           </div>
         </div>

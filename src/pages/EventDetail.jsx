@@ -10,12 +10,12 @@ const allEventsData = [
   {
     id: "code",
     title: "Code Raze",
-    club: "Codessy Club, NIT Nagaland",
-    category: "Coding & Algorithms",
+    club: "Codessey Club, NIT Nagaland",
+    category: "Competitive Programming & DSA",
     totalPrize: "₹ 20,000/-",
     firstPrize: "₹ 12,000/-",
     secondPrize: "₹ 5,000/-",
-    thirdPrize: "₹ 3,000/- (Female Only)",
+    thirdPrize: "₹ 3,000/- (Female Only)*",
     feeNIT: "₹ 99/-",
     feeOutside: "₹ 299/-",
     image: "/event/CODE RAZE.jpeg",
@@ -24,75 +24,81 @@ const allEventsData = [
     venue: "Smart Lab, NIT Nagaland",
     rulebook: "/rulebooks/code_raze.pdf",
     contacts: ["9233957278", "9534342082"],
-    description: "Code Raze is the flagship speed and logic programming contest organized by Codessy Club. Participants tackle an intensive series of algorithmic challenges testing problem-solving agility, data structure mastery, and efficiency under strict time limits.",
+    description: "Code Raze is a 2-hour flagship competitive programming challenge organized by Codessey Club focusing on Data Structures and Algorithms (DSA). Participants are tasked with solving a rigorous set of algorithmic problems under intense time constraints. The participant who successfully solves the required problems in the shortest time will be awarded the winning position, subject to evaluation criteria.",
     rules: [
-      "Individual participation only; no teams allowed.",
-      "Contest duration is 2 hours on the official online judging environment.",
+      "Individual participation only; no teams permitted.",
+      "Total contest duration is strictly 2 hours on the official online judging environment.",
+      "The use of Artificial Intelligence (AI), AI agents, ChatGPT, Copilot, or any AI-based tool in any form is STRICTLY PROHIBITED. Instant disqualification for violations.",
+      "Participants may use official programming documentation and language references strictly for syntax checking.",
       "Supported programming languages: C, C++, Java, and Python.",
-      "Strict zero-tolerance policy for plagiarism, AI-generated submissions, or external collaboration.",
-      "Scoring will be based on problem weights and submission timestamps."
+      "Participants cannot leave the designated venue during the event. No extra time provided.",
+      "The time taken to successfully solve the problems will be a primary ranking factor along with correctness."
     ],
-    generalRules: "Open to all undergraduate and postgraduate engineering students. Participants must report 15 minutes before the scheduled time with a valid college ID."
+    generalRules: "Minimum participation requirement: At least 20 participants. *Condition for Female-Only 3rd Prize (₹3,000): Awarded only if there are at least 6 female participants in the event and the candidate is female. Decision of the organizers and judging panel shall be final."
   },
   {
     id: "hackathon",
     title: "Hackathon",
-    club: "Codessy Club, NIT Nagaland",
-    category: "Software Development",
+    club: "Codessey Club, NIT Nagaland",
+    category: "Software Development & Prototyping",
     totalPrize: "₹ 22,000/-",
     firstPrize: "₹ 12,000/-",
     secondPrize: "₹ 7,000/-",
-    thirdPrize: "₹ 3,000/- (Female Only)",
-    feeNIT: "₹ 199/-",
-    feeOutside: "₹ 499/-",
+    thirdPrize: "₹ 3,000/- (Female Only)*",
+    feeNIT: "₹ 199/- (Per Team)",
+    feeOutside: "₹ 499/- (Per Team)",
     image: "/event/HACKATHON.jpeg",
     date: "6 November 2026",
     time: "11:00am - 6:00pm",
     venue: "VCH (Virtual Class Hall), NIT Nagaland",
     rulebook: "/rulebooks/hackathon.pdf",
     contacts: ["9233957278", "9534342082"],
-    description: "A 7-hour rapid prototyping sprint where ideas transform into functional software products! Teams collaborate to engineer innovative, scalable solutions addressing real-world industry and societal challenges.",
+    description: "The Hackathon is an intensive 8-hour team-based software engineering sprint where participants are presented with a real-world problem statement and must build, present, and demonstrate a functional prototype. In addition to software prototyping, each team must prepare a six-slide presentation (PPT) during the hackathon itself to explain their approach, architecture, and solution to the judging panel.",
     rules: [
       "Team event consisting of 3 to 5 members.",
-      "All code and prototypes must be developed from scratch during the hackathon hours.",
-      "Use of open-source frameworks, public APIs, and libraries is allowed, provided they are declared.",
-      "Evaluation criteria include innovation, technical architecture, completion rate, and live presentation.",
-      "Pre-built projects or direct clones from GitHub will result in instant disqualification."
+      "Duration: 8 hours intensive development and presentation window.",
+      "The use of Artificial Intelligence (AI), AI agents, or any AI-based tool in any form is STRICTLY PROHIBITED throughout the event. Immediate team disqualification for any AI violations.",
+      "Participants must develop the project and prepare the mandatory 6-slide PPT during the competition period.",
+      "Participants may use official documentation and library reference materials to understand syntax and implementation.",
+      "There will be no designated lunch break; participants may take short refreshment breaks without extending the allotted duration.",
+      "All team members must remain within the designated event area throughout the competition."
     ],
-    generalRules: "Open to all colleges. Bring your own laptops and development equipment. High-speed Wi-Fi will be provided at the venue."
+    generalRules: "Minimum participation requirement: At least 20 participants. *Condition for Female-Only 3rd Prize (₹3,000): Awarded only if there are at least 6 female participants and the winning team consists exclusively of female members. Bring personal laptops and hardware chargers."
   },
   {
     id: "modelling",
     title: "Genesis 3D",
-    club: "Codessy Club, NIT Nagaland",
-    category: "3D Digital Art & CGI",
+    club: "Codessey Club, NIT Nagaland",
+    category: "3D Modelling & Simulation",
     totalPrize: "₹ 20,000/-",
     firstPrize: "₹ 12,000/-",
     secondPrize: "₹ 5,000/-",
-    thirdPrize: "₹ 3,000/- (Female Only)",
+    thirdPrize: "₹ 3,000/- (Female Only)*",
     feeNIT: "₹ 99/-",
     feeOutside: "₹ 299/-",
     image: "/event/GENESIS 3D.jpeg",
     date: "5 November 2026",
     time: "2:00pm - 6:00pm",
-    venue: "VCH, NIT Nagaland",
-    rulebook: "/rulebooks/3d_modelling.pdf",
+    venue: "VCH (Virtual Class Hall), NIT Nagaland",
+    rulebook: "/rulebooks/genesis_3d.pdf",
     contacts: ["9233957278", "9534342082"],
-    description: "Genesis 3D invites digital sculptors, CAD artists, and CGI enthusiasts to create stunning, photorealistic 3D visual models. Showcase your visualization mastery, topology precision, and creative art direction.",
+    description: "Genesis 3D is a 4-hour individual or team-based 3D modeling and simulation event. Participants are given a theme/problem brief at the start and must design, model, texture, and simulate a 3D object, scene, or system from scratch using software of their choice. Each team must prepare a short 3 to 4 slide presentation explaining their design approach, tools used, and simulation physics/behavior demonstrated before the judges.",
     rules: [
-      "Individual competition.",
-      "Allowed software: Blender, Autodesk Maya, 3ds Max, ZBrush, Fusion 360, or SolidWorks.",
-      "All models, textures, and lighting setups must be authored natively within the 4-hour competition duration.",
-      "Final submission must include raw working project files and 3 rendered angles (1080p minimum).",
-      "No pre-bought or third-party asset packs allowed."
+      "Team size: 1 to 3 members.",
+      "Duration: 4 hours strictly for modeling, simulation, and slide preparation.",
+      "Software permitted: Blender, Autodesk Maya, AutoCAD, SolidWorks, Unity, 3ds Max, or equivalent 3D packages.",
+      "The use of AI, AI agents, or AI-based generative tools for creating or auto-generating 3D models, textures, or simulations is STRICTLY PROHIBITED. Instant disqualification.",
+      "No pre-made assets, downloaded templates, or third-party models sourced from online stores allowed; all assets must be built natively from scratch during the event.",
+      "Teams must prepare a 3 to 4 slide PPT detailing design approach, tools used, and simulation logic.",
+      "Participants must bring their own laptops with software pre-installed; organizers are not responsible for installation issues."
     ],
-    generalRules: "Participants must bring their personal laptops or drawing tablets with required software pre-installed."
+    generalRules: "Minimum participation requirement: At least 20 participants. *Condition for Female-Only 3rd Prize (₹3,000): Awarded only if there are at least 6 female participants and the team consists exclusively of female members. Evaluation is based on creativity, technical accuracy, complexity, theme adherence, and presentation."
   },
   {
     id: "aerial",
     title: "Hardware Hackathon",
     club: "Robotics Club, NIT Nagaland",
-    category: "Hardware & IoT",
+    category: "Hardware & Electronics (Think. Solve. Build.)",
     totalPrize: "₹ 25,000/-",
     firstPrize: "₹ 15,000/-",
     secondPrize: "₹ 10,000/-",
@@ -103,16 +109,18 @@ const allEventsData = [
     date: "6 November 2026",
     time: "9:00am - 12:00pm",
     venue: "EDC Lab, NIT Nagaland",
-    rulebook: "/rulebooks/aerial.pdf",
+    rulebook: "/rulebooks/hardware_hackathon.pdf",
     contacts: ["8119028697", "8708676451"],
-    description: "Hands-on embedded systems and IoT innovation contest. Teams wire, calibrate, and program sensor-driven microcontrollers and actuators to build responsive real-world automation prototypes.",
+    description: "Hardware Hustle: 'Think. Solve. Build.' is the flagship hardware engineering competition organized by Robotics Club NIT Nagaland. It is designed to test participants' electronics knowledge, circuit design, embedded troubleshooting, teamwork, and practical hardware implementation across three competitive rounds.",
     rules: [
-      "Team event: 2 to 4 members.",
-      "Hardware platforms permitted: Arduino, ESP32, Raspberry Pi, STM32, or custom development boards.",
-      "Teams can bring their own sensors, modules, and components for integration.",
-      "Safety regulations must be strictly adhered to while operating high-current circuits."
+      "Team size: 1 to 2 members. (Round 1 is conducted individually; Rounds 2 & 3 allow solo or 2-member teams).",
+      "Round 1 — Quiz: Individual technical assessment covering basic engineering, circuit theory, and electronics concepts.",
+      "Round 2 — Design Challenge: Formulate and submit technical solutions to real-life problem statements evaluated on feasibility, viability, and novelty.",
+      "Round 3 — Build Arena: Build, test, and demonstrate hardware solutions using authorized electronic components.",
+      "Plagiarism, unauthorized external assistance, and collaboration between competing teams are strictly prohibited.",
+      "Only authorized components, tools, and resources may be utilized in the Build Arena; no circuit modifications permitted after the deadline."
     ],
-    generalRules: "Power outlets and basic testing apparatus will be accessible at the EDC Laboratory."
+    generalRules: "Participants must carry institute ID cards and report punctually. Lab safety protocols must be followed strictly. Rules can be updated on-spot by event secretaries and judges if necessary."
   },
   {
     id: "clash",
@@ -129,17 +137,19 @@ const allEventsData = [
     date: "6 November 2026",
     time: "9:00am - 11:00am",
     venue: "NITN Football Ground",
-    rulebook: "/rulebooks/clash_of_wheels.pdf",
+    rulebook: "/rulebooks/robo_track.pdf",
     contacts: ["8119028697", "8708676451"],
-    description: "Where Speed Meets Glory! Build an agile, custom remote-controlled robot capable of conquering rough terrains, high-speed chicanes, speed-bumps, and hairpin turns on the custom-engineered NITN outdoor track.",
+    description: "Robo Track Challenge is an intense RC car obstacle-course competition organized by Robotics Club NIT Nagaland. Participants pilot custom remote-controlled vehicles across challenging track geometry, ramps, and obstacle sequences within the allotted time limit.",
     rules: [
-      "Teams of 1 to 4 members.",
-      "Bot dimensions must adhere to the official rulebook limits (max 30cm x 30cm x 30cm).",
-      "DC battery voltage limit applies; no combustion engines allowed.",
-      "Time penalties apply for leaving the designated track or causing track barrier structural damage.",
-      "Shortest lap time with fewest penalty points takes the championship."
+      "Team size: 1 to 5 members. Each participant or team may register exactly one RC car.",
+      "RC Car Specifications: Car width must be approximately 30 cm; height and length are unrestricted. Track width will be 35 cm.",
+      "CUSTOM BUILT ONLY: The RC car must be designed and built by the participant/team. Ready-made commercial RC cars are strictly banned and cause instant disqualification.",
+      "Power & Safety: Car must be remotely controlled, DC battery powered, and safe to operate under official inspection.",
+      "Track Rules & Penalties: Touching or crossing track boundaries, touching/manually repositioning the car, or skipping obstacles incurs penalty points.",
+      "RC Car Viva: Participants must attend a technical viva covering component selection, motor torque, circuitry, and chassis fabrication.",
+      "Scoring: Final rankings determined by course completion time combined with penalty points. Fewer penalty points break ties."
     ],
-    generalRules: "Teams must present their bot for technical and safety inspection 30 minutes before the heats commence."
+    generalRules: "Participants must bring their RC cars assembled and ready for technical inspection 30 minutes before the heats commence. Judges' decisions on runs and viva are final."
   },
   {
     id: "bgmi",
@@ -155,17 +165,21 @@ const allEventsData = [
     image: "/event/BGMI.jpeg",
     date: "5 November 2026",
     time: "10:00am - 3:00pm",
-    venue: "2A & 2B, NIT Nagaland",
-    rulebook: "/rulebooks/BGMI Rules.pdf",
+    venue: "Rooms 2A & 2B, NIT Nagaland",
+    rulebook: "/rulebooks/bgmi.pdf",
     contacts: ["9279716769", "9362619196"],
-    description: "The ultimate Battlegrounds Mobile India squad showdown! Compete across Erangel and Miramar maps in custom rooms against top collegiate esports squads for bragging rights and cash glory.",
+    description: "The official BGMI Esports Tournament of Tech Avinya 2026! Squads battle across classic Battle Royale maps under official competitive scoring for supreme collegiate gaming glory.",
     rules: [
-      "Squad format (exactly 4 players per team).",
-      "Only official mobile devices allowed; iPads, tablets, emulators, and triggers are strictly banned.",
-      "Custom room credentials will be shared in the official tournament discord/WhatsApp group 15 minutes before match start.",
-      "Any use of game files modification, third-party software, or teaming up results in immediate disqualification and blacklisting."
+      "Squad format: Exactly 4 players per squad. Physical presence of every player at the venue is MANDATORY (no remote play).",
+      "Official Maps: Classic Battle Royale mode rotated across three maps in order: 1. Rondo, 2. Erangel, 3. Miramar.",
+      "Kill Points: 1 point per kill.",
+      "Placement Points: 1st Place (Chicken Dinner) = 10 pts, 2nd = 8 pts, 3rd = 6 pts, 4th = 4 pts, 5th = 2 pts, 6th = 1 pt, 7th = 1 pt.",
+      "MVP Bonus: Most Kills in a Match = 2 bonus points.",
+      "Calculation: Match Score = (Total Kills x 1) + Placement Points + MVP Bonus. Standings calculated by summing points across all matches.",
+      "Hardware restrictions: Personal smartphones only; tablets, iPads, emulators, triggers, macros, and third-party software are strictly banned.",
+      "Zero Tolerance: Cheating, collusion, stream sniping, or smurfing results in immediate disqualification and a PERMANENT BAN from all future events."
     ],
-    generalRules: "Team leaders must submit exact In-Game Character IDs (UIDs) during registration."
+    generalRules: "Teams must report at least 15 minutes before their scheduled match time. Bring personal phones, accessories, and chargers."
   },
   {
     id: "free",
@@ -181,17 +195,21 @@ const allEventsData = [
     image: "/event/FREE FIRE.jpeg",
     date: "6 November 2026",
     time: "10:00am - 3:00pm",
-    venue: "2A & 2B, NIT Nagaland",
-    rulebook: "/rulebooks/freefire_rules.pdf",
+    venue: "Rooms 2A & 2B, NIT Nagaland",
+    rulebook: "/rulebooks/freefire.pdf",
     contacts: ["9279716769", "9362619196"],
-    description: "Fast-paced, adrenaline-pumping survival action! Coordinate strategies with your squad, survive the shrinking zone, and battle for Booyah in the official Tech Avinya Free Fire arena.",
+    description: "The official Free Fire Esports Tournament at Tech Avinya 2026! Drop into tactical battlegrounds, out-survive hostile squads, and secure the glorious Booyah.",
     rules: [
-      "Squad format: 4 players per squad.",
-      "Personal mobile devices only (no emulators/PC).",
-      "Point system based on official esports standard: combination of placement points and kill points.",
-      "Decision of tournament admins will be final in case of disconnects or disputes."
+      "Squad format: Exactly 4 players per squad. Physical presence of all members at the venue is mandatory.",
+      "Official Maps: Battle Royale mode rotated across three maps: Bermuda, Kalahari, and Purgatory.",
+      "Kill Points: 1 point per kill.",
+      "Placement Points: 1st Place (Booyah) = 10 pts, 2nd = 8 pts, 3rd = 6 pts, 4th = 4 pts, 5th = 2 pts, 6th = 1 pt, 7th = 1 pt.",
+      "MVP Bonus: Most Kills in a Match (MVP Team) = 2 bonus points.",
+      "Calculation: Match Score = (Total Kills x 1) + Placement Points + MVP Bonus. Final standing is cumulative across all matches played.",
+      "Hardware: Personal smartphones only; emulators, hacks, script mods, macros, or external triggers are strictly banned.",
+      "Zero Tolerance Policy: Any malicious practice or teaming up with rival squads will face immediate disqualification and permanent ban."
     ],
-    generalRules: "All squad members must be ready in the custom lobby prior to match countdown."
+    generalRules: "Squads must report 15 minutes before the custom lobby opens. Roster changes after registration must be approved in advance."
   },
   {
     id: "mlbb",
@@ -199,31 +217,34 @@ const allEventsData = [
     club: "Esports Arena, NIT Nagaland",
     category: "5v5 MOBA Arena",
     totalPrize: "₹ 30,000 + 10K Diamonds",
-    firstPrize: "₹ 20,000 + 5K Diamonds",
-    secondPrize: "₹ 10,000 + 5K Diamonds",
-    thirdPrize: "Diamonds Giveaway to Crowd!",
-    feeNIT: "₹ 199/-",
-    feeOutside: "₹ 500/-",
+    firstPrize: "₹ 20,000 + 5,000 Diamonds",
+    secondPrize: "₹ 10,000 + 5,000 Diamonds",
+    thirdPrize: "Crowd In-game Diamonds Giveaway!",
+    feeNIT: "₹ 199/- (Per Team)",
+    feeOutside: "₹ 500/- (Per Team)",
     image: "/event/MLBB.jpeg",
     date: "6 November 2026",
     time: "2:00pm - 6:00pm",
-    venue: "NIT Nagaland Campus",
-    rulebook: "/rulebooks/code_raze.pdf",
-    contacts: ["9362619196"],
-    description: "Mobile Legends: Bang Bang Community Heroes Meet Up! 5v5 competitive draft matches testing team coordination, lane control, objective secure, and clutch teamfights. Online qualifiers kick off Nov 2nd with Grand Semis and Finals live on stage!",
+    venue: "Campus Esports Arena / Main Stage, NIT Nagaland",
+    rulebook: "/rulebooks/mlbb.pdf",
+    contacts: ["9362619196", "9279716769"],
+    description: "Official Mobile Legends: Bang Bang Tournament organized under Tech Avinya! Features a hybrid model with online qualifiers up to Quarter-Finals, followed by the top 4 squads clashing live on-stage at NIT Nagaland in the Semi-Finals and Grand Finals with crowd diamond giveaways.",
     rules: [
-      "Teams of 5 players.",
-      "Custom draft pick mode with standard hero ban phases.",
-      "Qualifying rounds begin online on Nov 2; top squads advance to offline LAN finals at NIT Nagaland on Nov 6th.",
-      "No substitute players permitted after bracket generation without prior admin authorization."
+      "Roster Structure: Exactly 5 active starter players + up to 1 registered substitute.",
+      "Game Mode: Custom Lobby — Draft Pick (5v5 Modern Custom Mode) on Imperial Sanctuary map.",
+      "Hybrid Stage Structure: Online Qualifiers for preliminary rounds; Top 4 squads advance to offline LAN finals on campus on 6 November (2:00 PM - 6:00 PM IST).",
+      "Critical Baseline Threshold: Strict minimum of four (4) fully registered and checked-in teams required for tournament execution.",
+      "Punctuality & Check-In: Teams must report to match hosts exactly 10 minutes prior to match start; failure to report on time results in immediate match forfeit.",
+      "In-Game Pause: Maximum two (2) pauses per team per match for verified critical technical/device failures only.",
+      "Conduct & Anti-Cheat: No trash-talking in All-Chat, emote/recall toxic spamming, account sharing (piloting), or third-party radar/skin scripts. Violators receive permanent bans."
     ],
-    generalRules: "Crowd giveaways with official MLBB diamond bundles during live matches."
+    generalRules: "Substitute swaps are permitted only between games in a series, never during active hero draft. Live audience diamond giveaways conducted during matches."
   },
   {
     id: "digital",
     title: "Integration Bee",
     club: "Quants Club, NIT Nagaland",
-    category: "Mathematics & Calculus",
+    category: "Calculus & Analytical Mathematics",
     totalPrize: "₹ 10,000/-",
     firstPrize: "₹ 6,000/-",
     secondPrize: "₹ 4,000/-",
@@ -234,48 +255,54 @@ const allEventsData = [
     date: "5 November 2026",
     time: "2:30pm - 4:30pm",
     venue: "Smart Lab, NIT Nagaland",
-    rulebook: "/rulebooks/digital_art.pdf",
+    rulebook: "/rulebooks/integration_bee.pdf",
     contacts: ["7005437886", "9341240119"],
-    description: "Beyond formulas, it's logic! Inspired by the famous MIT Integration Bee, this fast-paced math duel challenges competitors to solve difficult indefinite and definite integrals swiftly on the whiteboard under time pressure.",
+    description: "The Integration Bee challenges students to master integral calculus through speed, precision, and pure mental agility. Competing under tight time limits without calculators, participants sharpen their problem-solving skills and prove their mathematical prowess in a high-stakes arena.",
     rules: [
-      "Individual participation.",
-      "Preliminary written round followed by head-to-head buzzer elimination rounds.",
-      "No calculators, phones, or reference cheat sheets allowed; only chalk/markers and logic.",
-      "Speed matters: first correct evaluated integral wins the point."
+      "Individual competition open to all undergraduate and postgraduate students.",
+      "Maximum of 3 progressive rounds with announced fixed time limits.",
+      "No communication between participants permitted during competition rounds.",
+      "Calculators, mobile phones, or reference cheat sheets are strictly prohibited; only pens, pencils, and provided answer sheets can be used.",
+      "Scoring: Correct answers receive full marks; negative marking applies for incorrect attempts/responses.",
+      "Partial marks awarded for long-form problems where mathematical evaluation steps are correct.",
+      "Tie-Breaker: In case of a tie, additional sudden-death integration problems will be assigned."
     ],
-    generalRules: "Open to all students who love calculus, analytical thinking, and mental math."
+    generalRules: "Calculators and smart watches are strictly prohibited. Decision of the Quants Club coordinators is final."
   },
   {
     id: "infinity",
     title: "Quants Challenge",
     club: "Quants Club, NIT Nagaland",
-    category: "Logic & Aptitude",
+    category: "Quantitative Aptitude & Financial Modeling",
     totalPrize: "₹ 10,000/-",
-    firstPrize: "₹ 6,000/-",
-    secondPrize: "₹ 4,000/-",
-    thirdPrize: null,
+    firstPrize: "₹ 6,000/- + Official Trophy",
+    secondPrize: "₹ 4,000/- + Official Trophy",
+    thirdPrize: "Merit Certificates for Top Teams",
     feeNIT: "₹ 70/-",
     feeOutside: "₹ 129/-",
     image: "/event/QUANTS CHALLENGE.jpeg",
     date: "5 November 2026",
-    time: "11:00am - 2:00pm",
-    venue: "VCH, NIT Nagaland",
-    rulebook: "/rulebooks/infinity_hunt.pdf",
+    time: "11:00am - 2:00pm (~3 Hours)",
+    venue: "VCH (Virtual Class Hall), NIT Nagaland",
+    rulebook: "/rulebooks/quants_challenge.pdf",
     contacts: ["7005437886", "9341240119"],
-    description: "Put your speed, logic, and problem-solving skills to the test! Featuring logic puzzles, team challenges, brainteasers, mathematical riddles, and quantitative reasoning questions.",
+    description: "The Quant Challenge tests numerical agility, statistical thinking, logical deduction, and financial problem-solving. Structured as 4 progressive elimination rounds leading to a real-world quantitative case study pitch.",
     rules: [
-      "Open for solo participants or teams of up to 2 members.",
-      "Consists of multiple progressive rounds ranging from logical riddles to speed arithmetic and crypto-puzzles.",
-      "Mobile phones and internet browsing are strictly prohibited during the competition.",
-      "Organizers' decisions are final in all scoring reconciliations."
+      "Team Size: Individual or Teams of up to 2 members.",
+      "Round 1 — Speed Math & Aptitude (Elimination): 25 MCQs, 20 Minutes, OMR (+4 for correct, -1 for incorrect).",
+      "Round 2 — Probability & Stats Sprint (Elimination): 15 Numerical Questions, 25 Minutes (+4 correct, 0 for incorrect; non-programmable scientific calculators permitted).",
+      "Round 3 — Logical & Quantitative Reasoning: 5 Critical Problems, 30 Minutes (10 marks each, partial credit for valid approach).",
+      "Round 4 — The Real-World Quant Case (Finals): Comprehensive case study on practical portfolio optimization and risk allocation (40 mins preparation + 5 mins pitch presentation; laptops permitted).",
+      "Zero Tolerance Policy: Unauthorized materials or mobile device usage in Rounds 1–3 results in immediate disqualification.",
+      "Tie-Breakers: Fewer incorrect answers in earlier rounds advances; if still tied, a 5-minute sudden-death problem decides the winner."
     ],
-    generalRules: "Pen and scrap worksheets will be provided to all registered participants."
+    generalRules: "Merit certificates awarded to Top 2 teams. Rough paper pads and stationery provided by Quants Club invigilators."
   },
   {
     id: "tech",
     title: "Tech Crisis",
     club: "E-Cell, NIT Nagaland",
-    category: "Case Study & Strategy",
+    category: "Corporate Case Study & Strategy",
     totalPrize: "₹ 10,000/-",
     firstPrize: "₹ 6,000/-",
     secondPrize: "₹ 4,000/-",
@@ -287,15 +314,16 @@ const allEventsData = [
     time: "2:00pm - 5:00pm",
     venue: "Smart Lab, NIT Nagaland",
     rulebook: "/rulebooks/tech_crisis.pdf",
-    contacts: ["E-Cell Coordinators"],
-    description: "Can you solve the crisis?! A high-stakes corporate and engineering case-study challenge where teams face an unexpected organizational collapse, supply chain halt, or tech failure and must present strategic crisis management roadmaps.",
+    contacts: ["6003801527", "8545869601"],
+    description: "Tech Crisis is a high-stakes corporate case study and crisis management competition organized by E-Cell NIT Nagaland. Teams tackle unexpected organizational crises, engineering breakdowns, and supply chain halts to formulate tactical emergency blueprints and executive presentations.",
     rules: [
-      "Team event: 2 to 4 members.",
-      "Case study dossier is unveiled at the start of the session.",
-      "Teams have 2.5 hours to analyze data, formulate contingency strategies, and prepare an executive slide deck.",
-      "Judges will evaluate feasibility, financial acumen, technological mitigation, and presentation clarity."
+      "Team event: 2 to 4 members per team.",
+      "Phase 1 — Case Analysis: Technical case study dossier unveiled describing a critical real-world crisis scenario.",
+      "Phase 2 — Strategy & Executive Pitch: Teams draft contingency roadmaps and deliver an executive slide deck to the judging panel.",
+      "Judges evaluate feasibility, financial acumen, technological mitigation, and presentation clarity.",
+      "Strict prohibition against plagiarism or pre-made presentation templates."
     ],
-    generalRules: "Open to students of NIT Nagaland and all recognized colleges/universities."
+    generalRules: "Open to students of NIT Nagaland and all recognized colleges/universities. Bring laptops for presentation preparation."
   },
   {
     id: "stock",
@@ -314,14 +342,16 @@ const allEventsData = [
     venue: "Smart Lab, NIT Nagaland",
     rulebook: "/rulebooks/stock_rise.pdf",
     contacts: ["6003801527", "8545869601"],
-    description: "Master the Market with Real-Time Tools and Expert Support! An intensive virtual stock trading simulation where traders deploy leverage, read candlestick momentum, and aim to maximize portfolio valuation within an active market window.",
+    description: "Master the Market with Real-Time Tools and Simulation! An intensive virtual stock trading challenge organized by E-Cell NIT Nagaland powered by the Neostox Virtual Stock Simulator. Participants leverage virtual capital to read candlestick momentum and maximize portfolio valuation.",
     rules: [
-      "Individual event.",
-      "Participants will trade using the official virtual simulation portal announced prior to the session.",
-      "Every trader begins with identical virtual capital.",
-      "Highest net portfolio value at market close wins the competition."
+      "Individual participation only.",
+      "Conducted on the official Neostox Virtual Stock Simulator platform.",
+      "Every participant receives identical starting virtual capital.",
+      "Trades must be executed strictly within the active trading window.",
+      "Portfolio values fluctuate based on live market conditions and simulated economic catalysts.",
+      "The trader with the highest verified net portfolio valuation wins the competition."
     ],
-    generalRules: "High-speed internet access is required. Any malpractice or multi-account exploitation will lead to immediate disqualification."
+    generalRules: "High-speed internet access is required. Any malpractice or exploitation of multiple dummy accounts results in immediate disqualification."
   }
 ];
 
