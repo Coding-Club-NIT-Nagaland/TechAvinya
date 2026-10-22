@@ -6,9 +6,9 @@ export default function Contact() {
   const contactPersons = [
     {
       id: 1,
-      name: "",
+      name: "Limathung Y Ezung",
       role: "General Secretary",
-      image: "/secretary/general.jpg",
+      image: "/secretary/general.jpeg",
       contact: "+91 7005734288",
       social: { instagram: "https://www.instagram.com/mark__the__middle/?hl=en", linkedin: "", email: "limzalenezung@gmail.com" }
     },
@@ -16,7 +16,7 @@ export default function Contact() {
       id: 2,
       name: "Diviyanshu Mishra",
       role: "Technical Secretary",
-      image: "/secretary/technical.jpeg",
+      image: "/secretary/technical.png",
       contact: "+91 7755803253",
       social: { instagram: "https://www.instagram.com/divyanshu_mishra_1911/", linkedin: "https://www.linkedin.com/in/divyanshu-mishra-nit20241033/", email: "divyanshu.nit.28@gmail.com" }
     },
@@ -78,14 +78,30 @@ export default function Contact() {
     },
     {
       id: 10,
+      name: "Navnit kumar",
+      role: "Quants Club Secretary",
+      image: "/secretary/quants.png",
+      contact: "+91 9341240119",
+      social: { instagram: "https://www.instagram.com/___navnittt___?vrfl=bXFzczVvbDVkbDV0", linkedin: "https://www.linkedin.com/in/navnit-kumar-72b470330?utm_source=share_via&utm_content=profile&utm_medium=member_android", email: "nkmaurya934124@gmail.com" }
+    },
+     {
+      id: 11,
+      name: "Kohliba",
+      role: "Quants Club Secretary",
+      image: "/secretary/quants2.jpeg",
+      contact: "+91 7005437886",
+      social: { instagram: "", linkedin: "", email: "kohlitstm@gmail.com" }
+    },
+    {
+      id: 12,
       name: "Sahil",
       role: "Esports Secretary",
-      image: "/secretary/esports3.jpeg",
+      image: "/secretary/esports.jpeg",
       contact: "+91 92797 16769",
       social: { instagram: "https://www.instagram.com/te_quiero.28/", linkedin: "", email: "" }
     },
     {
-      id: 11,
+      id: 13,
       name: "Moachiten",
       role: "Esports Secretary",
       image: "/secretary/esports2.jpeg",
@@ -93,7 +109,7 @@ export default function Contact() {
       social: { instagram: "https://www.instagram.com/moa_chiten?stkn=MWszMmFxcDNibDN3ag%3D%3D&utm_source=qr", linkedin: "https://www.linkedin.com/in/moachiten-chiten-17a24b442?utm_source=share_via&utm_content=profile&utm_medium=member_ios", email: "moachiten@gmail.com" }
     },
     {
-      id: 12,
+      id: 14,
       name: "Ayush Kumar",
       role: "Finance Secretary",
       image: "/secretary/finance.jpeg",
@@ -101,7 +117,7 @@ export default function Contact() {
       social: { instagram: "https://www.instagram.com/_.aaayush.__?stkn=MTVmZm8wYmoyd3Zzbw%3D%3D&utm_source=qr", linkedin: "https://www.linkedin.com/in/ayush-kumar-b02255339?utm_source=share_via&utm_content=profile&utm_medium=member_ios", email: "ayushkumarnit15@gmail.com" }
     },
     {
-      id: 13,
+      id: 15,
       name: "Nuksungla Walling",
       role: "Finance Secretary",
       image: "/secretary/finance2.jpg",
@@ -109,7 +125,7 @@ export default function Contact() {
       social: { instagram: "", linkedin: "", email: "" }
     },
     {
-      id: 14,
+      id: 16,
       name: "Gadde Aajith Sai",
       role: "Hospitality Secretary",
       image: "/secretary/hospitality.jpg",
@@ -117,37 +133,29 @@ export default function Contact() {
       social: { instagram: "https://www.instagram.com/aajith_1126?stkn=Y3NtaHloNm9ic2Rp", linkedin: "https://www.linkedin.com/in/aajith-sai-gadde-5432a7329?utm_source=share_via&utm_content=profile&utm_medium=member_android", email: "aajithsaigadde@gmail.com" }
     },
     {
-      id: 15,
+      id: 17,
       name: "Lolly I Shohe ",
       role: "Hospitality Secretary",
       image: "/secretary/hospitality2.jpeg",
       contact: "+91 9362797457",
       social: { instagram: "https://www.instagram.com/l0lly.co?stkn=NDl5a3k4NG9jeDFu&utm_source=qr", linkedin: "https://www.linkedin.com/in/lolly-shohe-881823385?utm_source=share_via&utm_content=profile&utm_medium=member_ios", email: "shohelolly@gmail.com" }
     },
-    // {
-    //   id: 16,
-    //   name: "",
-    //   role: "Developer",
-    //   image: "/secretary/web.jpg",
-    //   contact: "+91 ",
-    //   social: { instagram: "", linkedin: "", email: "" }
-    // },
-    // {
-    //   id: 17,
-    //   name: "",
-    //   role: "Developer",
-    //   image: "/secretary/web2.jpg",
-    //   contact: "+91 ",
-    //   social: { instagram: "https://www.instagram.com/divyanshu_mishra_1911/", linkedin: "https://www.linkedin.com/in/divyanshu-mishra-nit20241033/", email: "divyanshu.nit.28@gmail.com" }
-    // },
-    // {
-    //   id: 18,
-    //   name: "Meraj Alam",
-    //   role: "Developer",
-    //   image: "/secretary/web3.jpg",
-    //   contact: "+91 9534342082",
-    //   social: { instagram: "https://www.instagram.com/_.meraj___/", linkedin: "https://www.linkedin.com/in/meraj-alam-12we/", email: "merajalamnazeeri@gmail.com" }
-    // }
+    {
+      id: 18,
+      name: "Anuj Prasad",
+      role: "Developer",
+      image: "/secretary/web.png",
+      contact: "+91 9958284373",
+      social: { instagram: "", linkedin: "", email: "anujprasad0099@gmail.com" }
+    },
+    {
+      id: 19,
+      name: "Anuj",
+      role: "Developer",
+      image: "/secretary/web2.jpeg",
+      contact: "+91 8813090611",
+      social: { instagram: "", linkedin: "https://www.linkedin.com/in/~-anuj-7a0991287?utm_source=share_via&utm_content=profile&utm_medium=member_android", email: "anujsharma88130@gmail.com" }
+    },
   ];
 
   const teamCategories = [
@@ -156,13 +164,13 @@ export default function Contact() {
     { name: "Coding Club", members: contactPersons.slice(3, 5) },
     { name: "Robotics Club", members: contactPersons.slice(5, 7) },
     { name: "Entrepreneurship Club", members: contactPersons.slice(7, 9) },
-    { name: "Esports Arena", members: contactPersons.slice(9, 11) },
-    { name: "Finance Team", members: contactPersons.slice(11, 13) },
-    { name: "Hospitality Team", members: contactPersons.slice(13, 15) },
-    //{ name: "Web Team", members: contactPersons.slice(15, 18) }
+    { name: "Quants Club", members: contactPersons.slice(9, 11) },
+    { name: "Esports Arena", members: contactPersons.slice(11, 13) },
+    { name: "Finance Team", members: contactPersons.slice(13, 15) },
+    { name: "Hospitality Team", members: contactPersons.slice(15, 17) },
+    { name: "Web Team", members: contactPersons.slice(17, 19) }
   ];
 
-  
   const formatLink = (platform, value) => {
     if (!value || value === '#') return null;
     const hasProtocol = /^https?:\/\//i.test(value);
@@ -183,7 +191,7 @@ export default function Contact() {
     const { width, height, left, top } = card.getBoundingClientRect();
     const x = e.clientX - left;
     const y = e.clientY - top;
-    const rotateX = (y / height - 0.5) * 16; // slightly reduced for smoother feel
+    const rotateX = (y / height - 0.5) * 16;
     const rotateY = (x / width - 0.5) * -16;
 
     setTiltStyle(prev => ({
@@ -216,7 +224,6 @@ export default function Contact() {
 
   return (
     <div className="relative w-full min-h-screen text-white overflow-hidden">
-      
       <img
         className="fixed inset-0 w-screen h-screen object-cover z-[-1]"
         src={aboutvideo}
@@ -260,9 +267,7 @@ export default function Contact() {
                     className="group relative w-[280px] h-[380px] mx-auto cursor-pointer select-none"
                     style={tiltStyle[person.id]}
                   >
-                    
                     <div className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-br from-cyan-400/60 via-teal-500/40 to-blue-600/60 shadow-[0_15px_40px_rgba(0,255,255,0.15)]">
-                     
                       <div className="relative h-full w-full rounded-2xl bg-slate-900/60 backdrop-blur-md border border-white/10 overflow-hidden">
                       
                         <div
@@ -273,43 +278,44 @@ export default function Contact() {
                           }}
                         >
                           
+                          {/* FRONT CARD */}
                           <div
                             className="absolute inset-0 flex flex-col"
                             style={{ backfaceVisibility: 'hidden' }}
                           >
-                            <div className="relative w-full h-[50%] overflow-hidden">
+                            {/* Expanded Image Area (70% height now) */}
+                            <div className="relative w-full h-[70%] overflow-hidden">
                               <img
                                 src={person.image}
                                 alt={person.name}
                                 className="w-full h-full object-cover"
                               />
-                              
-                              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
                             </div>
 
-                            <div className="flex-grow flex flex-col items-center justify-center p-5 text-center">
-                              <h3 className="text-xl md:text-2xl font-semibold Graduate text-white">
+                            {/* Compact Details Area (30% height now with tighter padding/margins) */}
+                            <div className="flex-grow flex flex-col items-center justify-center px-3 py-2 text-center">
+                              <h3 className="text-lg md:text-xl font-semibold Graduate text-white leading-tight">
                                 {person.name}
                               </h3>
-                              <p className="mt-1 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-cyan-400/15 text-cyan-300 border border-cyan-400/30">
+                              <p className="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-cyan-400/15 text-cyan-300 border border-cyan-400/30">
                                 {person.role}
                               </p>
                               <a
                                 href={`tel:${person.contact.replace(/\s+/g, '')}`}
-                                className="mt-3 inline-flex items-center gap-2 text-cyan-300 hover:text-cyan-200 transition-colors"
+                                className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-cyan-300 hover:text-cyan-200 transition-colors"
                                 onClick={(e) => e.stopPropagation()}
                               >
-                                <FaPhone className="text-sm" />
+                                <FaPhone className="text-xs" />
                                 <span className="Gluten">{person.contact}</span>
                               </a>
-
-                              <p className="mt-4 text-xs text-gray-400">
+                              <p className="mt-1 text-[10px] text-gray-400">
                                 Hover or tap to flip for socials
                               </p>
                             </div>
                           </div>
 
-                      
+                          {/* BACK CARD */}
                           <div
                             className="absolute inset-0 p-5 flex flex-col items-center justify-between"
                             style={{
@@ -317,7 +323,6 @@ export default function Contact() {
                               backfaceVisibility: 'hidden'
                             }}
                           >
-                            
                             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/15 via-blue-600/10 to-emerald-500/10" />
 
                             <div className="relative w-full">
@@ -329,7 +334,6 @@ export default function Contact() {
 
                             <div className="relative flex flex-col items-center gap-4">
                               <div className="flex items-center gap-5">
-                                {/* Email */}
                                 {email && (
                                   <a
                                     href={`mailto:${email}`}
@@ -383,6 +387,7 @@ export default function Contact() {
                               </a>
                             </div>
                           </div>
+
                         </div>
             
                         <div className="pointer-events-none absolute -inset-px rounded-2xl shadow-[inset_0_0_60px_rgba(20,200,220,0.08)]" />

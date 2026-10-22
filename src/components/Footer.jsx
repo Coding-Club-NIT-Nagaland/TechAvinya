@@ -41,6 +41,7 @@ export default function Footer() {
             </div>
             <div className="flex items-center justify-center md:justify-start space-x-2">
               <FaPhone className="text-lg text-cyan-400" />
+              <p className="text-sm">+91 7755803253</p>
               <p className="text-sm">+91 8413065222</p>
             </div>
           </div>

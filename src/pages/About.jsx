@@ -35,7 +35,7 @@ const SLIDES = [
   },
   {
     title: ['NIT', 'Nagaland'],
-    image: '/about/nitn.png',
+    image: '/about/nitn.jpg',
     seed: 23,
     seal: ['NIT'],
     paras: [
@@ -137,7 +137,7 @@ export default function About() {
   const raf = useRef(0);
 
   const edges = useMemo(() => SLIDES.map((s) => makeEdge(s.seed)), []);
-  const rest = mobile ? 58 : 57;
+  const rest = mobile ? 50 : 50;
 
   const tween = useCallback(
     (from, to, ms) =>
@@ -294,7 +294,7 @@ const css = `
 .ta-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center}
 .ta-pic-fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,8,20,.35),transparent 30%)}
 
-.ta-text{position:absolute;z-index:4;left:7%;top:0;bottom:0;width:46%;display:flex;flex-direction:column;justify-content:center;color:#fff4d2;font-family:'Cormorant Garamond',serif}
+.ta-text{position:absolute;z-index:4;left:7%;top:0;bottom:0;width:40%;display:flex;flex-direction:column;justify-content:center;color:#fff4d2;font-family:'Cormorant Garamond',serif}
 .ta-eyebrow{font-size:.78rem;letter-spacing:.42em;text-transform:uppercase;opacity:0;transform:translateY(8px);transition:all .7s ease;margin:0 0 .6rem;color:#f6e3a6}
 .ta-title{position:relative;display:flex;flex-direction:column;margin:0 0 1.4rem;font-family:'Kaushan Script',cursive;font-weight:400;font-size:clamp(2.6rem,6vw,4.9rem);line-height:.92;color:#fff6dc;text-shadow:0 0 18px rgba(255,236,170,.55),0 2px 0 rgba(120,80,0,.35);opacity:0;transform:translateY(14px) rotate(-2deg);transform-origin:left;transition:all .9s cubic-bezier(.2,.7,.2,1) .1s}
 .ta-title span:nth-child(2){padding-left:.5em}

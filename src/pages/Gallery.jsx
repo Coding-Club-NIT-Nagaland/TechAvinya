@@ -49,11 +49,28 @@ export default function Gallery() {
     { id: 44, src: '/gallary/44.jpg', alt: 'TechFest Event 44' },
     { id: 45, src: '/gallary/45.jpg', alt: 'TechFest Event 45' },
     { id: 46, src: '/gallary/46.jpg', alt: 'TechFest Event 46' },
-    { id: 47, src: '/gallary/47.webp', alt: 'TechFest Event 47' }
+    { id: 47, src: '/gallary/47.webp', alt: 'TechFest Event 47' },
+    { id: 48, src: '/gallary/48.jpg', alt: 'TechFest Event 48' },
+    { id: 49, src: '/gallary/49.jpg', alt: 'TechFest Event 49' },
+    { id: 50, src: '/gallary/50.jpg', alt: 'TechFest Event 50' },
+    { id: 51, src: '/gallary/51.JPG', alt: 'TechFest Event 51' },
+    { id: 52, src: '/gallary/52.JPG', alt: 'TechFest Event 52' },
+    { id: 53, src: '/gallary/53.JPG', alt: 'TechFest Event 53' },
+    { id: 54, src: '/gallary/54.JPG', alt: 'TechFest Event 54' },
+    { id: 55, src: '/gallary/55.JPG', alt: 'TechFest Event 55' },
+    { id: 56, src: '/gallary/56.JPG', alt: 'TechFest Event 56' },
+    { id: 57, src: '/gallary/57.JPG', alt: 'TechFest Event 57' },
+    { id: 58, src: '/gallary/58.JPG', alt: 'TechFest Event 58' },
+    { id: 59, src: '/gallary/59.JPG', alt: 'TechFest Event 59' },
+    { id: 60, src: '/gallary/60.JPG', alt: 'TechFest Event 60' },
+    { id: 61, src: '/gallary/61.JPG', alt: 'TechFest Event 61' },
+    { id: 62, src: '/gallary/62.JPG', alt: 'TechFest Event 62' },
+    { id: 63, src: '/gallary/63.JPG', alt: 'TechFest Event 63' }
   ]);
+
   const [isVisible, setIsVisible] = useState({});
   const photoRefs = useRef([]);
-  const [tiltStyle, setTiltStyle] = useState({}); // State to manage dynamic tilt
+  const [tiltStyle, setTiltStyle] = useState({});
 
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -67,7 +84,7 @@ export default function Gallery() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.01 }
     );
 
     photoRefs.current.forEach(ref => {
@@ -80,23 +97,21 @@ export default function Gallery() {
       });
     };
   }, [photos]);
-  
-  // --- Dynamic Tilt Handlers ---
+
   const handleMouseMove = (e, id) => {
     const card = e.currentTarget;
     const { width, height, left, top } = card.getBoundingClientRect();
     const x = e.clientX - left;
     const y = e.clientY - top;
-    // Calculate rotation based on mouse position relative to the card center
-    const rotateX = (y / height - 0.5) * 26; // Adjust the 26 for tilt intensity
-    const rotateY = (x / width - 0.5) * -26; // Adjust the -26 for tilt intensity
-    
-    setTiltStyle(prev => ({ 
+    const rotateX = (y / height - 0.5) * 26;
+    const rotateY = (x / width - 0.5) * -26;
+
+    setTiltStyle(prev => ({
       ...prev,
-      [id]: { 
+      [id]: {
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
-        boxShadow: `0 20px 40px rgba(0, 255, 255, 0.5)`, // Add a glow effect
-        transition: 'transform 0.05s linear, box-shadow 0.05s linear', // Smoother transition
+        boxShadow: `0 20px 40px rgba(0, 255, 255, 0.5)`,
+        transition: 'transform 0.05s linear, box-shadow 0.05s linear',
       }
     }));
   };
@@ -106,19 +121,17 @@ export default function Gallery() {
       ...prev,
       [id]: {
         transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
-        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.5)', // Revert shadow
-        transition: 'transform 0.3s ease-out, box-shadow 0.3s ease-out', // Smooth return
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.5)',
+        transition: 'transform 0.3s ease-out, box-shadow 0.3s ease-out',
       }
     }));
   };
-  // --- End Dynamic Tilt Handlers ---
 
-  // --- Image Viewer Handlers ---
   const handleDoubleClick = (photoIndex) => {
     setIsViewerOpen(true);
     setCurrentPhotoIndex(photoIndex);
   };
-  
+
   const handleCloseViewer = () => {
     setIsViewerOpen(false);
   };
@@ -130,27 +143,24 @@ export default function Gallery() {
   const handlePrevious = () => {
     setCurrentPhotoIndex((prevIndex) => (prevIndex - 1 + photos.length) % photos.length);
   };
-  // --- End Image Viewer Handlers ---
 
   return (
     <div className="relative w-full min-h-screen">
-      {/* The background video is now a fixed element */}
       <img
         className="fixed inset-0 w-screen h-screen object-cover z-[-1]"
         src={gallary}
+        alt="Background"
       />
 
-      {/* A semi-transparent overlay to ensure text readability */}
       <div className="fixed inset-0 bg-black/50 z-0"></div>
 
-      {/* The content is now on a new layer above the video and overlay */}
       <div className="relative z-10 pt-20 text-center text-white px-4">
         <h1 className="text-5xl md:text-6xl font-extrabold Graduate font-['Press_Start_2P'] 
-                        text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 
-                        text-shadow-neon-cyan title-rocking mb-12 mt-8">Photo Gallery</h1>
-        
+                       text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 
+                       text-shadow-neon-cyan title-rocking mb-12 mt-8">
+          Photo Gallery
+        </h1>
 
-        {/* Masonry-style Image Grid with enhanced 3D effect */}
         <div className="max-w-6xl mx-auto columns-2 sm:columns-3 lg:columns-4 gap-4 pb-20 perspective-1000">
           {photos.map((photo, index) => (
             <div
@@ -158,16 +168,14 @@ export default function Gallery() {
               ref={el => photoRefs.current[index] = el}
               data-id={photo.id}
               onDoubleClick={() => handleDoubleClick(index)}
-              onMouseMove={(e) => handleMouseMove(e, photo.id)} // Dynamic tilt
-              onMouseLeave={() => handleMouseLeave(photo.id)}   // Dynamic tilt reset
-              className={`relative overflow-hidden rounded-lg shadow-lg mb-4 cursor-pointer transform-gpu
-                ${isVisible[photo.id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+              onMouseMove={(e) => handleMouseMove(e, photo.id)}
+              onMouseLeave={() => handleMouseLeave(photo.id)}
+              className={`relative overflow-hidden rounded-lg shadow-lg mb-4 cursor-pointer transform-gpu transition-all duration-500
+                ${isVisible[photo.id] ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0'}
               `}
-              style={{ 
-                ...tiltStyle[photo.id], // Apply dynamic tilt styles
-                transitionDelay: `${index * 50}ms`,
-                // Default transition for entry animation if no tilt style is active
-                transition: tiltStyle[photo.id] ? tiltStyle[photo.id].transition : 'transform 0.7s ease-in-out, opacity 0.7s ease-in-out, box-shadow 0.7s ease-in-out',
+              style={{
+                ...tiltStyle[photo.id],
+                transitionDelay: `${(index % 20) * 65}ms`,
                 boxShadow: tiltStyle[photo.id] ? tiltStyle[photo.id].boxShadow : '0 10px 20px rgba(0, 0, 0, 0.5)',
               }}
             >
@@ -180,32 +188,30 @@ export default function Gallery() {
           ))}
         </div>
       </div>
-      
-      {/* Full-Screen Image Viewer */}
+
       {isViewerOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
-          <button 
+          <button
             onClick={handleCloseViewer}
             className="absolute top-4 right-4 text-white text-4xl p-2 rounded-full hover:bg-white/20 transition-all"
           >
             &times;
           </button>
-          
-          <button 
+
+          <button
             onClick={handlePrevious}
             className="absolute left-4 p-4 text-white text-5xl hover:bg-white/20 transition-all rounded-full"
           >
             &#8249;
           </button>
-          
-          <img 
-            src={photos[currentPhotoIndex].src} 
-            alt={photos[currentPhotoIndex].alt} 
-            // Ensures image fits screen, maintains aspect ratio, and is larger
-            className="max-w-[90vw] max-h-[90vh] object-contain" 
+
+          <img
+            src={photos[currentPhotoIndex].src}
+            alt={photos[currentPhotoIndex].alt}
+            className="max-w-[90vw] max-h-[90vh] object-contain"
           />
-          
-          <button 
+
+          <button
             onClick={handleNext}
             className="absolute right-4 p-4 text-white text-5xl hover:bg-white/20 transition-all rounded-full"
           >
