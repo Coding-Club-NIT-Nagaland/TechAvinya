@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       )}
 
-      <div className="relative w-full h-screen overflow-hidden bg-black">
+      <div className="relative w-full min-h-screen overflow-hidden bg-black">
         {/* Background Video with preload and explicit black background */}
         <video
           id="home-video"
@@ -96,19 +96,19 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="py-16 bg-gradient-to-b from-black to-gray-900">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-4">
           <AftermovieCard />
         </div>
       </section>
 
-      <section className="py-16 bg-gray-900">
+      <section className="py-12 md:py-16 bg-gray-900">
         <div className="container mx-auto px-4">
           <Aboutus />
         </div>
       </section>
 
-      <style jsx>{`
+      <style>{`
         @keyframes spin-slow {
           from {
             transform: rotate(0deg);
