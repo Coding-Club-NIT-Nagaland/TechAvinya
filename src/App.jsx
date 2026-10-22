@@ -72,9 +72,21 @@ function AppContent() {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Only show the preloader splash once per session when entering the site
+    try {
+      return !sessionStorage.getItem('techavinya_has_loaded');
+    } catch {
+      return true;
+    }
+  });
 
   const handleAnimationFinish = () => {
+    try {
+      sessionStorage.setItem('techavinya_has_loaded', 'true');
+    } catch (e) {
+      console.warn('sessionStorage not available:', e);
+    }
     setIsLoading(false);
   };
 
