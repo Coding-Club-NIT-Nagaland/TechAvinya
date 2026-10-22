@@ -26,7 +26,7 @@ export default function HeroSection() {
       />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin
       />
-      <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Cinzel:wght@600&display=swap" 
+      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Michroma&family=Rajdhani:wght@600;700&display=swap" 
       rel="stylesheet"
       />
 
@@ -81,17 +81,17 @@ export default function HeroSection() {
             PRESENTS
           </h2> */}
          <h1
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-100 via-sky-300 to-cyan-500 drop-shadow-[0_10px_25px_rgba(6,182,212,0.6)] capitalize py-2"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-cyan-400 drop-shadow-[0_0_35px_rgba(6,182,212,0.6)] py-3 px-2 tracking-wide sm:tracking-wider inline-block leading-tight select-none"
             style={{
-              fontFamily: "'Kaushan Script', cursive",
+              fontFamily: "'Orbitron', sans-serif",
             }}
           >
-            Tech Avinya <span className="text-3xl sm:text-5xl md:text-6xl">2026</span>
+            Tech Avinya <span className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-cyan-400 drop-shadow-[0_0_25px_rgba(6,182,212,0.8)]">2026</span>
           </h1>
           <p
             className="text-base sm:text-lg md:text-xl text-cyan-200/90 tracking-[0.2em] sm:tracking-[0.3em] mb-12 sm:mb-16 font-light px-2"
             style={{
-              fontFamily: "'Cinzel', serif",
+              fontFamily: "'Michroma', sans-serif",
             }}
           >
             WHERE INNOVATION MEETS INSPIRATION
