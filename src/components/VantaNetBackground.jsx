@@ -60,7 +60,7 @@ const VantaNetBackground = ({ options }) => {
     };
   }, [options]);
 
-  return <div ref={vantaRef} className="fixed inset-0 w-screen h-screen z-0" />;
+  return <div ref={vantaRef} className="absolute inset-0 w-full h-full overflow-hidden" />;
 };
 
 export default VantaNetBackground;
