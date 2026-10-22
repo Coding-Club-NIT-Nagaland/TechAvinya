@@ -5,9 +5,9 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'backend/node_modules']),
+  globalIgnores(['dist']),
   {
-    files: ['src/**/*.{js,jsx}', 'vite.config.js'],
+    files: ['**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
       reactHooks.configs['recommended-latest'],
@@ -23,22 +23,7 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]|motion' }],
-    },
-  },
-  {
-    files: ['backend/**/*.{js,mjs}'],
-    extends: [js.configs.recommended],
-    languageOptions: {
-      ecmaVersion: 2022,
-      globals: {
-        ...globals.node,
-        ...globals.es2021,
-      },
-      sourceType: 'module',
-    },
-    rules: {
-      'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]|motion' }],
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
 ])

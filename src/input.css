@@ -103,9 +103,9 @@ body {
           0%, 100% { transform: translateX(0); }
           50% { transform: translateX(5px); }
         }
-        @utility animate-bounce-h {
-  animation: bounce-h 0.8s ease-in-out infinite;
-}
+        .group:hover .group-hover\\:animate-bounce-h {
+          animation: bounce-h 0.8s ease-in-out infinite;
+        }
       @keyframes rock-side {
                 0%, 100% { transform: translateX(0); }
                 50% { transform: translateX(20px); } /* Move 10 pixels to the right */
@@ -114,10 +114,3 @@ body {
                 display: inline-block;
                 animation: rock-side 3s ease-in-out infinite alternate; /* Alternating direction */
             }
-
-/* Event flip card styles */
-.card-wrapper { perspective: 1200px; }
-.card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
-.card-wrapper:hover .card-inner { transform: rotateY(180deg); }
-.card-face { position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-.card-back { transform: rotateY(180deg); }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function UpdatesTicker({ items = [], speed = 80, className = '' }) {
+  return null; // remove this line and uncomment the rest of the code below to enable the ticker
   const content = items.length ? items : [
     'Welcome to Tech Avinya!',
     'Add your important updates here from Home.jsx',

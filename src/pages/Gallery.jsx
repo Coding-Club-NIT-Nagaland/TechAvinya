@@ -70,13 +70,12 @@ export default function Gallery() {
       { threshold: 0.1 }
     );
 
-    const currentRefs = [...photoRefs.current];
-    currentRefs.forEach(ref => {
+    photoRefs.current.forEach(ref => {
       if (ref) observer.observe(ref);
     });
 
     return () => {
-      currentRefs.forEach(ref => {
+      photoRefs.current.forEach(ref => {
         if (ref) observer.unobserve(ref);
       });
     };

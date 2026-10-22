@@ -21,14 +21,13 @@ export default function Aboutus() {
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
-    const currentRef = aboutRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
+    if (aboutRef.current) {
+      observer.observe(aboutRef.current);
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+      if (aboutRef.current) {
+        observer.unobserve(aboutRef.current);
       }
     };
   }, []);
