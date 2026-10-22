@@ -73,9 +73,9 @@ export default function HeroSection() {
               alt="GeeksforGeeks Logo"
               className="h-10 sm:h-12 md:h-16 object-contain"
             /> */}
-           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white tracking-wide">
+           {/* <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white tracking-wide">
               coming soon
-           </h2>
+           </h2> */}
           </div>
           {/* <h2 className="text-xl sm:text-2xl md:text-4xl font-light text-cyan-400 tracking-[0.4em] sm:tracking-[0.5em] mb-8 sm:mb-10 md:mb-12">
             PRESENTS
@@ -96,7 +96,7 @@ export default function HeroSection() {
           >
             WHERE INNOVATION MEETS INSPIRATION
           </p>
-          {/* <button
+          <button
           onClick={handleClick}
           className="group relative px-8 sm:px-10 md:px-12 py-3 sm:py-4 bg-transparent text-cyan-400 text-base sm:text-lg md:text-xl font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 border-2 border-cyan-400 hover:bg-cyan-400 hover:text-black"
           style={{
@@ -108,7 +108,7 @@ export default function HeroSection() {
             <span className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse"></span>
             LIVE NOW
           </span>
-        </button> */}
+        </button>
         </div>
       </div>
     </>

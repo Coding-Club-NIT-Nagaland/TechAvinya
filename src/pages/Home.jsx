@@ -6,34 +6,52 @@ import VantaNetBackground from '../components/VantaNetBackground';
 import HeroSection from '../components/HeroSection';
 
 export default function Home() {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [showLoader, setShowLoader] = useState(true);
+  const isSeen = typeof window !== 'undefined' && sessionStorage.getItem('home_loader_seen');
+
+  const [showLoader, setShowLoader] = useState(!isSeen);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
+    if (isSeen) return;
+
+    const hideLoaderSmoothly = () => {
+      setFadeOut(true);
+      sessionStorage.setItem('home_loader_seen', 'true');
+      
+      setTimeout(() => {
+        setShowLoader(false);
+      }, 500); // Matches transition duration
+    };
+
     const video = document.getElementById('home-video');
+
     if (video) {
-      video.addEventListener('loadeddata', () => {
-        setIsVideoLoaded(true);
-        // Delay hiding loader slightly for smooth transition
-        setTimeout(() => setShowLoader(false), 500);
-      });
+      if (video.readyState >= 3) {
+        hideLoaderSmoothly();
+      } else {
+        video.addEventListener('canplaythrough', hideLoaderSmoothly, { once: true });
+      }
     }
 
-    // Fallback: hide loader after 5 seconds even if video doesn't load
+    // Safety fallback timer
     const fallbackTimer = setTimeout(() => {
-      setShowLoader(false);
-    }, 5000);
+      hideLoaderSmoothly();
+    }, 2000);
 
     return () => clearTimeout(fallbackTimer);
-  }, []);
+  }, [isSeen]);
 
   return (
-    <>
-      {/* Loading Screen */}
+    <div className="bg-black min-h-screen text-white">
+      {/* Smooth Loading Screen Overlay with solid black background */}
       {showLoader && (
-        <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+        <div
+          className={`fixed inset-0 z-50 bg-black flex items-center justify-center transition-opacity duration-500 ease-in-out ${
+            fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+        >
           <div className="text-center space-y-6">
-            {/* Animated Logo or Spinner */}
+            {/* Animated Spinner */}
             <div className="relative w-24 h-24 mx-auto">
               <div className="absolute inset-0 border-4 border-cyan-500/30 rounded-full"></div>
               <div className="absolute inset-0 border-4 border-transparent border-t-cyan-500 rounded-full animate-spin"></div>
@@ -54,30 +72,28 @@ export default function Home() {
         </div>
       )}
 
-      <div className="relative w-full h-screen overflow-hidden">
-        {/* Always show VantaNetBackground as fallback */}
-        <VantaNetBackground />
+      <div className="relative w-full h-screen overflow-hidden bg-black">
+        {/* Background Video with preload and explicit black background */}
+        <video
+          id="home-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover z-0 bg-black"
+        >
+          <source src={backvideo} type="video/mp4" />
+        </video>
 
-        <HeroSection />
+        {/* Fallback canvas container */}
+        <div className="absolute inset-0 z-1 pointer-events-none">
+          <VantaNetBackground />
+        </div>
 
-
-
-        {/* Optional: Uncomment if you want overlay text */}
-        {/*<div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80 z-10"></div>
-
-        <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-4">
-          <div className="max-w-4xl space-y-6 animate-fade-in-up">
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4">
-              TECH AVINYA
-            </h1>
-            <p className="text-xl md:text-2xl text-cyan-300 font-light">
-              NIT Nagaland's Premier Technical Festival
-            </p>
-            <div className="mt-8 animate-pulse">
-              <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
-            </div>
-          </div>
-        </div> */}
+        <div className="relative z-10 w-full h-full">
+          <HeroSection />
+        </div>
       </div>
 
       <section className="py-16 bg-gradient-to-b from-black to-gray-900">
@@ -93,21 +109,6 @@ export default function Home() {
       </section>
 
       <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fade-in-up {
-          animation: fadeInUp 1s ease-out forwards;
-        }
-
         @keyframes spin-slow {
           from {
             transform: rotate(0deg);
@@ -124,11 +125,7 @@ export default function Home() {
         .delay-150 {
           animation-delay: 150ms;
         }
-
-        .delay-300 {
-          animation-delay: 300ms;
-        }
       `}</style>
-    </>
+    </div>
   );
 }

@@ -1,12 +1,33 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import animatedVideo from '../assets/animated.webm';
 
 export default function PreLoader({ onAnimationFinish }) {
+  // Check session storage immediately on mount
+  const [hasSeen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('preloader_seen');
+    }
+    return false;
+  });
+
+  // If already seen this session, skip the animation instantly
+  useEffect(() => {
+    if (hasSeen) {
+      onAnimationFinish();
+    }
+  }, [hasSeen, onAnimationFinish]);
+
+  if (hasSeen) {
+    return null;
+  }
+
   const [animationFinished, setAnimationFinished] = useState(false);
   const videoRef = useRef(null);
 
   const handleVideoEnd = () => {
     setAnimationFinished(true);
+    // Mark as seen in session storage so it never plays again on refresh/navigation
+    sessionStorage.setItem('preloader_seen', 'true');
     setTimeout(() => {
       onAnimationFinish();
     }, 500);
