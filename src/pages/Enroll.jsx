@@ -174,17 +174,17 @@ const ALL_EVENTS = [
     id: 'tech', 
     title: 'Tech Crisis', 
     club: 'E-Cell',
-    minMembers: 2, 
-    maxMembers: 4, 
+    minMembers: 1, 
+    maxMembers: 3, 
     feeNIT: '₹ 129/-', 
     feeOutside: '₹ 349/-', 
     prize: '₹ 10,000/-', 
     category: 'E-Cell', 
     date: '6 Nov 2026',
-    time: '2:00pm - 5:00pm',
+    time: '1:30pm - 3:30pm',
     venue: 'Smart Lab, NITN',
     image: '/event/TECH CRISIS.jpeg',
-    tag: 'Corporate Crisis Management'
+    tag: 'Technical Case Study'
   },
   { 
     id: 'stock', 
@@ -197,10 +197,10 @@ const ALL_EVENTS = [
     prize: '₹ 10,000/-', 
     category: 'E-Cell', 
     date: '6 Nov 2026',
-    time: '4:30pm - 5:00pm',
+    time: '9:00am - 4:00pm',
     venue: 'Smart Lab, NITN',
     image: '/event/STOCK RAZE.jpeg',
-    tag: 'Virtual Trading Simulation'
+    tag: 'Stock Market Simulation'
   },
 ];
 

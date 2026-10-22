@@ -302,7 +302,7 @@ const allEventsData = [
     id: "tech",
     title: "Tech Crisis",
     club: "E-Cell, NIT Nagaland",
-    category: "Corporate Case Study & Strategy",
+    category: "Technical Case Study & Crisis Management",
     totalPrize: "₹ 10,000/-",
     firstPrize: "₹ 6,000/-",
     secondPrize: "₹ 4,000/-",
@@ -311,25 +311,27 @@ const allEventsData = [
     feeOutside: "₹ 349/-",
     image: "/event/TECH CRISIS.jpeg",
     date: "6 November 2026",
-    time: "2:00pm - 5:00pm",
+    time: "1:30pm - 3:30pm",
     venue: "Smart Lab, NIT Nagaland",
     rulebook: "/rulebooks/tech_crisis.pdf",
     contacts: ["6003801527", "8545869601"],
-    description: "Tech Crisis is a high-stakes corporate case study and crisis management competition organized by E-Cell NIT Nagaland. Teams tackle unexpected organizational crises, engineering breakdowns, and supply chain halts to formulate tactical emergency blueprints and executive presentations.",
+    description: "Tech Crisis is an exciting technical case study competition organized by E-Cell NIT Nagaland that challenges participants to think analytically, work collaboratively, and devise solutions to real-world engineering and technology problems. Participants are provided with a technical crisis scenario and must analyze the situation, identify core issues, and develop a feasible, innovative, and technically strong solution within the given time frame.",
     rules: [
-      "Team event: 2 to 4 members per team.",
-      "Phase 1 — Case Analysis: Technical case study dossier unveiled describing a critical real-world crisis scenario.",
-      "Phase 2 — Strategy & Executive Pitch: Teams draft contingency roadmaps and deliver an executive slide deck to the judging panel.",
-      "Judges evaluate feasibility, financial acumen, technological mitigation, and presentation clarity.",
-      "Strict prohibition against plagiarism or pre-made presentation templates."
+      "Team Formation: Each team must consist of up to 3 participants (solo participation is allowed).",
+      "Eligibility: Open to students of NIT Nagaland and other invited institutes. Cross-institutional teams are not allowed (all members must belong to the same institution).",
+      "Phase 1 — Case Analysis (1:30 PM – 2:30 PM): Teams receive a technical case study describing a real-world or hypothetical problem and prepare a written or slide-based solution within the time limit.",
+      "Phase 2 — Presentation Round (2:30 PM – 3:30 PM): Teams present their proposed solution before a panel of judges (5–7 minutes presentation followed by 2 minutes of Q&A).",
+      "Time & Submission: Teams must submit their presentation or report within the allotted analysis time. Late submissions will not be accepted.",
+      "Judging Criteria: Problem Understanding, Innovation & Creativity, Technical Feasibility, and Presentation & Communication.",
+      "Plagiarism or copied solutions will lead to immediate disqualification. Judges' and organizers' decisions are final and binding."
     ],
-    generalRules: "Open to students of NIT Nagaland and all recognized colleges/universities. Bring laptops for presentation preparation."
+    generalRules: "A participant can only be part of one team. Teams must register in advance under a unique team name. Participants must maintain professional behavior and respect event decorum."
   },
   {
     id: "stock",
     title: "Stock Race",
     club: "E-Cell, NIT Nagaland",
-    category: "Finance & Virtual Trading",
+    category: "Stock Market Simulation & Virtual Trading",
     totalPrize: "₹ 10,000/-",
     firstPrize: "₹ 6,000/-",
     secondPrize: "₹ 4,000/-",
@@ -338,20 +340,21 @@ const allEventsData = [
     feeOutside: "₹ 149/-",
     image: "/event/STOCK RAZE.jpeg",
     date: "6 November 2026",
-    time: "4:30pm - 5:00pm",
+    time: "9:00am - 4:00pm",
     venue: "Smart Lab, NIT Nagaland",
-    rulebook: "/rulebooks/stock_rise.pdf",
+    rulebook: "/rulebooks/stock_race.pdf",
     contacts: ["6003801527", "8545869601"],
-    description: "Master the Market with Real-Time Tools and Simulation! An intensive virtual stock trading challenge organized by E-Cell NIT Nagaland powered by the Neostox Virtual Stock Simulator. Participants leverage virtual capital to read candlestick momentum and maximize portfolio valuation.",
+    description: "Stock Race is a premier stock market simulation competition organized by E-Cell NIT Nagaland where participants trade virtual portfolios over the course of the event. Each participant receives a fixed virtual amount to trade with and competes to grow it into the highest portfolio value by the end of the event.",
     rules: [
-      "Individual participation only.",
-      "Conducted on the official Neostox Virtual Stock Simulator platform.",
-      "Every participant receives identical starting virtual capital.",
-      "Trades must be executed strictly within the active trading window.",
-      "Portfolio values fluctuate based on live market conditions and simulated economic catalysts.",
-      "The trader with the highest verified net portfolio valuation wins the competition."
+      "Individual participation only (solo traders).",
+      "Participation & Virtual Amount: Each participant gets a fixed virtual amount to begin trading with. All trades are conducted using this virtual amount only — no real money is involved.",
+      "Company List: The list of companies/stocks available for trading will be shared in the official event WhatsApp group. Participants should only trade in the companies announced on the shared list.",
+      "Trading Hours: Trading time is from 9:00 AM to 4:00 PM daily. Participants can buy or sell stocks at any time within these trading hours.",
+      "Winning Criteria: The winner is the participant with the highest portfolio value at the end of the event.",
+      "Fair Play: No fake trades or manipulation of any kind is allowed. Any participant found manipulating trades or data will be disqualified.",
+      "Judges' and organizers' decisions are final and binding."
     ],
-    generalRules: "High-speed internet access is required. Any malpractice or exploitation of multiple dummy accounts results in immediate disqualification."
+    generalRules: "Participants must join the official event WhatsApp group to receive company rosters and trading credentials. High-speed internet connection is required."
   }
 ];
 

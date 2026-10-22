@@ -166,11 +166,11 @@ export default function Events() {
       firstPrize: "₹ 6,000/-",
       entryFee: "₹ 129 (NITN) / ₹ 349",
       date: "6 Nov 2026",
-      time: "2:00pm - 5:00pm",
+      time: "1:30pm - 3:30pm",
       venue: "Smart Lab, NITN",
       image: "/event/TECH CRISIS.jpeg",
       icon: FaChartLine,
-      tag: "Case Study & Crisis",
+      tag: "Technical Case Study",
     },
     {
       id: "stock",
@@ -181,11 +181,11 @@ export default function Events() {
       firstPrize: "₹ 6,000/-",
       entryFee: "₹ 99 (NITN) / ₹ 149",
       date: "6 Nov 2026",
-      time: "4:30pm - 5:00pm",
+      time: "9:00am - 4:00pm",
       venue: "Smart Lab, NITN",
       image: "/event/STOCK RAZE.jpeg",
       icon: FaChartLine,
-      tag: "Live Virtual Trading",
+      tag: "Stock Simulation",
     },
   ], []);
 
