@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => { 
+export default defineConfig(() => { 
 
   const plugins = [
     react(),
