@@ -156,6 +156,14 @@ export default function Contact() {
       contact: "+91 8813090611",
       social: { instagram: "", linkedin: "https://www.linkedin.com/in/~-anuj-7a0991287?utm_source=share_via&utm_content=profile&utm_medium=member_android", email: "anujsharma88130@gmail.com" }
     },
+    {
+      id: 20,
+      name: "Chirag kapoor",
+      role: "Developer",
+      image: "/secretary/web3.jpeg",
+      contact: "+91 9350424769",
+      social: { instagram: "https://www.instagram.com/chiragkapoor_47?psln=MW1jeWI3dGJ0MzNpMg==", linkedin: "https://www.linkedin.com/in/chirag-kapoor-2a287936a?utm_source=share_via&utm_content=profile&utm_medium=member_android", email: "kapoorchirag47@gmail.com" }
+    },
   ];
 
   const teamCategories = [
@@ -168,7 +176,7 @@ export default function Contact() {
     { name: "Esports Arena", members: contactPersons.slice(11, 13) },
     { name: "Finance Team", members: contactPersons.slice(13, 15) },
     { name: "Hospitality Team", members: contactPersons.slice(15, 17) },
-    { name: "Web Team", members: contactPersons.slice(17, 19) }
+    { name: "Web Team", members: contactPersons.slice(17, 20) }
   ];
 
   const formatLink = (platform, value) => {
