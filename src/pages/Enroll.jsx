@@ -37,7 +37,7 @@ const ALL_EVENTS = [
     prize: '₹ 22,000/-', 
     category: 'Coding', 
     date: '6 Nov 2026',
-    time: '11:00am - 6:00pm',
+    time: '12:00pm - 6:00pm',
     venue: 'VCH, NITN',
     image: '/event/HACKATHON.jpeg',
     tag: 'Software Prototyping Sprint'
@@ -84,7 +84,7 @@ const ALL_EVENTS = [
     feeOutside: '₹ 499/-', 
     prize: '₹ 20,000/-', 
     category: 'Robotics', 
-    date: '6 Nov 2026',
+    date: '5 Nov 2026',
     time: '9:00am - 11:00am',
     venue: 'NITN Football Ground',
     image: '/event/ROBO TRACK.jpeg',
