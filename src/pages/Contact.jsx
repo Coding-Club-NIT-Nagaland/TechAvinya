@@ -146,7 +146,7 @@ export default function Contact() {
       role: "Developer",
       image: "/secretary/web.png",
       contact: "+91 9958284373",
-      social: { instagram: "", linkedin: "", email: "anujprasad0099@gmail.com" }
+      social: { instagram: "", linkedin: "https://www.linkedin.com/in/anuj-prasad-a804083ab", email: "anujprasad0099@gmail.com" }
     },
     {
       id: 19,
