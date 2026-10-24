@@ -7,93 +7,6 @@ import {
 } from 'react-icons/fa'; 
 import TechfestCyberBackground from '../components/TechfestCyberBackground'; 
 
-/* ==========================================================================
-   CURRENT SPONSORS DATA & DETAILS (COMMENTED DOWN AS REQUESTED)
-   ==========================================================================
-const allSponsors = [
-  { 
-    id: 1, 
-    name: "GeeksforGeeks", 
-    logo: "/gfg.png", 
-    tier: "Title Sponsor", 
-    category: "title",
-    badge: "👑 Official Title Sponsor",
-    website: "https://www.geeksforgeeks.org/",
-    themeColor: "from-emerald-500/20 via-green-500/10 to-transparent",
-    borderColor: "border-emerald-400/50",
-    glowColor: "shadow-[0_0_35px_rgba(16,185,129,0.3)]",
-    badgeClass: "bg-emerald-950/80 text-emerald-300 border-emerald-400/40",
-    domain: "Computer Science & Developer Ecosystem",
-    description: "India's premier learning portal empowering millions of developers and students with world-class algorithms, system design, and competitive coding masterclasses.",
-    perks: ["Keynote Addresses", "Talent Recruitment", "Exclusive Workshops", "Grand Stage Branding"],
-  },
-  { 
-    id: 2, 
-    name: "NIELIT Kohima", 
-    logo: "/nielit.jpg", 
-    tier: "Hackathon Sponsor", 
-    category: "tracks",
-    badge: "💻 Flagship Hackathon Sponsor",
-    website: "https://nielit.gov.in/kohima/",
-    themeColor: "from-cyan-500/20 via-blue-500/10 to-transparent",
-    borderColor: "border-cyan-400/40",
-    glowColor: "shadow-[0_0_25px_rgba(6,182,212,0.25)]",
-    badgeClass: "bg-cyan-950/80 text-cyan-300 border-cyan-400/40",
-    domain: "Electronics, IT & Embedded Systems",
-    description: "National Institute of Electronics and Information Technology Kohima, advancing cutting-edge software engineering, IT incubation, and open-source hackathons.",
-    perks: ["Hackathon Mentorship", "Jury Evaluation", "Project Incubation", "Track Naming"],
-  },
-  { 
-    id: 3, 
-    name: "Instudia", 
-    logo: "/instudia.png", 
-    tier: "CodeRaze Partner", 
-    category: "tracks",
-    badge: "⚡ Competitive Coding Partner",
-    website: "https://instudia.com/",
-    themeColor: "from-blue-500/20 via-indigo-500/10 to-transparent",
-    borderColor: "border-blue-400/40",
-    glowColor: "shadow-[0_0_25px_rgba(59,130,246,0.25)]",
-    badgeClass: "bg-blue-950/80 text-blue-300 border-blue-400/40",
-    domain: "EdTech & Algorithmic Excellence",
-    description: "Empowering developers to conquer competitive programming benchmarks, high-speed problem-solving, and software craftsmanship.",
-    perks: ["Problem Statement Design", "Live Leaderboard", "Coding Mentorship", "Direct Hiring"],
-  },
-  { 
-    id: 4, 
-    name: "Nagabot", 
-    logo: "/nagabot.jpeg", 
-    tier: "RoboForge Partner", 
-    category: "tracks",
-    badge: "🤖 Robotics & Hardware Partner",
-    website: "https://nagabot.in/",
-    themeColor: "from-purple-500/20 via-pink-500/10 to-transparent",
-    borderColor: "border-purple-400/40",
-    glowColor: "shadow-[0_0_25px_rgba(168,85,247,0.25)]",
-    badgeClass: "bg-purple-950/80 text-purple-300 border-purple-400/40",
-    domain: "Robotics, Automation & Mechatronics",
-    description: "Pioneering indigenous robotics, autonomous line followers, combat arenas, and hands-on mechatronics engineering in Northeast India.",
-    perks: ["Arena Setup", "Technical Workshops", "Hardware Kits", "Robo Challenge Sponsor"],
-  },
-  { 
-    id: 5, 
-    name: "Fingerprint", 
-    logo: "/fingerprint.png", 
-    tier: "Printing Partner", 
-    category: "inkind",
-    badge: "🖨️ Printing & Merchandise Partner",
-    website: "#",
-    themeColor: "from-pink-500/20 via-rose-500/10 to-transparent",
-    borderColor: "border-pink-400/40",
-    glowColor: "shadow-[0_0_25px_rgba(244,63,94,0.25)]",
-    badgeClass: "bg-pink-950/80 text-pink-300 border-pink-400/40",
-    domain: "Creative Print & Visual Merchandise",
-    description: "Official merchandise, high-grade campus branding, credentials printing, and graphic design partner for Tech Avinya 2026.",
-    perks: ["Festival T-Shirts", "VIP Credentials", "Hoarding Graphics", "Custom Swag Packs"],
-  },
-];
-========================================================================== */
-
 const statsData = [
   { value: "15,000+", label: "Digital Impressions", sub: "Pan-India Reach", icon: FaUsers, color: "text-cyan-400" },
   { value: "1,000+", label: "On-Campus Innovators", sub: "Students & Developers", icon: FaUniversity, color: "text-purple-400" },
@@ -213,10 +126,8 @@ export default function Sponsors() {
 
   return (
     <div className="relative w-full min-h-screen text-white overflow-hidden bg-[#020409]">
-      {/* Signature IIT Bombay Techfest Cybernetic Background */}
       <TechfestCyberBackground />
 
-      {/* Main Content Wrapper */}
       <div className="relative z-10 w-full pt-28 pb-24 flex flex-col items-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         
         {/* --- Top Authority Header Badge --- */}
@@ -239,7 +150,7 @@ export default function Sponsors() {
             return (
               <div 
                 key={idx}
-                className="relative p-5 rounded-2xl bg-gradient-to-b from-[#0c1838]/80 via-[#070e24]/90 to-[#020512]/95 border border-cyan-500/30 backdrop-blur-xl shadow-xl flex flex-col items-center text-center group hover:border-cyan-400/80 transition-all duration-300 hover:-translate-y-1"
+                className="relative p-5 rounded-2xl bg-gradient-to-b from-[#0c1838]/80 via-[#070e24]/90 to-[#020512]/95 border border-cyan-500/30 backdrop-blur-xl shadow-xl flex flex-col items-center text-center group hover:border-cyan-400/85 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className={`p-3 rounded-xl bg-cyan-950/60 border border-cyan-500/30 mb-3 shadow-inner ${stat.color}`}>
                   <Icon className="w-6 h-6" />
@@ -257,16 +168,12 @@ export default function Sponsors() {
             );
           })}
         </div>
-
-        {/* =========================================================================
-            CURRENT SPONSORS DETAILS & PALETTES (COMMENTED DOWN AS REQUESTED)
-            ========================================================================= */}
-        {/*
+          
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
           {[
             { id: 'all', label: 'All Partners' },
-            { id: 'title', label: '👑 Title Sponsor' },
-            { id: 'tracks', label: '🚀 Track & Domain Partners' },
+            { id: 'title', label: '👑 Media Partners' },
+            { id: 'tracks', label: '🚀 Event Partners' },
             { id: 'inkind', label: '🤝 Printing & Merchandise' },
           ].map(tab => (
             <button
@@ -285,7 +192,7 @@ export default function Sponsors() {
             </span>
           </div>
 
-          <div className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-[#12241a]/90 via-[#06140f]/95 to-[#020a06]/98 border-2 border-emerald-400/60 shadow-[0_0_50px_rgba(16,185,129,0.3)] backdrop-blur-2xl">
+          {/* <div className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-[#12241a]/90 via-[#06140f]/95 to-[#020a06]/98 border-2 border-emerald-400/60 shadow-[0_0_50px_rgba(16,185,129,0.3)] backdrop-blur-2xl">
             <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 justify-between">
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left flex-shrink-0">
                 <div className="w-64 h-32 sm:w-72 sm:h-36 bg-white/95 rounded-2xl p-4 flex items-center justify-center shadow-lg border-2 border-white/80">
@@ -298,28 +205,31 @@ export default function Sponsors() {
                 </h2>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
-        <div className="w-full mb-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        {/* --- FIXED SPONSOR CARDS SECTION --- */}
+        <div className="w-full mb-20 flex justify-center">
+          <div className="flex flex-wrap justify-center items-stretch gap-8 max-w-4xl px-4 w-full">
             {[
-              { name: "NIELIT Kohima", logo: "/nielit.jpg", tier: "Hackathon Sponsor" },
-              { name: "Instudia", logo: "/instudia.png", tier: "CodeRaze Partner" },
-              { name: "Nagabot", logo: "/nagabot.jpeg", tier: "RoboForge Partner" },
-              { name: "Fingerprint", logo: "/fingerprint.png", tier: "Printing Partner" }
+              { name: "NAGALAND COLLEGEMEDIA", logo: "/nagamedia.jpeg", tier: "Media Sponsor" },
+              { name: "HackerAuth", logo: "/hackerauth.png", tier: "Event Partner" },
             ].map((sp, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-black/60 border border-white/10">
-                <div className="w-full h-28 bg-white/95 rounded-xl p-3 flex items-center justify-center mb-5">
-                  <img src={sp.logo} alt={sp.name} className="max-h-20 max-w-full object-contain" />
+              <div 
+                key={i} 
+                className="w-64 sm:w-72 bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 flex flex-col items-center justify-between transition-all duration-300 hover:scale-105 hover:border-cyan-500/50 shadow-lg text-center"
+              >
+                <div className="w-full h-36 bg-white rounded-xl flex items-center justify-center p-4 overflow-hidden shadow-inner">
+                  <img src={sp.logo} alt={sp.name} className="max-h-full max-w-full object-contain" />
                 </div>
-                <h4 className="text-lg font-bold text-white">{sp.name}</h4>
-                <p className="text-xs font-mono text-cyan-400 mt-1">{sp.tier}</p>
+                <div className="mt-4 w-full flex flex-col justify-end flex-grow">
+                  <h4 className="text-white font-bold text-lg tracking-wide truncate">{sp.name}</h4>
+                  <p className="text-cyan-400 font-medium text-xs mt-1 uppercase tracking-wider">{sp.tier}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
-        */}
 
         {/* --- WHY SPONSOR TECH AVINYA (VALUE PROPOSITION BENTO) --- */}
         <div className="w-full mb-20">
