@@ -212,7 +212,7 @@ export default function Sponsors() {
         <div className="w-full mb-20 flex justify-center">
           <div className="flex flex-wrap justify-center items-stretch gap-8 max-w-4xl px-4 w-full">
             {[
-              { name: "NAGALAND COLLEGEMEDIA", logo: "/nagamedia.jpeg", tier: "Media Sponsor" },
+              { name: "NAGALAND COLLEGEMEDIA", logo: "/nagamedia.jpeg", tier: "Media Partner" },
               { name: "HackerAuth", logo: "/hackerauth.png", tier: "Event Partner" },
             ].map((sp, i) => (
               <div 
