@@ -134,7 +134,7 @@ const allEventsData = [
     feeNIT: "₹ 199/-",
     feeOutside: "₹ 499/-",
     image: "/event/ROBO TRACK.jpeg",
-    date: "6 November 2026",
+    date: "5 November 2026",
     time: "9:00am - 11:00am",
     venue: "NITN Football Ground",
     rulebook: "/rulebooks/robo_track.pdf",
