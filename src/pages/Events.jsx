@@ -75,7 +75,7 @@ export default function Events() {
       prize: "₹ 20,000/-",
       firstPrize: "₹ 12,000/-",
       entryFee: "₹ 199 (NITN) / ₹ 499",
-      date: "6 Nov 2026",
+      date: "5 Nov 2026",
       time: "9:00am - 11:00am",
       venue: "NITN Football Ground",
       image: "/event/ROBO TRACK.jpeg",
