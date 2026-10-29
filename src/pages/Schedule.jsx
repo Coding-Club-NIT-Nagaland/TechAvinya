@@ -130,7 +130,7 @@ export default function Schedule() {
       title: "Robo Track Challenge",
       club: "Robotics Club",
       clubCategory: "Robotics",
-      day: "Day 2",
+      day: "Day 1",
       date: "5 November 2026",
       time: "9:00 AM – 11:00 AM",
       rawStart: 9.0,
