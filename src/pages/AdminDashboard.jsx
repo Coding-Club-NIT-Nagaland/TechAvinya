@@ -49,9 +49,9 @@ const normalizeSponsor = (s) => ({
 });
 
 const eventOptions = [
-  'All Time', 'Code Raze', 'Hackathon', 'Aerial Adrenaline', 'Clash of Wheels',
-  'Digital Art', 'Bug Hunt', 'Animation', 'BGMI', 'MLBB', 'Free Fire', 
-  '3D Modelling', 'Tech Crisis', 'Infinity Hunt', 'Stock Rise'
+  'All Time', 'Code Raze', 'Hackathon','Genesis 3D', 'Robo Track Challenge',
+  'Hardware Hackathon','BGMI Tournament', 'MLBB (Community Heroes)', 'Free Fire', 
+  'Integration Bee', 'Tech Crisis', 'Quants Challenge', 'Stock Race'
 ];
 
 const registrationStatusOptions = ['All', 'Pending', 'Accepted', 'Rejected'];
