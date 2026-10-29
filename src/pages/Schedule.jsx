@@ -131,7 +131,7 @@ export default function Schedule() {
       club: "Robotics Club",
       clubCategory: "Robotics",
       day: "Day 2",
-      date: "6 November 2026",
+      date: "5 November 2026",
       time: "9:00 AM – 11:00 AM",
       rawStart: 9.0,
       duration: "2 Hours",
