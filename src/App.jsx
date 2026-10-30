@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PreLoader from './components/PreLoader';
@@ -17,30 +17,11 @@ import Sponsors from './pages/Sponsors';
 import SponsorInquiry from './pages/SponsorInquiry';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import Promos from './pages/Promos.jsx';
-import UpdatesTicker from './components/UpdatesTicker';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 function AppContent() {
-  const location = useLocation();
-  const showTicker = location.pathname === '/' || location.pathname === '/home';
-  const updates = [
-    'Updated Venue for Digital Arts Event is EDC Lab',
-    'Venue for Tech Crisis has been shifted to Smart Lab',
-    'Registration for Internal NIT Students is Resumed Now !',
-    'NIT Nagaland Student can now purchase Club Bundle to participate in any event organized by that Club',
-    'Stay Tuned for further Updates',
-  ];
-
   return (
     <>
-      {showTicker && (
-        <>
-          <div className="fixed top-16 left-0 right-0 z-30">
-            <UpdatesTicker items={updates} className="shadow-lg" />
-          </div>
-          <div className="h-10" />
-        </>
-      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
