@@ -81,10 +81,10 @@ export default function Home() {
   const [progress, setProgress] = useState(0);
 
   const updates = [
-    'Updated Venue for Digital Arts Event is EDC Lab',
-    'Venue for Tech Crisis has been shifted to Smart Lab',
-    'Registration for Internal NIT Students is Resumed Now !',
-    'NIT Nagaland Student can now purchase Club Bundle to participate in any event organized by that Club',
+    'Welcome to Tech Avinya 2K26',
+    'WHERE INNOVATION MEETS INSPIRATION',
+    'Registration is started Now !',
+    'Kindly Visit Event Section to Register for an Event',
     'Stay Tuned for further Updates',
   ];
 
