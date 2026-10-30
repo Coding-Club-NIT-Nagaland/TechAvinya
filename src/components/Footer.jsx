@@ -10,6 +10,9 @@ export default function Footer() {
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <img src="/image/logo2.png" alt="Tech Avinya Logo" className="h-20 w-auto mb-4" />
           <h3 className="text-xl font-semibold text-white mb-2 variable">About Tech Avinya</h3>
+          <p className="text-lg font-bold text-cyan-400 mb-2" style={{ fontFamily: "'Hind', sans-serif" }}>
+            टेक अविन्य
+          </p>
           <p className="text-sm rokkitt">
             Tech Avinya is the annual technical fest of NIT Nagaland. It's a platform for students to showcase their technical skills, innovate, and compete in various events, workshops, and hackathons.
           </p>
