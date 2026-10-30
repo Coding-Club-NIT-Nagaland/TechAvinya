@@ -14,7 +14,7 @@ export default function Contact() {
     },
     {
       id: 2,
-      name: "Diviyanshu Mishra",
+      name: "Divyanshu Mishra",
       role: "Technical Secretary",
       image: "/secretary/technical.png",
       contact: "+91 7755803253",
