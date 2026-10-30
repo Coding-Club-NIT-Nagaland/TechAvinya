@@ -69,40 +69,64 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed w-full z-50 backdrop-blur-md bg-black/80 border-b transition-all duration-300 ease-in-out h-16 ${scrolled ? 'border-white/30 shadow-xl' : 'border-white/20'}`}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex justify-between items-center w-full h-full">
+      <style>{`
+        @keyframes navGlow {
+          0%, 100% { box-shadow: 0 0 20px rgba(6,182,212,0.3), 0 0 40px rgba(99,102,241,0.2); }
+          50% { box-shadow: 0 0 30px rgba(6,182,212,0.5), 0 0 60px rgba(99,102,241,0.4); }
+        }
+        @keyframes borderPulse {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .nav-glow {
+          animation: navGlow 3s ease-in-out infinite;
+        }
+        .border-animated {
+          background: linear-gradient(90deg, #06b6d4, #6366f1, #06b6d4);
+          background-size: 200% 200%;
+          animation: borderPulse 3s ease infinite;
+        }
+      `}</style>
+
+      <nav className={`fixed w-full z-50 transition-all duration-300 ease-in-out h-20 ${scrolled ? 'bg-black/90 backdrop-blur-xl border-b border-cyan-500/30 shadow-2xl' : 'bg-black/60 backdrop-blur-lg border-b border-white/10'}`}>
+        {/* Animated top border */}
+        <div className={`absolute top-0 left-0 right-0 h-0.5 border-animated ${scrolled ? 'opacity-100' : 'opacity-50'}`} />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center w-full h-full">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <Link to="/" className="flex items-center space-x-2 group">
-              <img
-                src="/image/logo2.png"
-                alt="Econ Logo"
-                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-              />
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="relative">
+                <div className="absolute inset-0 bg-cyan-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
+                <img
+                  src="/image/logo2.png"
+                  alt="Tech Avinya Logo"
+                  className="h-14 w-auto relative z-10 transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
             </Link>
           </div>
 
           {/* Center nav (desktop) */}
-          <div className="hidden lg:flex items-center mx-2 sm:mx-4 lg:mx-8 flex-1 min-w-0 justify-center">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 overflow-x-auto whitespace-nowrap">
+          <div className="hidden lg:flex items-center flex-1 min-w-0 justify-center px-8">
+            <div className="flex items-center gap-1 p-1.5 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 backdrop-blur-sm">
               {baseNavItems.map((item) => {
                 const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
                 return (
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`group relative px-3 py-2 rounded-lg transition-all duration-300 flex-shrink-0
+                    className={`group relative px-4 py-2.5 rounded-xl transition-all duration-300 flex-shrink-0
                       ${isActive
-                        ? 'bg-gradient-to-r from-cyan-600/40 to-blue-700/40 shadow-lg shadow-cyan-400/20 scale-105'
-                        : 'hover:bg-gradient-to-r hover:from-teal-500/20 hover:to-cyan-500/20 hover:shadow-lg hover:shadow-teal-500/20'}
+                        ? 'bg-gradient-to-r from-cyan-500/30 to-blue-500/30 text-cyan-300 shadow-lg shadow-cyan-500/20'
+                        : 'text-gray-300 hover:text-white hover:bg-white/5'}
                     `}
+                    style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
                   >
-                    <div className="flex items-center space-x-2">
-                      <item.icon size={16} className={`transition-colors ${isActive ? 'text-cyan-300 drop-shadow-glow' : 'text-white group-hover:text-cyan-300'}`} />
-                      <span className={`font-medium text-sm tracking-wide transition-colors ${isActive ? 'text-cyan-300 drop-shadow-glow' : 'text-white group-hover:text-cyan-300'}`}>{item.name}</span>
-                    </div>
-                    <div className={`absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-teal-400 to-cyan-400 transition-all duration-300 -translate-x-1/2
-                      ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></div>
+                    <span className="relative z-10 font-medium">{item.name}</span>
+                    {isActive && (
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-md" />
+                    )}
                   </Link>
                 );
               })}
@@ -110,47 +134,50 @@ export default function Navbar() {
           </div>
 
           {/* Right side buttons */}
-          <div className="flex items-center space-x-2 flex-shrink-0">
+          <div className="flex items-center space-x-3 flex-shrink-0">
             {isLoggedIn ? (
               <>
                 <Link
                   to="/admin/dashboard"
-                  className="hidden lg:flex items-center space-x-2 px-6 py-2 rounded-lg bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/30 transform hover:scale-105"
+                  className="hidden lg:flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/40 transform hover:scale-105"
+                  style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
                 >
-                  <User size={18} />
+                  <User size={16} />
                   <span>DASHBOARD</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="hidden lg:flex items-center space-x-2 px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-red-500/30 transform hover:scale-105"
+                  className="hidden lg:flex items-center space-x-2 px-5 py-2.5 rounded-xl border border-red-500/50 text-red-400 hover:bg-red-500/20 font-medium transition-all duration-300 hover:shadow-lg hover:shadow-red-500/30 transform hover:scale-105"
+                  style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
                 >
-                  <LogOut size={18} />
+                  <LogOut size={16} />
                   <span>LOGOUT</span>
                 </button>
               </>
             ) : (
               <Link
                 to="/login"
-                className="hidden lg:flex items-center space-x-2 px-6 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30 transform hover:scale-105"
+                className="hidden lg:flex items-center space-x-2 px-5 py-2.5 rounded-xl border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20 font-medium transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 transform hover:scale-105"
+                style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
               >
-                <User size={18} />
-                <span>ADMIN LOGIN</span>
+                <User size={16} />
+                <span>LOGIN</span>
               </Link>
             )}
 
             {/* Mobile menu toggle */}
             <button
               onClick={() => setOpen(!open)}
-              className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors relative"
+              className="lg:hidden text-white p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-cyan-500/30 transition-all duration-300 relative"
               aria-label="Toggle menu"
               aria-expanded={open}
             >
               {open ? (
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5" />
               )}
-              {!open && <span className="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></span>}
+              {!open && <span className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>}
             </button>
           </div>
         </div>
@@ -158,25 +185,29 @@ export default function Navbar() {
 
       {/* Mobile Sidebar Overlay */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-black/80 backdrop-blur-md z-40 lg:hidden transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         onClick={() => setOpen(false)}
       ></div>
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 z-50 lg:hidden transition-transform duration-300 ease-out shadow-2xl ${open ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-br from-slate-900 via-slate-900 to-black z-50 lg:hidden transition-transform duration-300 ease-out shadow-2xl border-l border-cyan-500/20 ${open ? 'translate-x-0' : 'translate-x-full'
           }`}
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between p-6 border-b border-slate-700/50">
+          <div className="flex items-center justify-between p-6 border-b border-cyan-500/20 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
             <div className="flex items-center space-x-3">
-              <img src="/image/logo2.png" alt="Logo" className="h-10 w-auto" />
+              <div className="relative">
+                <div className="absolute inset-0 bg-cyan-500/20 rounded-full blur-lg" />
+                <img src="/image/logo2.png" alt="Logo" className="h-10 w-auto relative z-10" />
+              </div>
+              <span className="text-xl font-bold text-cyan-300" style={{ fontFamily: "'Orbitron', sans-serif" }}>TECH AVINYA</span>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 text-white transition-colors"
+              className="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -192,19 +223,20 @@ export default function Navbar() {
                     key={item.name}
                     to={item.path}
                     className={`group flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300 ${isActive
-                        ? 'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 shadow-lg shadow-cyan-500/10'
-                        : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
+                        ? 'bg-gradient-to-r from-cyan-500/30 to-blue-500/30 text-cyan-300 shadow-lg shadow-cyan-500/20 border border-cyan-500/30'
+                        : 'text-gray-300 hover:bg-white/5 hover:text-white border border-transparent'
                       }`}
                     onClick={() => setOpen(false)}
+                    style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
                   >
                     <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg transition-colors ${isActive ? 'bg-cyan-500/20' : 'bg-slate-800/50 group-hover:bg-slate-700/50'
+                      <div className={`p-2 rounded-lg transition-colors ${isActive ? 'bg-cyan-500/20' : 'bg-white/5 group-hover:bg-white/10'
                         }`}>
-                        <item.icon size={20} className={isActive ? 'text-cyan-400' : 'text-slate-400 group-hover:text-cyan-400'} />
+                        <item.icon size={18} className={isActive ? 'text-cyan-400' : 'text-gray-400 group-hover:text-cyan-400'} />
                       </div>
                       <span className="font-medium">{item.name}</span>
                     </div>
-                    <ChevronRight size={18} className={`transition-transform ${isActive ? 'text-cyan-400 translate-x-1' : 'text-slate-500 group-hover:translate-x-1'}`} />
+                    <ChevronRight size={16} className={`transition-transform ${isActive ? 'text-cyan-400 translate-x-1' : 'text-gray-500 group-hover:translate-x-1'}`} />
                   </Link>
                 );
               })}
@@ -212,36 +244,39 @@ export default function Navbar() {
           </div>
 
           {/* Sidebar Footer */}
-          <div className="p-4 border-t border-slate-700/50 space-y-3">
+          <div className="p-4 border-t border-cyan-500/20 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 space-y-3">
             {isLoggedIn ? (
               <>
                 <Link
                   to="/admin/dashboard"
-                  className="flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/30"
+                  className="flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/40 transform hover:scale-105"
                   onClick={() => setOpen(false)}
+                  style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
                 >
-                  <User size={20} />
-                  <span>Dashboard</span>
+                  <User size={18} />
+                  <span>DASHBOARD</span>
                 </Link>
                 <button
                   onClick={() => {
                     handleLogout();
                     setOpen(false);
                   }}
-                  className="w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-rose-500/30"
+                  className="w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-xl border border-red-500/50 text-red-400 hover:bg-red-500/20 font-medium transition-all duration-300 hover:shadow-lg hover:shadow-red-500/30 transform hover:scale-105"
+                  style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
                 >
-                  <LogOut size={20} />
-                  <span>Logout</span>
+                  <LogOut size={18} />
+                  <span>LOGOUT</span>
                 </button>
               </>
             ) : (
               <Link
                 to="/login"
-                className="flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-gradient-to-r from-violet-500 to-purple-500 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/30"
+                className="flex items-center justify-center space-x-2 px-4 py-3 rounded-xl border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20 font-medium transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 transform hover:scale-105"
                 onClick={() => setOpen(false)}
+                style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '0.75rem', letterSpacing: '0.1em' }}
               >
-                <User size={20} />
-                <span>Admin Login</span>
+                <User size={18} />
+                <span>LOGIN</span>
               </Link>
             )}
           </div>
@@ -249,7 +284,7 @@ export default function Navbar() {
       </div>
 
       {/* Spacer for fixed navbar */}
-      <div className="h-16"></div>
+      <div className="h-20"></div>
     </>
   );
 }
