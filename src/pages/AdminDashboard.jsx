@@ -50,7 +50,7 @@ const normalizeSponsor = (s) => ({
 
 const eventOptions = [
   'All Time', 'Code Raze', 'Hackathon','Genesis 3D', 'Robo Track Challenge',
-  'Hardware Hackathon','BGMI Tournament', 'MLBB (Community Heroes)', 'Free Fire', 
+  'Hardware Hackathon','BGMI Tournament', 'Community Heroes (MLBB)', 'Free Fire', 
   'Integration Bee', 'Tech Crisis', 'Quants Challenge', 'Stock Race'
 ];
 

@@ -53,17 +53,30 @@ const allEventsData = [
     venue: "VCH (Virtual Class Hall), NIT Nagaland",
     rulebook: "/rulebooks/hackathon.pdf",
     contacts: ["9233957278", "9534342082"],
-    description: "The Hackathon is an intensive 8-hour team-based software engineering sprint where participants are presented with a real-world problem statement and must build, present, and demonstrate a functional prototype. In addition to software prototyping, each team must prepare a six-slide presentation (PPT) during the hackathon itself to explain their approach, architecture, and solution to the judging panel.",
+    description: "The Hackathon is a 30-hour team-based software development competition where participants are presented with real-world problem statements and must build, present, and demonstrate a functional prototype. Teams can develop their projects remotely from any location, while the final 2–3 hours are reserved for on-site presentations and demonstrations. Each team must also prepare a six-slide presentation (PPT) explaining their approach, implementation, and solution to the judging panel.",
     rules: [
-      "Team event consisting of 3 to 5 members.",
-      "Duration: 8 hours intensive development and presentation window.",
-      "The use of Artificial Intelligence (AI), AI agents, or any AI-based tool in any form is STRICTLY PROHIBITED throughout the event. Immediate team disqualification for any AI violations.",
-      "Participants must develop the project and prepare the mandatory 6-slide PPT during the competition period.",
-      "Participants may use official documentation and library reference materials to understand syntax and implementation.",
-      "There will be no designated lunch break; participants may take short refreshment breaks without extending the allotted duration.",
-      "All team members must remain within the designated event area throughout the competition."
+
+    "Team event consisting of 3 to 5 members.",
+
+    "Duration: 30 hours (5 November, 10:00 AM – 6 November, 4:00 PM).",
+
+    "Participants may develop projects remotely from any location.",
+
+    "Final 2–3 hours reserved for on-site presentations and demonstrations.",
+
+    "All team members must be present at the venue during their team's presentation.",
+
+    "Every team must demonstrate a working prototype or functional solution.",
+
+    "Each team must prepare a mandatory six-slide PPT.",
+
+    "AI, AI agents, and all AI-based tools are STRICTLY PROHIBITED throughout the event. Violations will result in immediate disqualification.",
+
+    "Official documentation and library references are permitted.",
+
+    "Problem statements and important updates will be shared through the official WhatsApp group."
     ],
-    generalRules: "Minimum participation requirement: At least 20 participants. *Condition for Female-Only 3rd Prize (₹3,000): Awarded only if there are at least 6 female participants and the winning team consists exclusively of female members. Bring personal laptops and hardware chargers."
+    generalRules: "Minimum participation requirement: At least 20 participants. Condition for Female-Only 3rd Prize (₹3,000): Awarded only if there are at least 6 female participants and the winning team consists exclusively of female members. Teams must provide an active WhatsApp number during registration. Approved teams will be added to the official WhatsApp group for updates and problem statements."
   },
   {
     id: "modelling",
