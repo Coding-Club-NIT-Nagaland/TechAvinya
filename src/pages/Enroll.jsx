@@ -30,7 +30,7 @@ const ALL_EVENTS = [
     id: 'hackathon', 
     title: 'Hackathon', 
     club: 'Codessy Club',
-    minMembers: 3, 
+    minMembers: 2, 
     maxMembers: 5, 
     feeNIT: '₹ 199/-', 
     feeOutside: '₹ 499/-', 
