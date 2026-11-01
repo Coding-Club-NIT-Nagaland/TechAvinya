@@ -63,7 +63,7 @@ const ALL_EVENTS = [
     title: 'Hardware Hackathon', 
     club: 'Robotics Club',
     minMembers: 1, 
-    maxMembers: 2, 
+    maxMembers: 1, 
     feeNIT: '₹ 199/-', 
     feeOutside: '₹ 499/-', 
     prize: '₹ 25,000/-', 
