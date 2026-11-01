@@ -126,7 +126,7 @@ const allEventsData = [
     contacts: ["8119028697", "8708676451"],
     description: "Hardware Hustle: 'Think. Solve. Build.' is the flagship hardware engineering competition organized by Robotics Club NIT Nagaland. It is designed to test participants' electronics knowledge, circuit design, embedded troubleshooting, teamwork, and practical hardware implementation across three competitive rounds.",
     rules: [
-      "Team size: 1 to 2 members. (Round 1 is conducted individually; Rounds 2 & 3 allow solo or 2-member teams).",
+      "Team size: solo(individual participation)",
       "Round 1 — Quiz: Individual technical assessment covering basic engineering, circuit theory, and electronics concepts.",
       "Round 2 — Design Challenge: Formulate and submit technical solutions to real-life problem statements evaluated on feasibility, viability, and novelty.",
       "Round 3 — Build Arena: Build, test, and demonstrate hardware solutions using authorized electronic components.",
