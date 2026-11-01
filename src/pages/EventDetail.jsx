@@ -56,7 +56,7 @@ const allEventsData = [
     description: "The Hackathon is a 30-hour team-based software development competition where participants are presented with real-world problem statements and must build, present, and demonstrate a functional prototype. Teams can develop their projects remotely from any location, while the final 2–3 hours are reserved for on-site presentations and demonstrations. Each team must also prepare a six-slide presentation (PPT) explaining their approach, implementation, and solution to the judging panel.",
     rules: [
 
-    "Team event consisting of 3 to 5 members.",
+    "Team event consisting of 2 to 5 members.",
 
     "Duration: 30 hours (5 November, 10:00 AM – 6 November, 4:00 PM).",
 

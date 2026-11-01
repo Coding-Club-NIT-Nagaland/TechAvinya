@@ -30,7 +30,7 @@ export default function Events() {
       prize: "₹ 22,000/-",
       firstPrize: "₹ 12,000/-",
       entryFee: "₹ 199 (NITN) / ₹ 499",
-      date: "6 Nov 2026",
+      date: "5-6 Nov 2026",
       time: "11:00am - 6:00pm",
       venue: "VCH, NITN",
       image: "/event/HACKATHON.jpeg",
