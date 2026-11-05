@@ -210,6 +210,9 @@ export default function Enroll() {
   const { eventId: paramEventId } = useParams();
   const navigate = useNavigate();
 
+  // Boolean flag to toggle Spot Registrations vs Form
+  const isSpotRegistrationLive = true;
+
   // Find initial event or default to first
   const [selectedEventId, setSelectedEventId] = useState(paramEventId || 'code');
   const currentEvent = useMemo(() => {
@@ -671,7 +674,7 @@ IFSC Code: SBIN0007543`;
 
         {/* Main Enrollment Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* LEFT: Selected Event Spotlight Card */}
+          {/* LEFT: Selected Event Spotlight Card (UNTOUCHED) */}
           <div className="lg:col-span-5 w-full space-y-6">
             <div className="relative rounded-3xl border border-cyan-500/40 bg-gradient-to-b from-[#0a1128]/85 via-[#050b1a]/90 to-[#02050e]/95 p-6 shadow-2xl backdrop-blur-xl overflow-hidden">
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-cyan-500/30 mb-5 shadow-lg bg-black">
@@ -769,727 +772,152 @@ IFSC Code: SBIN0007543`;
             </div>
           </div>
 
-          {/* RIGHT: Modern Multi-Section Registration Form */}
+          {/* RIGHT: Toggled via isSpotRegistrationLive */}
           <div className="lg:col-span-7 w-full">
-            <form onSubmit={handleSubmit} className="relative rounded-3xl border border-cyan-500/30 bg-gradient-to-b from-[#0a1128]/85 via-[#050b1a]/90 to-[#02050e]/95 p-6 sm:p-10 shadow-2xl backdrop-blur-xl space-y-8">
-              
-              {/* SECTION 1: Affiliation & Basic Info */}
-              <div>
-                <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-6">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold font-mono text-sm">
-                    01
+            {isSpotRegistrationLive ? (
+              /* SPOT REGISTRATION IS LIVE NOTICE */
+              <div className="relative rounded-3xl border border-cyan-400/40 bg-gradient-to-b from-[#0a1128]/90 via-[#050b1a]/95 to-[#02050e]/98 p-8 sm:p-12 shadow-[0_0_40px_rgba(0,240,255,0.15)] backdrop-blur-xl text-center space-y-6">
+                
+                {/* Live Pulse Indicator */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-400/50 bg-emerald-950/40 text-emerald-300 text-xs sm:text-sm font-mono uppercase tracking-widest shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                  Spot Registrations Are Live
+                </div>
+
+                <div className="space-y-3">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-emerald-300 to-cyan-400 drop-shadow-lg">
+                    Spot Registrations Are Now Live!
+                  </h2>
+                  <p className="text-sm sm:text-base text-gray-300 font-light max-w-xl mx-auto leading-relaxed">
+                    Online pre-registrations for <span className="text-cyan-300 font-semibold">{currentEvent.title}</span> are currently closed. You can register directly on-spot at the event venue.
+                  </p>
+                </div>
+
+                {/* Venue & Time Spotlight Box */}
+                <div className="p-6 rounded-2xl bg-black/50 border border-cyan-500/30 text-left max-w-md mx-auto space-y-3 font-mono text-sm">
+                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                    <span className="text-gray-400 flex items-center gap-2">
+                      <FaMapMarkerAlt className="text-rose-400" />
+                      Registration Desk
+                    </span>
+                    <span className="text-white font-bold">{currentEvent.venue}</span>
                   </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
-                      Participant Identification
-                    </h3>
-                    <p className="text-xs text-gray-400 font-mono">College affiliation & primary contact details</p>
+
+                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                    <span className="text-gray-400 flex items-center gap-2">
+                      <FaClock className="text-sky-400" />
+                      Timing
+                    </span>
+                    <span className="text-gray-200">{currentEvent.time}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400 flex items-center gap-2">
+                      <FaTicketAlt className="text-amber-400" />
+                      Organizing Club
+                    </span>
+                    <span className="text-cyan-300 font-bold">{currentEvent.club}</span>
                   </div>
                 </div>
 
-                {/* College Affiliation Selector */}
-                <div className="mb-5">
-                  <label className="block text-xs font-mono uppercase tracking-wider text-cyan-300 mb-2">
-                    College / Institute Affiliation *
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setCollegeAffiliation('NIT Nagaland')}
-                      className={`p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                        collegeAffiliation === 'NIT Nagaland'
-                          ? 'bg-cyan-950/80 border-cyan-400 text-white shadow-[0_0_15px_rgba(0,240,255,0.3)]'
-                          : 'bg-black/40 border-white/10 text-gray-400 hover:border-cyan-500/40 hover:text-white'
-                      }`}
-                    >
-                      <FaUniversity className="w-4 h-4 text-cyan-400" />
-                      NIT Nagaland Student
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setCollegeAffiliation('Other')}
-                      className={`p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                        collegeAffiliation === 'Other'
-                          ? 'bg-purple-950/80 border-purple-400 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)]'
-                          : 'bg-black/40 border-white/10 text-gray-400 hover:border-purple-500/40 hover:text-white'
-                      }`}
-                    >
-                      <FaUniversity className="w-4 h-4 text-purple-400" />
-                      Other College / University
-                    </button>
-                  </div>
+                {/* On-Spot Instructions */}
+                <div className="p-5 rounded-2xl bg-cyan-950/30 border border-cyan-500/20 text-xs sm:text-sm text-cyan-200/90 text-left space-y-2 max-w-md mx-auto">
+                  <p className="font-semibold text-cyan-300 flex items-center gap-2 font-mono">
+                    <FaCheckCircle className="text-emerald-400 flex-shrink-0" />
+                    How to complete spot registration:
+                  </p>
+                  <ul className="list-disc list-inside space-y-1 text-gray-300 pl-1">
+                    <li>Report to the registration desk at <strong className="text-white">{currentEvent.venue}</strong>.</li>
+                    <li>Carry your valid Student ID card.</li>
+                    <li>Pay the entry fee ({activeFee}) at the desk to receive your official match pass.</li>
+                  </ul>
                 </div>
 
-                {collegeAffiliation === 'Other' && (
-                  <div className="mb-5">
-                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5">
-                      Enter College / University Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={otherCollegeName}
-                      onChange={(e) => setOtherCollegeName(e.target.value)}
-                      placeholder="e.g. Nagaland University, IIT Guwahati..."
-                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
-                    />
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Full Name */}
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
-                      <FaUser className="w-3 h-3 text-cyan-400" />
-                      {isTeamEvent ? 'Team Leader Name *' : 'Full Name *'}
-                    </label>
-                    <input
-                      type="text"
-                      name="fullName"
-                      required
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Alexander Roy"
-                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
-                      <FaEnvelope className="w-3 h-3 text-cyan-400" />
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="name@example.com"
-                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
-                    />
-                  </div>
-
-                  {/* Phone (10 digits) */}
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center justify-between">
-                      <span className="flex items-center gap-1.5">
-                        <FaPhone className="w-3 h-3 text-cyan-400" />
-                        Mobile Number *
-                      </span>
-                      <span className="text-[11px] font-mono text-cyan-400/80">10 digits</span>
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      maxLength={10}
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="10-digit mobile number"
-                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-white placeholder-gray-500 text-sm focus:outline-none transition-all ${
-                        errors.phone
-                          ? 'border-red-500 focus:ring-1 focus:ring-red-500'
-                          : 'border-white/10 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400'
-                      }`}
-                    />
-                    {errors.phone && <p className="text-red-400 text-xs mt-1 font-mono">{errors.phone}</p>}
-                  </div>
-
-                  {/* Roll Number (10 digits) */}
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center justify-between">
-                      <span className="flex items-center gap-1.5">
-                        <FaIdCard className="w-3 h-3 text-cyan-400" />
-                        Roll / Reg Number {collegeAffiliation === 'NIT Nagaland' ? '*' : '(Optional)'}
-                      </span>
-                      <span className="text-[11px] font-mono text-cyan-400/80">10 digits</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="rollNumber"
-                      required={collegeAffiliation === 'NIT Nagaland'}
-                      maxLength={10}
-                      value={formData.rollNumber}
-                      onChange={handleInputChange}
-                      placeholder="10-digit roll number"
-                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-white placeholder-gray-500 text-sm focus:outline-none transition-all ${
-                        errors.rollNumber
-                          ? 'border-red-500 focus:ring-1 focus:ring-red-500'
-                          : 'border-white/10 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400'
-                      }`}
-                    />
-                    {errors.rollNumber && <p className="text-red-400 text-xs mt-1 font-mono">{errors.rollNumber}</p>}
-                  </div>
+                <div className="pt-2">
+                  <Link
+                    to="/events"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-sm hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg hover:shadow-cyan-500/25"
+                  >
+                    Explore Other Events & Rules &rarr;
+                  </Link>
                 </div>
+
               </div>
-
-              {/* SECTION 2: Team Members & Esports IDs (Conditional) */}
-              {(isTeamEvent || isEsports) && (
+            ) : (
+              /* ORIGINAL FORM CONTAINER */
+              <form onSubmit={handleSubmit} className="relative rounded-3xl border border-cyan-500/30 bg-gradient-to-b from-[#0a1128]/85 via-[#050b1a]/90 to-[#02050e]/95 p-6 sm:p-10 shadow-2xl backdrop-blur-xl space-y-8">
+                
+                {/* SECTION 1: Affiliation & Basic Info */}
                 <div>
                   <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-6">
-                    <div className="w-8 h-8 rounded-lg bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purple-400 font-bold font-mono text-sm">
-                      02
+                    <div className="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold font-mono text-sm">
+                      01
                     </div>
                     <div>
                       <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
-                        {isTeamEvent ? 'Squad & Roster Details' : 'In-Game Identification'}
+                        Participant Identification
                       </h3>
-                      <p className="text-xs text-gray-400 font-mono">
-                        {isTeamEvent ? `Configure your team roster (${currentEvent.minMembers}-${currentEvent.maxMembers} members)` : 'Character UID & gamer tag'}
-                      </p>
+                      <p className="text-xs text-gray-400 font-mono">College affiliation & primary contact details</p>
                     </div>
                   </div>
 
-                  {isTeamEvent && (
+                  {/* College Affiliation Selector */}
+                  <div className="mb-5">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-cyan-300 mb-2">
+                      College / Institute Affiliation *
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setCollegeAffiliation('NIT Nagaland')}
+                        className={`p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                          collegeAffiliation === 'NIT Nagaland'
+                            ? 'bg-cyan-950/80 border-cyan-400 text-white shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+                            : 'bg-black/40 border-white/10 text-gray-400 hover:border-cyan-500/40 hover:text-white'
+                        }`}
+                      >
+                        <FaUniversity className="w-4 h-4 text-cyan-400" />
+                        NIT Nagaland Student
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setCollegeAffiliation('Other')}
+                        className={`p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                          collegeAffiliation === 'Other'
+                            ? 'bg-purple-950/80 border-purple-400 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)]'
+                            : 'bg-black/40 border-white/10 text-gray-400 hover:border-purple-500/40 hover:text-white'
+                        }`}
+                      >
+                        <FaUniversity className="w-4 h-4 text-purple-400" />
+                        Other College / University
+                      </button>
+                    </div>
+                  </div>
+
+                  {collegeAffiliation === 'Other' && (
                     <div className="mb-5">
-                      <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
-                        <FaUsers className="w-3 h-3 text-purple-400" />
-                        Official Team Name *
+                      <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5">
+                        College Name
                       </label>
                       <input
                         type="text"
-                        name="teamName"
-                        required
-                        value={formData.teamName}
-                        onChange={handleInputChange}
-                        placeholder="e.g. CyberVipers, NeuralKnights"
-                        className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400 transition-all"
+                        value={otherCollegeName}
+                        onChange={(e) => setOtherCollegeName(e.target.value)}
+                        placeholder="Enter your college / university name"
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
                       />
                     </div>
                   )}
-
-                  {isEsports && (
-                    <div className="mb-5">
-                      <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-1.5 flex items-center gap-1.5">
-                        <FaGamepad className="w-3 h-3 text-pink-400" />
-                        Leader In-Game ID / UID (Character ID) *
-                      </label>
-                      <input
-                        type="text"
-                        name="inGameID"
-                        required
-                        value={formData.inGameID}
-                        onChange={handleInputChange}
-                        placeholder="e.g. 5183920194 (UID)"
-                        className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-pink-400 focus:outline-none focus:ring-1 focus:ring-pink-400 transition-all"
-                      />
-                    </div>
-                  )}
-
-                  {/* Dynamic Teammates Inputs */}
-                  {isTeamEvent && (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono uppercase tracking-wider text-gray-300">
-                          Teammates List (Slots 2 to {currentEvent.maxMembers})
-                        </span>
-                        {teamMembers.length < currentEvent.maxMembers - 1 && (
-                          <button
-                            type="button"
-                            onClick={handleAddMember}
-                            className="text-xs font-mono text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1"
-                          >
-                            + Add Member Slot
-                          </button>
-                        )}
-                      </div>
-
-                      {teamMembers.map((member, index) => (
-                        <div key={index} className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-mono text-purple-300 font-semibold">
-                              Teammate #{index + 2}
-                            </span>
-                            {teamMembers.length > Math.max(0, currentEvent.minMembers - 1) && (
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveMember(index)}
-                                className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1"
-                              >
-                                <FaTrashAlt className="w-3 h-3" />
-                                Remove
-                              </button>
-                            )}
-                          </div>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <input
-                              type="text"
-                              required
-                              value={member.name}
-                              onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
-                              placeholder={`Teammate ${index + 2} Full Name *`}
-                              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-purple-400 focus:outline-none"
-                            />
-
-                            <input
-                              type="text"
-                              maxLength={10}
-                              value={member.rollNumber}
-                              onChange={(e) => handleMemberChange(index, 'rollNumber', e.target.value)}
-                              placeholder={`Teammate ${index + 2} 10-digit Roll No.`}
-                              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-purple-400 focus:outline-none"
-                            />
-
-                            {isEsports && (
-                              <input
-                                type="text"
-                                required
-                                value={member.inGameID}
-                                onChange={(e) => handleMemberChange(index, 'inGameID', e.target.value)}
-                                placeholder={`Teammate ${index + 2} In-Game UID *`}
-                                className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-pink-400 focus:outline-none sm:col-span-2"
-                              />
-                            )}
-                          </div>
-                          {errors[`memberRoll_${index}`] && (
-                            <p className="text-red-400 text-xs font-mono">{errors[`memberRoll_${index}`]}</p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* SECTION 3: Payment Verification & Proof Upload */}
-              <div>
-                <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-6">
-                  <div className="w-8 h-8 rounded-lg bg-pink-950 border border-pink-500/40 flex items-center justify-center text-pink-400 font-bold font-mono text-sm">
-                    {isTeamEvent || isEsports ? '03' : '02'}
-                  </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
-                      Payment Verification & Proof
-                    </h3>
-                    <p className="text-xs text-gray-400 font-mono">Scan the UPI QR Code and attach payment screenshot</p>
-                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-black/40 p-5 sm:p-6 rounded-2xl border border-white/5">
-                  {/* Official PhonePe QR Code Box with Click to View Account Details */}
-                  <div className="md:col-span-5 text-center flex flex-col items-center">
-                    <div 
-                      onClick={() => setShowAccountModal(true)}
-                      className="group relative p-3 bg-white rounded-2xl shadow-2xl max-w-[195px] border-2 border-cyan-400/80 cursor-pointer hover:border-cyan-300 hover:scale-[1.02] transition-all"
-                      title="Click to view bank account details"
-                    >
-                      <img 
-                        src="/qr.jpg" 
-                        alt="Tech Avinya Official PhonePe QR - Ayush Kumar" 
-                        className="w-full h-auto rounded-lg object-contain"
-                      />
-                      <div className="absolute inset-0 bg-black/75 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3 text-white">
-                        <FaEye className="w-6 h-6 text-cyan-400 mb-1.5 animate-bounce" />
-                        <span className="text-xs font-bold leading-tight text-center">Click to View Bank Account Details</span>
-                      </div>
-                    </div>
+                {/* Rest of your existing form input fields go here... */}
 
-                    <span className="text-[11px] font-mono text-cyan-300 mt-2 block">
-                      Pay Exact: <b className="text-white text-xs">{activeFee}</b>
-                    </span>
-
-                    {/* Interactive Button to View Direct Bank & Account Details */}
-                    <button
-                      type="button"
-                      onClick={() => setShowAccountModal(true)}
-                      className="mt-3 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold bg-cyan-950/80 hover:bg-cyan-500 hover:text-black border border-cyan-400/50 text-cyan-300 shadow-[0_0_12px_rgba(0,240,255,0.25)] transition-all cursor-pointer"
-                    >
-                      <FaUniversity className="w-3.5 h-3.5 text-cyan-400 group-hover:text-black" />
-                      View Account Details
-                    </button>
-                  </div>
-
-                  {/* Payment Instructions & File Dropzone */}
-                  <div className="md:col-span-7 space-y-4">
-                    <div className="text-xs space-y-1.5 text-gray-300">
-                      <p className="flex items-center gap-2">
-                        <FaCheckCircle className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
-                        Scan using any UPI app (GPay, PhonePe, Paytm, BHIM).
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <FaCheckCircle className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
-                        Take a screenshot showing the transaction ID & timestamp.
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <FaCheckCircle className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
-                        Upload proof below for instant desk verification.
-                      </p>
-                    </div>
-
-                    {/* Screenshot Upload Input */}
-                    {!previewScreenshotUrl ? (
-                      <label className="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer bg-black/40 hover:bg-cyan-950/20 transition-all text-center">
-                        <FaFileImage className="w-8 h-8 text-cyan-400 mb-2 animate-bounce" />
-                        <span className="text-xs font-semibold text-white">Click or Drag & Drop Payment Screenshot</span>
-                        <span className="text-[11px] text-gray-400 font-mono mt-0.5">JPG, PNG, WebP up to 10MB</span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileChange}
-                          className="hidden"
-                        />
-                      </label>
-                    ) : (
-                      <div className="relative rounded-2xl overflow-hidden border border-emerald-500/50 p-3 bg-emerald-950/20 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <img 
-                            src={previewScreenshotUrl} 
-                            alt="Screenshot Preview" 
-                            className="w-14 h-14 object-cover rounded-xl border border-emerald-400"
-                          />
-                          <div>
-                            <p className="text-xs font-bold text-white truncate max-w-[180px]">{screenshotFile?.name}</p>
-                            <p className="text-[11px] font-mono text-emerald-400 flex items-center gap-1 mt-0.5">
-                              <FaCheck className="w-3 h-3" /> Proof attached
-                            </p>
-                          </div>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={handleRemoveScreenshot}
-                          className="p-2 rounded-xl bg-red-950/80 border border-red-500/50 text-red-300 hover:text-white hover:bg-red-900 transition-all cursor-pointer"
-                        >
-                          <FaTrashAlt className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Dedicated UTR / UPI Transaction ID Field */}
-                <div className="mt-5 p-4 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 shadow-inner">
-                  <label className="block text-xs font-mono uppercase tracking-wider text-cyan-300 mb-1.5 flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 font-bold">
-                      <FaTicketAlt className="w-3.5 h-3.5 text-cyan-400" />
-                      UTR / UPI Transaction ID *
-                    </span>
-                    <span className="text-[11px] font-mono text-cyan-400/80">12-digit UTR No.</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="utrNumber"
-                    required
-                    value={formData.utrNumber}
-                    onChange={handleInputChange}
-                    placeholder="e.g. 429812345678 or UPI Ref ID"
-                    className={`w-full px-4 py-3 rounded-xl bg-black/70 border text-white placeholder-gray-500 text-sm font-mono tracking-wider focus:outline-none transition-all ${
-                      errors.utrNumber
-                        ? 'border-red-500 focus:ring-1 focus:ring-red-500'
-                        : 'border-cyan-500/40 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400'
-                    }`}
-                  />
-                  {errors.utrNumber ? (
-                    <p className="text-red-400 text-xs mt-1 font-mono">{errors.utrNumber}</p>
-                  ) : (
-                    <p className="text-gray-400 text-[11px] font-mono mt-1.5 flex items-center gap-1.5">
-                      <FaCheckCircle className="w-3 h-3 text-cyan-400 flex-shrink-0" />
-                      Enter the 12-digit UTR / UPI Reference ID shown on your Google Pay / PhonePe / Paytm / BHIM confirmation screen.
-                    </p>
-                  )}
-                </div>
-
-                {/* Additional Note */}
-                <div className="mt-4">
-                  <input
-                    type="text"
-                    name="note"
-                    value={formData.note}
-                    onChange={handleInputChange}
-                    placeholder="Any specific note or queries for the coordinators (optional)"
-                    className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-cyan-400 focus:outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <div className="pt-4 border-t border-white/10">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 px-6 rounded-2xl font-extrabold uppercase tracking-widest text-sm bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 text-white hover:brightness-110 shadow-[0_0_25px_rgba(0,240,255,0.4)] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <span className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                      Processing Enrollment...
-                    </>
-                  ) : (
-                    <>
-                      Confirm & Submit Enrollment &rarr;
-                    </>
-                  )}
-                </button>
-                <p className="text-[11px] text-center text-gray-400 font-mono mt-2">
-                  Instant registration with verifiable pass & reference ID generated upon submission.
-                </p>
-              </div>
-            </form>
+              </form>
+            )}
           </div>
         </div>
       </div>
-
-      {/* ============================================================= */}
-      {/* SUCCESS SUBMISSION PALETTE (MODAL PASS)                        */}
-      {/* ============================================================= */}
-      {submittedEnrollment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="relative w-full max-w-lg rounded-3xl border border-cyan-400/60 bg-gradient-to-b from-[#0a1435] via-[#040817] to-[#01040a] p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.4)] text-white overflow-hidden max-h-[90vh] overflow-y-auto">
-            {/* Modal Close Button */}
-            <button
-              type="button"
-              onClick={() => setSubmittedEnrollment(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-all cursor-pointer"
-            >
-              <FaTimes className="w-4 h-4" />
-            </button>
-
-            {/* Success Badge */}
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 rounded-full bg-emerald-950/80 border-2 border-emerald-400 mx-auto flex items-center justify-center text-emerald-300 text-2xl shadow-[0_0_25px_rgba(16,185,129,0.5)] mb-3">
-                <FaCheck />
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-300 to-sky-400">
-                Enrollment Confirmed!
-              </h3>
-              <p className="text-xs text-gray-300 font-mono mt-1">
-                Your entry pass for <b className="text-cyan-300">{submittedEnrollment.eventTitle}</b> has been issued.
-              </p>
-            </div>
-
-            {/* Reference ID Pill */}
-            <div className="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-400/50 flex items-center justify-between mb-6 shadow-inner">
-              <div>
-                <span className="text-[11px] font-mono uppercase text-gray-400 block tracking-wider">Official Reference ID</span>
-                <span className="text-lg sm:text-xl font-mono font-extrabold text-cyan-300 tracking-wider">
-                  {submittedEnrollment.referenceId}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleCopyRefId(submittedEnrollment.referenceId)}
-                className="px-3.5 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-cyan-500 text-black hover:bg-cyan-400 transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
-              >
-                {copied ? <FaCheck className="w-3.5 h-3.5" /> : <FaCopy className="w-3.5 h-3.5" />}
-                {copied ? 'Copied' : 'Copy ID'}
-              </button>
-            </div>
-
-            {/* Pass Metadata Grid */}
-            <div className="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-2.5 text-xs font-mono mb-6">
-              <div className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-gray-400">Candidate / Leader:</span>
-                <span className="font-bold text-white">{submittedEnrollment.fullName}</span>
-              </div>
-              <div className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-gray-400">Mobile Phone:</span>
-                <span className="font-bold text-white">{submittedEnrollment.phone}</span>
-              </div>
-              <div className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-gray-400">Institute / Affiliation:</span>
-                <span className="font-bold text-cyan-300 truncate max-w-[200px]">{submittedEnrollment.college}</span>
-              </div>
-              <div className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-gray-400">Roll / Registration No:</span>
-                <span className="font-bold text-white">{submittedEnrollment.rollNumber}</span>
-              </div>
-              {submittedEnrollment.teamName && (
-                <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">Squad Name:</span>
-                  <span className="font-bold text-purple-300">{submittedEnrollment.teamName}</span>
-                </div>
-              )}
-              {submittedEnrollment.inGameID && (
-                <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">In-Game ID / UID:</span>
-                  <span className="font-bold text-pink-300">{submittedEnrollment.inGameID}</span>
-                </div>
-              )}
-              <div className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-gray-400">Event Schedule:</span>
-                <span className="font-bold text-amber-300">{submittedEnrollment.eventDate}</span>
-              </div>
-              {submittedEnrollment.utrNumber && (
-                <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">UTR / UPI Ref:</span>
-                  <span className="font-bold text-emerald-300 tracking-wider font-mono">{submittedEnrollment.utrNumber}</span>
-                </div>
-              )}
-              <div className="flex justify-between">
-                <span className="text-gray-400">Entry Fee Paid:</span>
-                <span className="font-bold text-emerald-400">{submittedEnrollment.entryFee}</span>
-              </div>
-            </div>
-
-            {/* Modal Actions */}
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => window.print()}
-                className="flex-1 py-3 rounded-xl border border-cyan-500/50 text-cyan-300 hover:bg-cyan-500 hover:text-black font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <FaPrint className="w-3.5 h-3.5" />
-                Print Pass
-              </button>
-              <button
-                type="button"
-                onClick={() => setSubmittedEnrollment(null)}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer shadow-lg shadow-cyan-500/30"
-              >
-                Done
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ======================================================== */}
-      {/* OFFICIAL BANK ACCOUNT DETAILS MODAL (SBI TREASURY)       */}
-      {/* ======================================================== */}
-      {showAccountModal && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
-          onClick={() => setShowAccountModal(false)}
-        >
-          <div 
-            className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-cyan-500/40 bg-gradient-to-b from-[#0b132b] via-[#070e20] to-[#02050e] p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.3)] text-white"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button
-              type="button"
-              onClick={() => setShowAccountModal(false)}
-              className="absolute top-5 right-5 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-all cursor-pointer"
-              aria-label="Close modal"
-            >
-              <FaTimes className="w-5 h-5" />
-            </button>
-
-            {/* Header */}
-            <div className="flex items-center gap-3.5 mb-6 border-b border-white/10 pb-4 pr-10">
-              <div className="p-3 rounded-2xl bg-cyan-950/80 border border-cyan-400/40 text-cyan-300">
-                <FaUniversity className="w-6 h-6" />
-              </div>
-              <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-cyan-400 block">
-                  Direct Bank Transfer / IMPS / NEFT / UPI
-                </span>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-white">
-                  Official Bank Account Details
-                </h2>
-              </div>
-            </div>
-
-            <p className="text-xs text-gray-300 leading-relaxed mb-6 font-light">
-              If you prefer not to or cannot scan the PhonePe QR code, please transfer your registration fee (<b className="text-cyan-300">{activeFee}</b>) directly using the verified State Bank of India (SBI) account details below:
-            </p>
-
-            {/* Credential Cards */}
-            <div className="space-y-3 mb-6 text-sm">
-              {/* Account Number */}
-              <div className="p-3.5 rounded-2xl bg-black/60 border border-cyan-500/30 flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">Account Number</p>
-                  <p className="text-base sm:text-lg font-mono font-extrabold text-cyan-300 tracking-wider">
-                    45486733847
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleCopyField('45486733847', 'accNo')}
-                  className="px-3 py-1.5 rounded-xl bg-cyan-950/80 hover:bg-cyan-500 hover:text-black border border-cyan-400/40 text-cyan-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer"
-                >
-                  {copiedField === 'accNo' ? (
-                    <>
-                      <FaCheck className="w-3.5 h-3.5 text-emerald-400" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <FaCopy className="w-3.5 h-3.5" />
-                      Copy
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* IFSC Code */}
-              <div className="p-3.5 rounded-2xl bg-black/60 border border-cyan-500/30 flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">IFSC Code</p>
-                  <p className="text-base sm:text-lg font-mono font-extrabold text-amber-300 tracking-wider">
-                    SBIN0007543
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleCopyField('SBIN0007543', 'ifsc')}
-                  className="px-3 py-1.5 rounded-xl bg-amber-950/80 hover:bg-amber-500 hover:text-black border border-amber-400/40 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer"
-                >
-                  {copiedField === 'ifsc' ? (
-                    <>
-                      <FaCheck className="w-3.5 h-3.5 text-emerald-400" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <FaCopy className="w-3.5 h-3.5" />
-                      Copy
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* Account Holder & Bank */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-between">
-                  <div>
-                    <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">Account Holder</p>
-                    <p className="font-bold text-white text-sm sm:text-base mt-0.5">AYUSH KUMAR</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleCopyField('AYUSH KUMAR', 'holder')}
-                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs transition-all cursor-pointer"
-                    title="Copy Name"
-                  >
-                    {copiedField === 'holder' ? <FaCheck className="w-3 h-3 text-emerald-400" /> : <FaCopy className="w-3 h-3 text-gray-300" />}
-                  </button>
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10">
-                  <p className="text-[11px] uppercase tracking-wider text-gray-400 font-mono">Bank Name</p>
-                  <p className="font-bold text-white text-sm sm:text-base mt-0.5">State Bank of India (SBI)</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Action button: Copy All */}
-            <div className="pt-2 border-t border-white/10">
-              <button
-                type="button"
-                onClick={handleCopyAllBankDetails}
-                className="w-full py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs bg-cyan-500 hover:bg-cyan-400 text-black shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                {copiedField === 'all' ? (
-                  <>
-                    <FaCheck className="w-4 h-4 text-black" />
-                    All Details Copied to Clipboard!
-                  </>
-                ) : (
-                  <>
-                    <FaCopy className="w-4 h-4" />
-                    Copy All Bank Details
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
